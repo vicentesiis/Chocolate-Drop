@@ -1,12 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
@@ -95,10 +90,7 @@ const Testimonial = () => {
   }, [api]);
 
   return (
-    <div
-      id="testimonials"
-      className="w-full max-w-(--breakpoint-xl) mx-auto py-6 xs:py-12 px-6"
-    >
+    <div id="testimonials" className="w-full max-w-(--breakpoint-xl) mx-auto py-6 xs:py-12 px-6">
       <h2 className="mb-8 xs:mb-14 text-4xl md:text-5xl font-bold text-center tracking-tight">
         Testimonials
       </h2>
@@ -128,20 +120,11 @@ const Testimonial = () => {
   );
 };
 
-const TestimonialCard = ({
-  testimonial,
-}: {
-  testimonial: (typeof testimonials)[number];
-}) => (
+const TestimonialCard = ({ testimonial }: { testimonial: (typeof testimonials)[number] }) => (
   <div className="mb-8 bg-accent rounded-xl py-8 px-6 sm:py-6">
     <div className="flex items-center justify-between gap-20">
       <div className="hidden lg:block relative shrink-0 aspect-3/4 max-w-[18rem] w-full bg-muted-foreground/20 rounded-xl">
-        <Image
-          src="/placeholder.svg"
-          fill
-          alt=""
-          className="object-cover rounded-xl"
-        />
+        <Image src="/placeholder.svg" fill alt="" className="object-cover rounded-xl" />
 
         <div className="absolute top-1/4 right-0 translate-x-1/2 h-12 w-12 bg-primary rounded-full flex items-center justify-center">
           <svg

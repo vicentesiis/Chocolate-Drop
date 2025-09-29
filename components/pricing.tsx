@@ -8,8 +8,7 @@ const plans = [
   {
     name: "Starter",
     price: 19,
-    description:
-      "Get 20 AI-generated portraits with 2 unique styles and filters.",
+    description: "Get 20 AI-generated portraits with 2 unique styles and filters.",
     features: [
       "5 hours turnaround time",
       "20 AI portraits",
@@ -23,8 +22,7 @@ const plans = [
     name: "Advanced",
     price: 29,
     isRecommended: true,
-    description:
-      "Get 50 AI-generated portraits with 5 unique styles and filters.",
+    description: "Get 50 AI-generated portraits with 5 unique styles and filters.",
     features: [
       "3 hours turnaround time",
       "50 AI portraits",
@@ -38,8 +36,7 @@ const plans = [
   {
     name: "Premium",
     price: 49,
-    description:
-      "Get 100 AI-generated portraits with 10 unique styles and filters.",
+    description: "Get 100 AI-generated portraits with 10 unique styles and filters.",
     features: [
       "1-hour turnaround time",
       "100 AI portraits",
@@ -54,9 +51,7 @@ const plans = [
 const Pricing = () => {
   return (
     <div id="pricing" className="max-w-(--breakpoint-lg) mx-auto py-12 xs:py-20 px-6">
-      <h1 className="text-4xl xs:text-5xl font-bold text-center tracking-tight">
-        Pricing
-      </h1>
+      <h1 className="text-4xl xs:text-5xl font-bold text-center tracking-tight">Pricing</h1>
       <div className="mt-8 xs:mt-14 grid grid-cols-1 lg:grid-cols-3 items-center gap-8 lg:gap-0">
         {plans.map((plan) => (
           <div
@@ -64,9 +59,8 @@ const Pricing = () => {
             className={cn(
               "relative bg-accent/50 border p-7 rounded-xl lg:rounded-none lg:first:rounded-l-xl lg:last:rounded-r-xl",
               {
-                "bg-background border-[2px] border-primary py-12 rounded-xl!":
-                  plan.isPopular,
-              }
+                "bg-background border-[2px] border-primary py-12 rounded-xl!": plan.isPopular,
+              },
             )}
           >
             {plan.isPopular && (
@@ -76,9 +70,7 @@ const Pricing = () => {
             )}
             <h3 className="text-lg font-medium">{plan.name}</h3>
             <p className="mt-2 text-4xl font-bold">${plan.price}</p>
-            <p className="mt-4 font-medium text-muted-foreground">
-              {plan.description}
-            </p>
+            <p className="mt-4 font-medium text-muted-foreground">{plan.description}</p>
             <Separator className="my-6" />
             <ul className="space-y-2">
               {plan.features.map((feature) => (

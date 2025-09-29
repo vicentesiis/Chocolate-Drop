@@ -12,11 +12,7 @@ export const metadata: Metadata = {
   title: "Chocolate Drop",
   description:
     "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
-  keywords: [
-    "Chocolates",
-    "Brigadeiros",
-    "Postres"
-  ],
+  keywords: ["Chocolates", "Brigadeiros", "Postres"],
   openGraph: {
     type: "website",
     siteName: "Chocolate Drop",

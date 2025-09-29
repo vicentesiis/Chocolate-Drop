@@ -1,10 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import {
-  DribbbleIcon,
-  GithubIcon,
-  TwitchIcon,
-  TwitterIcon,
-} from "lucide-react";
+import { DribbbleIcon, GithubIcon, TwitchIcon, TwitterIcon } from "lucide-react";
 import Link from "next/link";
 
 const footerSections = [
@@ -180,8 +175,7 @@ const Footer = () => {
           </svg>
 
           <p className="mt-4 text-muted-foreground">
-            Design amazing digital experiences that create more happy in the
-            world.
+            Design amazing digital experiences that create more happy in the world.
           </p>
         </div>
 
@@ -191,10 +185,7 @@ const Footer = () => {
             <ul className="mt-6 space-y-4">
               {links.map(({ title, href }) => (
                 <li key={title}>
-                  <Link
-                    href={href}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
+                  <Link href={href} className="text-muted-foreground hover:text-foreground">
                     {title}
                   </Link>
                 </li>

@@ -1,19 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  BookCheck,
-  ChartPie,
-  FolderSync,
-  Goal,
-  Users,
-  Zap,
-} from "lucide-react";
+import { BookCheck, ChartPie, FolderSync, Goal, Users, Zap } from "lucide-react";
 
 const features = [
   {
     icon: Goal,
     title: "Identify Opportunities",
-    description:
-      "Easily uncover untapped areas to explore and expand your reach effortlessly.",
+    description: "Easily uncover untapped areas to explore and expand your reach effortlessly.",
   },
   {
     icon: BookCheck,
@@ -49,10 +41,7 @@ const features = [
 
 const Features = () => {
   return (
-    <div
-      id="features"
-      className="max-w-(--breakpoint-xl) mx-auto w-full py-12 xs:py-20 px-6"
-    >
+    <div id="features" className="max-w-(--breakpoint-xl) mx-auto w-full py-12 xs:py-20 px-6">
       <h2 className="text-3xl xs:text-4xl md:text-5xl md:leading-[3.5rem] font-bold tracking-tight sm:max-w-xl sm:text-center sm:mx-auto">
         Boost Your Strategy with Smart Features
       </h2>
@@ -64,9 +53,7 @@ const Features = () => {
           >
             <CardHeader>
               <feature.icon />
-              <h4 className="mt-3! text-xl font-bold tracking-tight">
-                {feature.title}
-              </h4>
+              <h4 className="mt-3! text-xl font-bold tracking-tight">{feature.title}</h4>
               <p className="mt-1 text-muted-foreground text-sm xs:text-[17px]">
                 {feature.description}
               </p>
