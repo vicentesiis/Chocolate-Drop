@@ -5,7 +5,7 @@ import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
   return (
-    <nav className=" sticky top-0 h-16 bg-background border-b border-accent z-50">
+    <nav className=" sticky top-0 h-28 bg-background border-b border-accent z-50">
       <div className="h-full flex items-center justify-between max-w-(--breakpoint-xl) mx-auto px-4 sm:px-6">
         <Logo />
 
