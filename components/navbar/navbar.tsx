@@ -5,8 +5,8 @@ import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
   return (
-    <nav className=" sticky top-0 h-28 bg-background border-b border-accent z-50">
-      <div className="h-full flex items-center justify-between max-w-(--breakpoint-xl) mx-auto px-4 sm:px-6">
+    <nav className="sticky top-0 z-50 h-28 border-accent border-b bg-background">
+      <div className="mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-4 sm:px-6">
         <Logo />
 
         {/* Desktop Menu */}
@@ -16,7 +16,7 @@ const Navbar = () => {
           <Button variant="outline" className="hidden sm:inline-flex">
             Sign In
           </Button>
-          <Button className="hidden xs:inline-flex">Get Started</Button>
+          <Button className="xs:inline-flex hidden">Get Started</Button>
 
           {/* Mobile Menu */}
           <div className="md:hidden">
