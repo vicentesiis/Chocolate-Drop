@@ -1,3 +1,4 @@
+import BuildABox from "@/components/build-a-box";
 import FAQ from "@/components/faq";
 import Features from "@/components/features";
 import Footer from "@/components/footer";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <BuildABox />
       <Features />
       <FAQ />
       <Testimonial />
