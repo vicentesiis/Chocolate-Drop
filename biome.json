@@ -30,6 +30,13 @@
       "style": {
         "noUnusedTemplateLiteral": "off",
         "noNonNullAssertion": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "fix": "safe",
+          "options": {}
+        }
       }
     }
   },
