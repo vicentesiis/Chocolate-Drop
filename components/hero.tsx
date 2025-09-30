@@ -1,7 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ArrowUpRight, CirclePlay } from "lucide-react";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
@@ -30,7 +30,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="relative lg:max-w-lg xl:max-w-xl w-full bg-accent rounded-xl aspect-square">
-          <Image src="/placeholder.svg" fill alt="" className="object-cover rounded-xl" />
+          <Image src="/hero.jpg" fill alt="" className="object-cover rounded-xl" />
         </div>
       </div>
     </div>
