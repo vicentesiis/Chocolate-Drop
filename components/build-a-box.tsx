@@ -218,14 +218,14 @@ export default function BuildABox() {
 
       <ScrollArea
         className={`
-          h-[400px]
-          md:h-[500px]
+          h-[70vh]
+          md:h-[600px]
         `}
       >
         <div
           className={`
-            grid grid-cols-1 gap-4 p-1
-            sm:grid-cols-2
+            grid grid-cols-2 gap-4 p-1
+            sm:grid-cols-4
           `}
         >
           {DESSERTS.map((dessert) => {
@@ -243,9 +243,7 @@ export default function BuildABox() {
                 </div>
                 <CardContent className="p-4">
                   <h4 className="mb-1 text-sm font-medium">{dessert.name}</h4>
-                  <p className="mb-3 line-clamp-2 text-xs text-muted-foreground">
-                    {dessert.description}
-                  </p>
+                  <p className="mb-3 text-xs text-muted-foreground">{dessert.description}</p>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
@@ -339,7 +337,7 @@ export default function BuildABox() {
                       <DrawerTrigger asChild>
                         <Button onClick={() => openPicker(box)}>Build Box</Button>
                       </DrawerTrigger>
-                      <DrawerContent className="max-h-[90vh]">
+                      <DrawerContent className="max-h-[95vh]">
                         <DrawerHeader>
                           <DrawerTitle>Build Your {box.name}</DrawerTitle>
                         </DrawerHeader>
@@ -354,7 +352,7 @@ export default function BuildABox() {
                       <DialogTrigger asChild>
                         <Button onClick={() => openPicker(box)}>Build Box</Button>
                       </DialogTrigger>
-                      <DialogContent className="max-h-[90vh] max-w-4xl overflow-hidden">
+                      <DialogContent className="max-h-[95vh] max-w-7xl overflow-hidden">
                         <DialogHeader>
                           <DialogTitle>Build Your {box.name}</DialogTitle>
                         </DialogHeader>
