@@ -64,6 +64,10 @@ export default function BuildABox() {
     setIsPickerOpen(true);
   };
 
+  const clearSelection = () => {
+    setSelectedDesserts([]);
+  };
+
   return (
     <section className="px-4 py-16">
       <div className="mx-auto max-w-6xl">
@@ -98,6 +102,7 @@ export default function BuildABox() {
                 isBoxFull={isBoxFull}
                 onUpdateQuantity={updateDessertQuantity}
                 onAddToCart={addToCart}
+                onClearSelection={clearSelection}
               />
             </BoxCard>
           ))}

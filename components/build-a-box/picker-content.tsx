@@ -1,4 +1,4 @@
-import { ShoppingCart } from "lucide-react";
+import { RotateCcw, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -15,6 +15,7 @@ interface PickerContentProps {
   isBoxFull: boolean;
   onUpdateQuantity: (dessertId: string, change: number) => void;
   onAddToCart: () => void;
+  onClearSelection: () => void;
 }
 
 export function PickerContent({
@@ -25,6 +26,7 @@ export function PickerContent({
   isBoxFull,
   onUpdateQuantity,
   onAddToCart,
+  onClearSelection,
 }: PickerContentProps) {
   return (
     <div className="space-y-2">
@@ -32,9 +34,22 @@ export function PickerContent({
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Selecciona tus brigadeiros</span>
-            <Badge variant="secondary">
-              {totalSelected}/{selectedBox.capacity}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary">
+                {totalSelected}/{selectedBox.capacity}
+              </Badge>
+              {totalSelected > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onClearSelection}
+                  className="h-0 px-0 text-xs"
+                >
+                  <RotateCcw className="mr-1 h-3 w-3" />
+                  Limpiar
+                </Button>
+              )}
+            </div>
           </div>
           <Progress value={progressPercentage} className="h-2" />
         </div>
