@@ -1,4 +1,5 @@
 import BuildABox from "@/components/build-a-box";
+import { DessertCartRental } from "@/components/dessert-cart-rental/dessert-cart-rental";
 import FAQ from "@/components/faq";
 import Features from "@/components/features";
 import Footer from "@/components/footer";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <BuildABox />
+      <DessertCartRental />
       <Features />
       <FAQ />
       <Testimonial />
