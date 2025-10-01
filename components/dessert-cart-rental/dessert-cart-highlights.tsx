@@ -34,45 +34,46 @@ export function DessertCartHighlights() {
   return (
     <div
       className={`
-      space-y-4
-      sm:space-y-6
-    `}
+        space-y-4
+        sm:space-y-6
+      `}
     >
       {/* Carrito de Postres */}
       <div
         className={`
-        space-y-2
-        sm:space-y-3
-      `}
+          space-y-2
+          sm:space-y-3
+        `}
       >
         <h3
           className={`
-          text-lg font-semibold
-          sm:text-xl
-        `}
+            text-lg font-semibold
+            sm:text-xl
+          `}
         >
           Carrito de Postres
         </h3>
         <div
           className={`
-          space-y-2
-          sm:space-y-3
-        `}
+            space-y-2
+            sm:space-y-3
+          `}
         >
           {cartFeatures.map((feature) => (
             <div key={feature.id} className="flex items-start gap-3">
               <div
                 className={`
-                mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20
-              `}
+                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
+                  bg-primary/20
+                `}
               >
                 <Check className="h-3 w-3 text-primary" />
               </div>
               <span
                 className={`
-                text-sm leading-relaxed text-muted-foreground
-                sm:text-base
-              `}
+                  text-sm leading-relaxed text-muted-foreground
+                  sm:text-base
+                `}
               >
                 {feature.text}
               </span>
@@ -84,38 +85,39 @@ export function DessertCartHighlights() {
       {/* Barra de Postres */}
       <div
         className={`
-        space-y-2
-        sm:space-y-3
-      `}
+          space-y-2
+          sm:space-y-3
+        `}
       >
         <h3
           className={`
-          text-lg font-semibold
-          sm:text-xl
-        `}
+            text-lg font-semibold
+            sm:text-xl
+          `}
         >
           Barra de Postres
         </h3>
         <div
           className={`
-          space-y-2
-          sm:space-y-3
-        `}
+            space-y-2
+            sm:space-y-3
+          `}
         >
           {barFeatures.map((feature) => (
             <div key={feature.id} className="flex items-start gap-3">
               <div
                 className={`
-                mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20
-              `}
+                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
+                  bg-primary/20
+                `}
               >
                 <Check className="h-3 w-3 text-primary" />
               </div>
               <span
                 className={`
-                text-sm leading-relaxed text-muted-foreground
-                sm:text-base
-              `}
+                  text-sm leading-relaxed text-muted-foreground
+                  sm:text-base
+                `}
               >
                 {feature.text}
               </span>

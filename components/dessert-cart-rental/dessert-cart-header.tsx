@@ -2,7 +2,12 @@ import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function DessertCartHeader() {
   return (
-    <CardHeader className="space-y-2 p-0 sm:space-y-3">
+    <CardHeader
+      className={`
+        space-y-2 p-0
+        sm:space-y-3
+      `}
+    >
       <CardTitle
         className={`
           font-display text-2xl leading-tight font-bold tracking-tight
