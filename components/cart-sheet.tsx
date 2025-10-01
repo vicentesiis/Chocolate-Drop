@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingBag, Trash2 } from "lucide-react";
+import { ShoppingBag, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { DESSERTS } from "@/components/build-a-box/data";
 import { Button } from "@/components/ui/button";
@@ -32,13 +32,12 @@ export function CartSheet() {
     <Sheet>
       <SheetTrigger asChild>
         <Button
-          variant="outline"
           className={`
-            relative hidden
-            sm:inline-flex
+            relative h-8 w-9
+            [&_svg]:!size-5
           `}
         >
-          <ShoppingBag className="h-4 w-4" />
+          <ShoppingCart />
           {getTotalItems() > 0 && (
             <span
               className={`
