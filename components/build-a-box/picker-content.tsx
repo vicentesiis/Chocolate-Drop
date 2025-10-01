@@ -65,6 +65,7 @@ export function PickerContent({
           className={`
             grid grid-cols-2 gap-4 p-1
             sm:grid-cols-4
+            lg:grid-cols-6
           `}
         >
           {DESSERTS.map((dessert) => {

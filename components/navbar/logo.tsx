@@ -1,5 +1,3 @@
-import Image from "next/image";
+import LogoSVG from "@/public/logo.svg?react";
 
-export const Logo = () => (
-  <Image src="/logo.png" alt="Logo" width={80} height={40} className="h-28 w-auto" />
-);
+export const Logo = () => <LogoSVG className="h-18 w-18 fill-primary" />;
