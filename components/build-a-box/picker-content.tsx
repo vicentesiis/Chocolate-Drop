@@ -27,11 +27,11 @@ export function PickerContent({
   onAddToCart,
 }: PickerContentProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {selectedBox && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold">{selectedBox.name}</h3>
+            <span className="text-sm font-medium">Selecciona tus brigadeiros</span>
             <Badge variant="secondary">
               {totalSelected}/{selectedBox.capacity}
             </Badge>
@@ -43,7 +43,7 @@ export function PickerContent({
       <ScrollArea
         className={`
           h-[70vh]
-          md:h-[600px]
+          md:h-[630px]
         `}
       >
         <div
@@ -70,19 +70,40 @@ export function PickerContent({
         </div>
       </ScrollArea>
 
-      <div className="flex justify-end border-t pt-4">
-        <Button
-          onClick={onAddToCart}
-          disabled={!isBoxFull}
-          className={`
-            w-full
-            sm:w-auto
-          `}
-        >
+      {/* Desktop button - always visible, disabled when not full */}
+      <div
+        className={`
+          hidden justify-end border-t py-2
+          sm:flex
+        `}
+      >
+        <Button onClick={onAddToCart} disabled={!isBoxFull}>
           <ShoppingCart className="mr-2 h-4 w-4" />
           Agregar al Carrito - ${selectedBox?.price}
         </Button>
       </div>
+
+      {/* Mobile floating button - only appears when box is full */}
+      {isBoxFull && (
+        <div
+          className={`
+            fixed right-4 bottom-4 left-4 z-50 duration-500 animate-in slide-in-from-bottom-8
+            sm:hidden
+          `}
+        >
+          <Button
+            onClick={onAddToCart}
+            className={`
+              w-full shadow-lg transition-shadow
+              hover:shadow-xl
+            `}
+            size="lg"
+          >
+            <ShoppingCart className="mr-2 h-4 w-4" />
+            Agregar al Carrito - ${selectedBox?.price}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

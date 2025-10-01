@@ -1,3 +1,4 @@
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -61,11 +62,14 @@ export function BoxCard({
               <DrawerTrigger asChild>
                 <Button onClick={() => onOpenPicker(box)}>Arma tu caja</Button>
               </DrawerTrigger>
-              <DrawerContent className="max-h-[95vh]">
-                <DrawerHeader>
-                  <DrawerTitle>Arma tu {box.name}</DrawerTitle>
-                </DrawerHeader>
-                <div className="px-4 pb-4">{children}</div>
+              <DrawerContent className="max-h-[80vh]">
+                <VisuallyHidden>
+                  <DrawerHeader>
+                    <DrawerTitle />
+                  </DrawerHeader>
+                </VisuallyHidden>
+
+                <div className="px-4">{children}</div>
               </DrawerContent>
             </Drawer>
           ) : (
@@ -78,7 +82,7 @@ export function BoxCard({
               </DialogTrigger>
               <DialogContent className="max-h-[95vh] max-w-7xl overflow-hidden">
                 <DialogHeader>
-                  <DialogTitle>Arma tu {box.name}</DialogTitle>
+                  <DialogTitle>{box.name}</DialogTitle>
                 </DialogHeader>
                 {children}
               </DialogContent>

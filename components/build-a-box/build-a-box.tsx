@@ -77,7 +77,7 @@ export default function BuildABox() {
 
         <div
           className={`
-            mb-8 grid grid-cols-1 gap-6
+            grid grid-cols-1 gap-6
             md:grid-cols-3
           `}
         >
