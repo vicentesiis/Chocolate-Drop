@@ -10,7 +10,7 @@ export function DessertCartRental({ className }: DessertCartRentalProps) {
     <section className={className}>
       <div
         className={`
-          container mx-auto max-w-7xl px-3
+          container mx-auto max-w-7xl px-2
           sm:px-4
           md:px-6
           lg:px-8
@@ -26,7 +26,7 @@ export function DessertCartRental({ className }: DessertCartRentalProps) {
           <CardContent className="p-0">
             <div
               className={`
-                flex flex-col gap-4
+                flex flex-col
                 sm:gap-6
                 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8
               `}
@@ -38,6 +38,16 @@ export function DessertCartRental({ className }: DessertCartRentalProps) {
                   lg:order-2
                 `}
               >
+                <div
+                  className={`
+                    pt-3
+                    sm:hidden
+                  `}
+                >
+                  <h2 className={`text-center text-2xl font-bold text-primary`}>
+                    Endulza tu Evento
+                  </h2>
+                </div>
                 <DessertCartCarousel />
               </div>
               <div
