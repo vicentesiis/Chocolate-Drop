@@ -1,11 +1,16 @@
-import { CartSheet } from "@/components/cart-sheet";
+import { CartSheet } from "@/components/cart";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 h-20 border-b border-accent bg-background">
+    <nav
+      className={`
+        sticky top-0 z-50 h-20 border-b border-border/40 bg-background/80 backdrop-blur-md
+        supports-[backdrop-filter]:bg-background/60
+      `}
+    >
       <div
         className={`
           mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-4
