@@ -7,17 +7,25 @@ export function DessertCartContent() {
   return (
     <div
       className={`
-        space-y-6 p-8
+        space-y-4 p-4
+        sm:space-y-5 sm:p-6
+        md:space-y-6 md:p-8
         lg:p-12
       `}
     >
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         <DessertCartHeader />
         <DessertCartHighlights />
 
         {/* CTA Button */}
-        <div className="pt-4">
-          <Button className="h-12 px-8 text-lg font-semibold" size="lg">
+        <div className="pt-2 sm:pt-3 md:pt-4">
+          <Button
+            className={`
+              w-full h-11 text-base font-semibold
+              sm:w-auto sm:h-12 sm:px-8 sm:text-lg
+            `}
+            size="lg"
+          >
             Reservar Ahora
           </Button>
         </div>

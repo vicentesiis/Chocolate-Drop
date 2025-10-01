@@ -10,25 +10,44 @@ export function DessertCartRental({ className }: DessertCartRentalProps) {
     <section className={className}>
       <div
         className={`
-          container mx-auto max-w-7xl px-4
-          sm:px-6
+          container mx-auto max-w-7xl px-3
+          sm:px-4
+          md:px-6
           lg:px-8
         `}
       >
         <Card
           className={`
-            overflow-hidden border-none bg-gradient-to-br from-primary/5 to-primary/10 shadow-lg
+            mx-2 overflow-hidden border-none bg-gradient-to-br from-primary/5 to-primary/10
+            shadow-lg
+            sm:mx-0
           `}
         >
           <CardContent className="p-0">
             <div
               className={`
-                grid items-center gap-8
-                lg:grid-cols-2
+                flex flex-col gap-4
+                sm:gap-6
+                lg:grid lg:grid-cols-2 lg:items-center lg:gap-8
               `}
             >
-              <DessertCartContent />
-              <DessertCartCarousel />
+              {/* Show carousel first on mobile for visual impact */}
+              <div
+                className={`
+                  order-1
+                  lg:order-2
+                `}
+              >
+                <DessertCartCarousel />
+              </div>
+              <div
+                className={`
+                  order-2
+                  lg:order-1
+                `}
+              >
+                <DessertCartContent />
+              </div>
             </div>
           </CardContent>
         </Card>

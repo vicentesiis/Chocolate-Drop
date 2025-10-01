@@ -28,14 +28,19 @@ export function DessertCartCarousel() {
   return (
     <div
       className={`
-        p-8
+        p-4
+        sm:p-6
+        md:p-8
         lg:p-12
       `}
     >
       <Carousel
         autoPlay={true}
         autoPlayInterval={4000}
-        className="w-full"
+        className={`
+          w-full overflow-hidden rounded-lg shadow-sm
+          sm:shadow-md
+        `}
         images={dessertCartImages}
       />
     </div>

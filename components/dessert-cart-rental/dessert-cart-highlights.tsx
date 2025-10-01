@@ -1,36 +1,128 @@
 import { Check } from "lucide-react";
-import type { DessertCartHighlight } from "./types";
 
-const highlights: DessertCartHighlight[] = [
+const cartFeatures = [
   {
-    id: "elegant-cart",
-    text: "Carrito de postres elegante y personalizable",
+    id: "cart-elegant",
+    text: "Carrito elegante y personalizable para cualquier tipo de evento",
   },
   {
-    id: "variety",
-    text: "Amplia variedad de dulces y golosinas",
+    id: "cart-variety",
+    text: "Variedad de brigadeiros y dulces para elegir",
   },
   {
-    id: "professional-service",
-    text: "Configuración y servicio profesional",
+    id: "cart-setup",
+    text: "Montaje y desmontaje incluidos",
+  },
+];
+
+const barFeatures = [
+  {
+    id: "bar-spacious",
+    text: "Barra amplia y elegante ideal para eventos grandes",
+  },
+  {
+    id: "bar-decoration",
+    text: "Decoración adaptable al tema del evento",
+  },
+  {
+    id: "bar-service",
+    text: "Asistencia de personal para servicio durante el evento",
   },
 ];
 
 export function DessertCartHighlights() {
   return (
-    <div className="space-y-3">
-      {highlights.map((highlight) => (
-        <div className="flex items-center gap-3" key={highlight.id}>
-          <div
-            className={`
-              flex h-5 w-5 items-center justify-center rounded-full bg-primary/20
-            `}
-          >
-            <Check className="h-3 w-3 text-primary" />
-          </div>
-          <span className="text-muted-foreground">{highlight.text}</span>
+    <div
+      className={`
+      space-y-4
+      sm:space-y-6
+    `}
+    >
+      {/* Carrito de Postres */}
+      <div
+        className={`
+        space-y-2
+        sm:space-y-3
+      `}
+      >
+        <h3
+          className={`
+          text-lg font-semibold
+          sm:text-xl
+        `}
+        >
+          Carrito de Postres
+        </h3>
+        <div
+          className={`
+          space-y-2
+          sm:space-y-3
+        `}
+        >
+          {cartFeatures.map((feature) => (
+            <div key={feature.id} className="flex items-start gap-3">
+              <div
+                className={`
+                mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20
+              `}
+              >
+                <Check className="h-3 w-3 text-primary" />
+              </div>
+              <span
+                className={`
+                text-sm leading-relaxed text-muted-foreground
+                sm:text-base
+              `}
+              >
+                {feature.text}
+              </span>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      {/* Barra de Postres */}
+      <div
+        className={`
+        space-y-2
+        sm:space-y-3
+      `}
+      >
+        <h3
+          className={`
+          text-lg font-semibold
+          sm:text-xl
+        `}
+        >
+          Barra de Postres
+        </h3>
+        <div
+          className={`
+          space-y-2
+          sm:space-y-3
+        `}
+        >
+          {barFeatures.map((feature) => (
+            <div key={feature.id} className="flex items-start gap-3">
+              <div
+                className={`
+                mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20
+              `}
+              >
+                <Check className="h-3 w-3 text-primary" />
+              </div>
+              <span
+                className={`
+                text-sm leading-relaxed text-muted-foreground
+                sm:text-base
+              `}
+              >
+                {feature.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

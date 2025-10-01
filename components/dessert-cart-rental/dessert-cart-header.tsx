@@ -2,18 +2,25 @@ import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function DessertCartHeader() {
   return (
-    <CardHeader className="p-0">
+    <CardHeader className="space-y-2 p-0 sm:space-y-3">
       <CardTitle
         className={`
-          font-display text-3xl leading-tight font-bold tracking-tight
+          font-display text-2xl leading-tight font-bold tracking-tight
+          sm:text-3xl
           md:text-4xl
         `}
       >
-        Alquiler de Carrito de Postres para Eventos
+        Renta de Carrito y Barra de Postres para Eventos
       </CardTitle>
-      <CardDescription className="text-lg">
-        Haz que tu evento sea inolvidable con nuestro servicio de alquiler de carrito de postres.
-        Perfecto para bodas, fiestas y eventos corporativos.
+      <CardDescription
+        className={`
+          text-base leading-relaxed
+          sm:text-lg
+        `}
+      >
+        Haz de tu celebración un momento inolvidable con nuestras opciones de renta: el encantador{" "}
+        <strong>Carrito de Postres</strong> para eventos especiales o la elegante{" "}
+        <strong>Barra de Postres</strong> ideal para bodas, fiestas grandes y eventos corporativos.
       </CardDescription>
     </CardHeader>
   );
