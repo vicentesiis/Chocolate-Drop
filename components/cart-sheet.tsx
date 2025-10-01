@@ -2,7 +2,6 @@
 
 import { ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useCart } from "@/components/build-a-box/cart-context";
 import { DESSERTS } from "@/components/build-a-box/data";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useCart } from "@/lib/contexts/cart-context";
 
 export function CartSheet() {
   const { cart, removeFromCart, getTotalItems, getTotalPrice } = useCart();

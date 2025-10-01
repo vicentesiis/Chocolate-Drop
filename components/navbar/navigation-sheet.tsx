@@ -2,9 +2,9 @@
 
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu, ShoppingBag } from "lucide-react";
-import { useCart } from "@/components/build-a-box/cart-context";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { useCart } from "@/lib/contexts/cart-context";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 

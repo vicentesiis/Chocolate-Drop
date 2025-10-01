@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useCart } from "@/lib/contexts/cart-context";
 import { BoxCard } from "./box-card";
-import { useCart } from "./cart-context";
 import { CartSummary } from "./cart-summary";
 import { BOXES } from "./data";
 import { PickerContent } from "./picker-content";
