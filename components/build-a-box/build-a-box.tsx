@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BoxCard } from "./box-card";
 import { CartSummary } from "./cart-summary";
 import { BOXES } from "./data";
+import { MobileBoxCard } from "./mobile-box-card";
 import { PickerContent } from "./picker-content";
 import type { SelectedDessert } from "./types";
 
@@ -13,6 +15,7 @@ export default function BuildABox() {
   const [selectedDesserts, setSelectedDesserts] = useState<SelectedDessert[]>([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const { cart, addToCart } = useCart();
+  const isMobile = useIsMobile();
 
   const totalSelected = selectedDesserts.reduce((sum, dessert) => sum + dessert.quantity, 0);
   const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
@@ -70,44 +73,93 @@ export default function BuildABox() {
   };
 
   return (
-    <section className="px-4 py-16">
+    <section
+      className={`
+        px-4 py-8
+        sm:py-16
+      `}
+    >
       <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold">Nuestros Empaques</h2>
-          <p className="mx-auto max-w-2xl text-xl text-muted-foreground">
+        <div
+          className={`
+            mb-8 text-center
+            sm:mb-12
+          `}
+        >
+          <h2
+            className={`
+              mb-3 text-2xl font-bold
+              sm:mb-4 sm:text-3xl
+            `}
+          >
+            Nuestros Empaques
+          </h2>
+          <p
+            className={`
+              mx-auto max-w-2xl text-lg text-muted-foreground
+              sm:text-xl
+            `}
+          >
             Elige el tamaño de la caja y añade los brigadeiros que más te gusten. Hechos con
             ingredientes premium para deleitarte en cada bocado.
           </p>
         </div>
 
-        <div
-          className={`
-            grid grid-cols-1 gap-6
-            md:grid-cols-3
-          `}
-        >
-          {BOXES.map((box) => (
-            <BoxCard
-              key={box.id}
-              box={box}
-              isPickerOpen={isPickerOpen}
-              selectedBoxId={selectedBox?.id || null}
-              onOpenPicker={openPicker}
-              onPickerOpenChange={setIsPickerOpen}
-            >
-              <PickerContent
-                selectedBox={selectedBox}
-                selectedDesserts={selectedDesserts}
-                totalSelected={totalSelected}
-                progressPercentage={progressPercentage}
-                isBoxFull={isBoxFull}
-                onUpdateQuantity={updateDessertQuantity}
-                onAddToCart={handleAddToCart}
-                onClearSelection={clearSelection}
-              />
-            </BoxCard>
-          ))}
-        </div>
+        {isMobile ? (
+          <div className="space-y-3">
+            {BOXES.map((box) => (
+              <MobileBoxCard
+                key={box.id}
+                box={box}
+                isPickerOpen={isPickerOpen}
+                selectedBoxId={selectedBox?.id || null}
+                onOpenPicker={openPicker}
+                onPickerOpenChange={setIsPickerOpen}
+              >
+                <PickerContent
+                  selectedBox={selectedBox}
+                  selectedDesserts={selectedDesserts}
+                  totalSelected={totalSelected}
+                  progressPercentage={progressPercentage}
+                  isBoxFull={isBoxFull}
+                  onUpdateQuantity={updateDessertQuantity}
+                  onAddToCart={handleAddToCart}
+                  onClearSelection={clearSelection}
+                />
+              </MobileBoxCard>
+            ))}
+          </div>
+        ) : (
+          <div
+            className={`
+              grid grid-cols-2 gap-4
+              sm:grid-cols-2
+              lg:grid-cols-3
+            `}
+          >
+            {BOXES.map((box) => (
+              <BoxCard
+                key={box.id}
+                box={box}
+                isPickerOpen={isPickerOpen}
+                selectedBoxId={selectedBox?.id || null}
+                onOpenPicker={openPicker}
+                onPickerOpenChange={setIsPickerOpen}
+              >
+                <PickerContent
+                  selectedBox={selectedBox}
+                  selectedDesserts={selectedDesserts}
+                  totalSelected={totalSelected}
+                  progressPercentage={progressPercentage}
+                  isBoxFull={isBoxFull}
+                  onUpdateQuantity={updateDessertQuantity}
+                  onAddToCart={handleAddToCart}
+                  onClearSelection={clearSelection}
+                />
+              </BoxCard>
+            ))}
+          </div>
+        )}
 
         <CartSummary cart={cart} />
       </div>

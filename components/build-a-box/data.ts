@@ -1,21 +1,21 @@
 export const BOXES = [
   {
     id: "box-4",
-    name: "Caja diseño especial con 4 Brigadeiros",
+    name: "Empaque Especial x 4",
     capacity: 4,
     price: 280,
     image: "/boxes/box.png",
   },
   {
     id: "box-6",
-    name: "Caja diseño especial con 6 Brigadeiros",
+    name: "Empaque Especial x 6",
     capacity: 6,
     price: 340,
     image: "/boxes/box.png",
   },
   {
     id: "box-10",
-    name: "Caja diseño especial con 10 Brigadeiros",
+    name: "Empaque Especial x 10",
     capacity: 10,
     price: 450,
     image: "/boxes/box.png",

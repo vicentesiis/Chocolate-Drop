@@ -44,15 +44,35 @@ export function BoxCard({
         hover:shadow-lg
       `}
     >
-      <div className="relative aspect-square">
+      <div
+        className={`
+          relative aspect-square
+          sm:aspect-[4/3]
+          lg:aspect-square
+        `}
+      >
         <img src={box.image} alt={box.name} className="h-full w-full object-cover" />
       </div>
-      <CardHeader>
-        <CardTitle className="text-xl">{box.name}</CardTitle>
+      <CardHeader className="pb-3">
+        <CardTitle
+          className={`
+            text-lg leading-tight
+            sm:text-xl
+          `}
+        >
+          {box.name}
+        </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-0">
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold">${box.price}</span>
+          <span
+            className={`
+              text-xl font-bold
+              sm:text-2xl
+            `}
+          >
+            ${box.price}
+          </span>
 
           {isMobile ? (
             <Drawer
@@ -60,7 +80,9 @@ export function BoxCard({
               onOpenChange={onPickerOpenChange}
             >
               <DrawerTrigger asChild>
-                <Button onClick={() => onOpenPicker(box)}>Arma tu caja</Button>
+                <Button size="sm" onClick={() => onOpenPicker(box)}>
+                  Arma tu caja
+                </Button>
               </DrawerTrigger>
               <DrawerContent className="max-h-[80vh]">
                 <VisuallyHidden>
@@ -78,7 +100,9 @@ export function BoxCard({
               onOpenChange={onPickerOpenChange}
             >
               <DialogTrigger asChild>
-                <Button onClick={() => onOpenPicker(box)}>Arma tu caja</Button>
+                <Button size="sm" onClick={() => onOpenPicker(box)}>
+                  Arma tu caja
+                </Button>
               </DialogTrigger>
               <DialogContent className="max-h-[95vh] max-w-7xl overflow-hidden">
                 <DialogHeader>
