@@ -2,16 +2,17 @@
 
 import { useState } from "react";
 import { BoxCard } from "./box-card";
+import { useCart } from "./cart-context";
 import { CartSummary } from "./cart-summary";
 import { BOXES } from "./data";
 import { PickerContent } from "./picker-content";
-import type { CartItem, SelectedDessert } from "./types";
+import type { SelectedDessert } from "./types";
 
 export default function BuildABox() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
   const [selectedDesserts, setSelectedDesserts] = useState<SelectedDessert[]>([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { cart, addToCart } = useCart();
 
   const totalSelected = selectedDesserts.reduce((sum, dessert) => sum + dessert.quantity, 0);
   const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
@@ -43,16 +44,16 @@ export default function BuildABox() {
     });
   };
 
-  const addToCart = () => {
+  const handleAddToCart = () => {
     if (!selectedBox || !isBoxFull) return;
 
-    const cartItem: CartItem = {
+    const cartItem = {
       boxType: selectedBox,
       selectedDesserts: [...selectedDesserts],
       totalPrice: selectedBox.price,
     };
 
-    setCart((prev) => [...prev, cartItem]);
+    addToCart(cartItem);
     setSelectedBox(null);
     setSelectedDesserts([]);
     setIsPickerOpen(false);
@@ -101,7 +102,7 @@ export default function BuildABox() {
                 progressPercentage={progressPercentage}
                 isBoxFull={isBoxFull}
                 onUpdateQuantity={updateDessertQuantity}
-                onAddToCart={addToCart}
+                onAddToCart={handleAddToCart}
                 onClearSelection={clearSelection}
               />
             </BoxCard>

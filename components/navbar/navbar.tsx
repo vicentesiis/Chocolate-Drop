@@ -1,5 +1,4 @@
-import { ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CartSheet } from "@/components/cart-sheet";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
@@ -24,15 +23,7 @@ const Navbar = () => {
         />
 
         <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className={`
-              hidden
-              sm:inline-flex
-            `}
-          >
-            <ShoppingBag />
-          </Button>
+          <CartSheet />
 
           {/* Mobile Menu */}
           <div className="md:hidden">
