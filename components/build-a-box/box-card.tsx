@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -41,13 +42,15 @@ export function BoxCard({
           lg:aspect-square
         `}
       >
-        <img
+        <Image
           src={box.image}
           alt={box.name}
+          fill
           className={`
-            h-full w-full object-cover transition-transform duration-300
+            object-cover transition-transform duration-300
             hover:scale-105
           `}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div
           className={`
