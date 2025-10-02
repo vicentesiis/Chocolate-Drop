@@ -1,6 +1,5 @@
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -8,14 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { useIsMobile } from "@/hooks/use-mobile";
 import type { BOXES } from "./data";
 
 interface BoxCardProps {
@@ -35,28 +26,39 @@ export function BoxCard({
   onPickerOpenChange,
   children,
 }: BoxCardProps) {
-  const isMobile = useIsMobile();
-
   return (
     <Card
       className={`
-        overflow-hidden transition-shadow
-        hover:shadow-lg
+        chocolate-shadow overflow-hidden bg-gradient-to-br from-orange-50/80 to-amber-50/60 ring-1
+        ring-orange-200/30 transition-all duration-300
+        hover:shadow-lg hover:ring-orange-300/40
       `}
     >
       <div
         className={`
-          relative aspect-square
+          relative aspect-square overflow-hidden
           sm:aspect-[4/3]
           lg:aspect-square
         `}
       >
-        <img src={box.image} alt={box.name} className="h-full w-full object-cover" />
+        <img
+          src={box.image}
+          alt={box.name}
+          className={`
+            h-full w-full object-cover transition-transform duration-300
+            hover:scale-105
+          `}
+        />
+        <div
+          className={`
+            absolute inset-0 bg-gradient-to-t from-orange-900/10 via-transparent to-transparent
+          `}
+        />
       </div>
       <CardHeader className="pb-3">
         <CardTitle
           className={`
-            text-lg leading-tight
+            text-lg leading-tight font-bold text-primary
             sm:text-xl
           `}
         >
@@ -67,51 +69,37 @@ export function BoxCard({
         <div className="flex items-center justify-between">
           <span
             className={`
-              text-xl font-bold
+              text-xl font-bold text-primary
               sm:text-2xl
             `}
           >
             ${box.price}
           </span>
-
-          {isMobile ? (
-            <Drawer
-              open={isPickerOpen && selectedBoxId === box.id}
-              onOpenChange={onPickerOpenChange}
+          <Dialog open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange}>
+            <DialogTrigger asChild>
+              <Button
+                size="sm"
+                onClick={() => onOpenPicker(box)}
+                className={`
+                  bg-gradient-to-r from-primary to-primary/90 transition-all duration-300
+                  hover:scale-105 hover:from-primary/90 hover:to-primary/80
+                `}
+              >
+                Arma tu caja
+              </Button>
+            </DialogTrigger>
+            <DialogContent
+              className={`
+                max-h-[95vh] max-w-7xl overflow-hidden bg-gradient-to-br from-amber-50/90
+                to-orange-50/80 ring-1 ring-orange-200/30
+              `}
             >
-              <DrawerTrigger asChild>
-                <Button size="sm" onClick={() => onOpenPicker(box)}>
-                  Arma tu caja
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent className="max-h-[80vh]">
-                <VisuallyHidden>
-                  <DrawerHeader>
-                    <DrawerTitle />
-                  </DrawerHeader>
-                </VisuallyHidden>
-
-                <div className="px-4">{children}</div>
-              </DrawerContent>
-            </Drawer>
-          ) : (
-            <Dialog
-              open={isPickerOpen && selectedBoxId === box.id}
-              onOpenChange={onPickerOpenChange}
-            >
-              <DialogTrigger asChild>
-                <Button size="sm" onClick={() => onOpenPicker(box)}>
-                  Arma tu caja
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-h-[95vh] max-w-7xl overflow-hidden">
-                <DialogHeader>
-                  <DialogTitle>{box.name}</DialogTitle>
-                </DialogHeader>
-                {children}
-              </DialogContent>
-            </Dialog>
-          )}
+              <DialogHeader>
+                <DialogTitle>{box.name}</DialogTitle>
+              </DialogHeader>
+              {children}
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>
