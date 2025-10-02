@@ -1,6 +1,6 @@
-import { Separator } from "@/components/ui/separator";
 import { DribbbleIcon, GithubIcon, TwitchIcon, TwitterIcon } from "lucide-react";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 const footerSections = [
   {
@@ -152,7 +152,7 @@ const footerSections = [
 
 const Footer = () => {
   return (
-    <footer className="mt-12 xs:mt-20 dark bg-background border-t">
+    <footer className="mt-12 xs:mt-20 bg-gradient-to-r from-orange-50/50 to-amber-50/50 border-t border-orange-200/30">
       <div className="max-w-(--breakpoint-xl) mx-auto py-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6">
         <div className="col-span-full xl:col-span-2">
           {/* Logo */}

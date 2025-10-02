@@ -12,11 +12,32 @@ const Hero = () => {
   return (
     <div
       className={`
-        flex h-screen-minus-navbar w-full items-start justify-center overflow-hidden border-b
-        border-accent pt-4
+        relative flex h-screen-minus-navbar w-full items-start justify-center overflow-hidden
+        border-b border-orange-200/50 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 pt-4
         lg:items-start
       `}
     >
+      {/* Decorative background elements */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className={`
+            absolute top-20 left-10 h-32 w-32 rounded-full bg-gradient-to-br from-orange-200/30
+            to-amber-200/30 blur-xl
+          `}
+        ></div>
+        <div
+          className={`
+            absolute right-10 bottom-20 h-40 w-40 rounded-full bg-gradient-to-br from-rose-200/30
+            to-orange-200/30 blur-xl
+          `}
+        ></div>
+        <div
+          className={`
+            absolute top-1/2 left-1/3 h-24 w-24 rounded-full bg-gradient-to-br from-amber-300/20
+            to-orange-300/20 blur-lg
+          `}
+        ></div>
+      </div>
       <div
         className={`
           mx-auto flex w-full max-w-(--breakpoint-xl) flex-col items-center justify-start gap-x-8
@@ -58,14 +79,21 @@ const Hero = () => {
               lg:mt-8
             `}
           >
-            <Button className={`h-12 gap-1.5 px-8 transition-colors duration-200`} size="lg">
+            <Button
+              className={`
+                h-12 gap-1.5 px-8 font-semibold text-white transition-all duration-300
+                hover:scale-105
+              `}
+              size="lg"
+            >
               Haz tu pedido <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
         <div
           className={`
-            relative aspect-square w-full max-w-sm rounded-xl bg-accent
+            chocolate-shadow warm-glow relative aspect-square w-full max-w-sm rounded-xl
+            bg-gradient-to-br from-orange-100 to-amber-100 ring-1 ring-orange-200/50
             sm:max-w-md
             md:max-w-lg
             lg:max-w-lg
@@ -73,6 +101,12 @@ const Hero = () => {
           `}
         >
           <Image src="/hero.jpg" fill alt="" className="rounded-xl object-cover" />
+          <div
+            className={`
+              absolute inset-0 rounded-xl bg-gradient-to-t from-orange-900/10 via-transparent
+              to-transparent
+            `}
+          ></div>
         </div>
         {/* Button visible only on mobile */}
         <div
@@ -81,7 +115,14 @@ const Hero = () => {
             sm:hidden
           `}
         >
-          <Button className={`h-12 gap-1.5 px-8 transition-colors duration-200`} size="lg">
+          <Button
+            className={`
+              chocolate-gradient chocolate-shadow h-12 gap-1.5 px-8 font-semibold text-white
+              transition-all duration-300
+              hover:scale-105
+            `}
+            size="lg"
+          >
             Haz tu pedido <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

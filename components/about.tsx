@@ -24,11 +24,16 @@ export function About({ className }: AboutProps) {
   return (
     <section
       className={`
-        py-16
+        py-16 relative overflow-hidden
         lg:py-24
         ${className || ""}
       `}
     >
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-10 right-20 w-28 h-28 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-20 left-16 w-36 h-36 bg-gradient-to-br from-orange-200/15 to-rose-200/15 rounded-full blur-2xl"></div>
+      </div>
       <div
         className={`
           container mx-auto max-w-7xl px-4
@@ -99,8 +104,8 @@ export function About({ className }: AboutProps) {
           <div className="space-y-6">
             <div
               className={`
-                relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10
-                to-primary/5
+                relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-orange-100/80
+                to-amber-100/60 ring-1 ring-orange-200/30 chocolate-shadow
               `}
             >
               <Image
@@ -117,7 +122,10 @@ export function About({ className }: AboutProps) {
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={index} className={`rounded-xl bg-primary/5 p-4 text-center`}>
+                  <div
+                    key={index}
+                    className={`rounded-xl bg-gradient-to-br from-orange-100/60 to-amber-100/40 p-4 text-center ring-1 ring-orange-200/30 hover:shadow-lg transition-all duration-300`}
+                  >
                     <Icon className="mx-auto mb-2 h-6 w-6 text-primary" />
                     <div className="text-lg font-bold text-primary">{stat.value}</div>
                     <div className="text-xs text-muted-foreground">{stat.label}</div>
