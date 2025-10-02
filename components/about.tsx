@@ -24,7 +24,7 @@ export function About({ className }: AboutProps) {
   return (
     <section
       className={`
-        py-16 relative overflow-hidden
+        h-screen-minus-navbar flex items-center py-16 relative overflow-hidden
         lg:py-24
         ${className || ""}
       `}

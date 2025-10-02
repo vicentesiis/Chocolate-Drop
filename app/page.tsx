@@ -10,13 +10,22 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
       <Navbar />
       <Hero />
-      <div className="bg-gradient-to-r from-amber-100/30 to-orange-100/30">
+      <div
+        id="packages"
+        className="scroll-mt-20 bg-gradient-to-r from-amber-100/30 to-orange-100/30"
+      >
         <BuildABox />
       </div>
-      <div className="bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30">
+      <div
+        id="events"
+        className="scroll-mt-20 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30"
+      >
         <DessertCartRental />
       </div>
-      <div className="bg-gradient-to-r from-orange-100/20 to-amber-100/30">
+      <div
+        id="about-us"
+        className="scroll-mt-20 bg-gradient-to-r from-orange-100/20 to-amber-100/30"
+      >
         <About />
       </div>
       <Footer />

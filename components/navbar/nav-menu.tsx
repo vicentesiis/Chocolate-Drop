@@ -9,7 +9,12 @@ import {
 
 export const NavMenu = (props: NavigationMenuProps) => (
   <NavigationMenu {...props}>
-    <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
+    <NavigationMenuList
+      className={`
+        gap-6 space-x-0
+        data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start
+      `}
+    >
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link href="/">Inicio</Link>
@@ -17,24 +22,19 @@ export const NavMenu = (props: NavigationMenuProps) => (
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
-          <Link href="#features">Productos</Link>
+          <Link href="#packages">Empaques</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
-          <Link href="#faq">Eventos</Link>
+          <Link href="#events">Eventos</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
-          <Link href="#testimonials">Nosotros</Link>
+          <Link href="#about-us">Nosotros</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      {/* <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="#pricing">Pricing</Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem> */}
     </NavigationMenuList>
   </NavigationMenu>
 );

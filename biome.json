@@ -30,6 +30,9 @@
       "style": {
         "noUnusedTemplateLiteral": "off",
         "noNonNullAssertion": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off"
       }
     }
   },
