@@ -7,7 +7,13 @@ import type { DessertCartRentalProps } from "./types";
 
 export function DessertCartRental({ className }: DessertCartRentalProps) {
   return (
-    <section className={className}>
+    <section
+      className={`
+        py-16
+        lg:py-24
+        ${className || ""}
+      `}
+    >
       <div
         className={`
           container mx-auto max-w-7xl px-2

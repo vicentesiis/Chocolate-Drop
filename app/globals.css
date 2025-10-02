@@ -50,6 +50,9 @@
 
   --breakpoint-xs: 375px;
 
+  --height-screen-minus-navbar: calc(100vh - 5rem);
+  --height-screen-minus-navbar-dvh: calc(100dvh - 5rem);
+
   --color-sidebar-ring: var(--sidebar-ring);
 
   --color-sidebar-border: var(--sidebar-border);
@@ -192,6 +195,11 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  }
+
+  .h-screen-minus-navbar {
+    height: var(--height-screen-minus-navbar);
+    min-height: var(--height-screen-minus-navbar-dvh);
   }
 }
 

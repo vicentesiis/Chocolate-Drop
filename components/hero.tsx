@@ -12,26 +12,28 @@ const Hero = () => {
   return (
     <div
       className={`
-        flex w-full items-center justify-center overflow-hidden border-b border-accent
-        sm:h-screen
+        flex h-screen-minus-navbar w-full items-start justify-center overflow-hidden border-b
+        border-accent pt-4
+        lg:items-start
       `}
     >
       <div
         className={`
-          mx-auto flex w-full max-w-(--breakpoint-xl) flex-col items-center justify-between gap-x-10
-          gap-y-6 px-4 py-4
-          sm:gap-y-8 sm:px-6 sm:py-6
-          lg:flex-row lg:gap-y-14 lg:py-0
+          mx-auto flex w-full max-w-(--breakpoint-xl) flex-col items-center justify-start gap-x-8
+          gap-y-4 px-4 py-2
+          sm:gap-y-6 sm:px-6 sm:py-4
+          md:gap-y-8 md:py-6
+          lg:h-full lg:flex-row lg:justify-center
         `}
       >
         <div className="max-w-xl">
           <h1
             className={`
-              font-display bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-2xl
+              font-display bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-3xl
               leading-tight font-bold tracking-tight text-transparent
-              sm:text-4xl
-              md:text-5xl
-              lg:text-6xl lg:leading-[1.1]
+              sm:text-5xl
+              md:text-6xl
+              lg:text-7xl lg:leading-[1.1]
             `}
           >
             BRIGADEIROS GOURMET, DULCES DE BRASIL
@@ -39,10 +41,10 @@ const Hero = () => {
           <p
             className={`
               ${chewy.className}
-              max-w-[700px] text-lg text-muted-foreground
-              sm:text-xl
-              md:text-2xl
-              lg:text-3xl
+              mt-2 max-w-[700px] text-xl text-muted-foreground
+              sm:mt-3 sm:text-2xl
+              md:mt-4 md:text-3xl
+              lg:mt-6 lg:text-4xl
             `}
           >
             From our hearts, to your hands
@@ -51,7 +53,8 @@ const Hero = () => {
           <div
             className={`
               mt-4 hidden flex-col items-center gap-4
-              sm:mt-6 sm:flex sm:flex-row
+              sm:mt-5 sm:flex sm:flex-row
+              md:mt-6
               lg:mt-8
             `}
           >
@@ -62,8 +65,9 @@ const Hero = () => {
         </div>
         <div
           className={`
-            relative aspect-square w-full max-w-xs rounded-xl bg-accent
-            sm:max-w-sm
+            relative aspect-square w-full max-w-sm rounded-xl bg-accent
+            sm:max-w-md
+            md:max-w-lg
             lg:max-w-lg
             xl:max-w-xl
           `}

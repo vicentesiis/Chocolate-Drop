@@ -1,3 +1,4 @@
+import { About } from "@/components/about";
 import BuildABox from "@/components/build-a-box";
 import { DessertCartRental } from "@/components/dessert-cart-rental/dessert-cart-rental";
 import Footer from "@/components/footer";
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <BuildABox />
       <DessertCartRental />
+      <About />
       <Footer />
     </>
   );
