@@ -75,7 +75,7 @@ export default function BuildABox() {
   return (
     <section
       className={`
-        flex h-screen-minus-navbar items-center px-4 py-8
+        flex items-center px-4 py-8
         sm:py-16
       `}
     >

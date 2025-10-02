@@ -12,19 +12,25 @@ export default function Home() {
       <Hero />
       <div
         id="packages"
-        className="scroll-mt-20 bg-gradient-to-r from-amber-100/30 to-orange-100/30"
+        className={`
+          scroll-mt-20 bg-gradient-to-r from-amber-100/30 to-orange-100/30
+          sm:scroll-mt-10
+        `}
       >
         <BuildABox />
       </div>
       <div
         id="events"
-        className="scroll-mt-20 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30"
+        className=" bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30"
       >
         <DessertCartRental />
       </div>
       <div
         id="about-us"
-        className="scroll-mt-20 bg-gradient-to-r from-orange-100/20 to-amber-100/30"
+        className={`
+          scroll-mt-10 bg-gradient-to-r from-orange-100/20 to-amber-100/30
+          sm:scroll-mt-0
+        `}
       >
         <About />
       </div>

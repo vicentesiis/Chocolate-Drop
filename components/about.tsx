@@ -24,15 +24,25 @@ export function About({ className }: AboutProps) {
   return (
     <section
       className={`
-        h-screen-minus-navbar flex items-center py-16 relative overflow-hidden
+        relative flex items-center overflow-hidden py-16
         lg:py-24
         ${className || ""}
       `}
     >
       {/* Subtle background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 right-20 w-28 h-28 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 left-16 w-36 h-36 bg-gradient-to-br from-orange-200/15 to-rose-200/15 rounded-full blur-2xl"></div>
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className={`
+            absolute top-10 right-20 h-28 w-28 rounded-full bg-gradient-to-br from-amber-200/20
+            to-orange-200/20 blur-2xl
+          `}
+        ></div>
+        <div
+          className={`
+            absolute bottom-20 left-16 h-36 w-36 rounded-full bg-gradient-to-br from-orange-200/15
+            to-rose-200/15 blur-2xl
+          `}
+        ></div>
       </div>
       <div
         className={`
@@ -104,8 +114,8 @@ export function About({ className }: AboutProps) {
           <div className="space-y-6">
             <div
               className={`
-                relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-orange-100/80
-                to-amber-100/60 ring-1 ring-orange-200/30 chocolate-shadow
+                chocolate-shadow relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br
+                from-orange-100/80 to-amber-100/60 ring-1 ring-orange-200/30
               `}
             >
               <Image
@@ -124,7 +134,11 @@ export function About({ className }: AboutProps) {
                 return (
                   <div
                     key={index}
-                    className={`rounded-xl bg-gradient-to-br from-orange-100/60 to-amber-100/40 p-4 text-center ring-1 ring-orange-200/30 hover:shadow-lg transition-all duration-300`}
+                    className={`
+                      rounded-xl bg-gradient-to-br from-orange-100/60 to-amber-100/40 p-4
+                      text-center ring-1 ring-orange-200/30 transition-all duration-300
+                      hover:shadow-lg
+                    `}
                   >
                     <Icon className="mx-auto mb-2 h-6 w-6 text-primary" />
                     <div className="text-lg font-bold text-primary">{stat.value}</div>

@@ -117,8 +117,7 @@ const Hero = () => {
         >
           <Button
             className={`
-              chocolate-gradient chocolate-shadow h-12 gap-1.5 px-8 font-semibold text-white
-              transition-all duration-300
+              h-12 gap-1.5 px-8 font-semibold text-white transition-all duration-300
               hover:scale-105
             `}
             size="lg"

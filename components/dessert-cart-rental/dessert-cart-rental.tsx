@@ -9,7 +9,7 @@ export function DessertCartRental({ className }: DessertCartRentalProps) {
   return (
     <section
       className={`
-        h-screen-minus-navbar flex items-center py-16
+        flex items-center py-16
         lg:py-24
         ${className || ""}
       `}
