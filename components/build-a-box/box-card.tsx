@@ -58,22 +58,36 @@ export function BoxCard({
           `}
         />
       </div>
-      <CardHeader className="pb-3">
+      <CardHeader
+        className={`
+          pb-3
+          lg:pb-4
+        `}
+      >
         <CardTitle
           className={`
             text-lg leading-tight font-bold text-primary
             sm:text-xl
+            lg:text-xl
+            xl:text-2xl
           `}
         >
           {box.name}
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent
+        className={`
+          pt-0
+          lg:px-6 lg:pb-6
+        `}
+      >
         <div className="flex items-center justify-between">
           <span
             className={`
               text-xl font-bold text-primary
               sm:text-2xl
+              lg:text-2xl
+              xl:text-3xl
             `}
           >
             ${box.price}
@@ -86,6 +100,8 @@ export function BoxCard({
                 className={`
                   bg-gradient-to-r from-primary to-primary/90 transition-all duration-300
                   hover:scale-105 hover:from-primary/90 hover:to-primary/80
+                  lg:h-10 lg:px-4 lg:text-sm
+                  xl:h-11 xl:px-5 xl:text-base
                 `}
               >
                 Arma tu caja
