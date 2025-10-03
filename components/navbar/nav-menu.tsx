@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 
-export const NavMenu = (props: NavigationMenuProps) => (
+interface NavMenuProps extends NavigationMenuProps {
+  onItemClick?: () => void;
+}
+
+export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
   <NavigationMenu {...props}>
     <NavigationMenuList
       className={`
@@ -23,6 +27,7 @@ export const NavMenu = (props: NavigationMenuProps) => (
         <NavigationMenuLink asChild>
           <Link
             href="/"
+            onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
               text-lg font-medium text-primary transition-colors
@@ -45,11 +50,17 @@ export const NavMenu = (props: NavigationMenuProps) => (
           </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <Separator className="sm:hidden" />
+      <Separator
+        className={`
+          bg-primary
+          sm:hidden
+        `}
+      />
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
             href="#packages"
+            onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
               text-lg font-medium text-primary transition-colors
@@ -72,11 +83,17 @@ export const NavMenu = (props: NavigationMenuProps) => (
           </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <Separator className="sm:hidden" />
+      <Separator
+        className={`
+          bg-primary
+          sm:hidden
+        `}
+      />
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
             href="#events"
+            onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
               text-lg font-medium text-primary transition-colors
@@ -99,11 +116,17 @@ export const NavMenu = (props: NavigationMenuProps) => (
           </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <Separator className="sm:hidden" />
+      <Separator
+        className={`
+          bg-primary
+          sm:hidden
+        `}
+      />
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
             href="#about-us"
+            onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
               text-lg font-medium text-primary transition-colors

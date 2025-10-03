@@ -22,17 +22,26 @@ export function CartSheet() {
     <Sheet>
       <SheetTrigger asChild>
         <Button
+          variant="ghost"
+          size="icon"
           className={`
-            relative h-8 w-9
-            [&_svg]:!size-5
+            group relative h-10 w-10 rounded-full transition-all duration-200 ease-in-out
+            hover:scale-105 hover:bg-accent/50
           `}
         >
-          <ShoppingCart />
+          <ShoppingCart
+            className={`
+              !size-5 transition-transform
+              group-hover:scale-110
+              sm:!size-6
+            `}
+          />
           {getTotalItems() > 0 && (
             <span
               className={`
-                absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full
-                bg-primary text-xs text-primary-foreground
+                absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full
+                border-1 border-background bg-gradient-to-r from-primary to-primary/80 text-xs
+                font-semibold text-primary-foreground shadow-lg duration-200 animate-in zoom-in-50
               `}
             >
               {getTotalItems()}
