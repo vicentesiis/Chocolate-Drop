@@ -84,6 +84,7 @@ const Hero = () => {
               className={`
                 h-12 gap-1.5 px-8 font-semibold text-white transition-all duration-300
                 hover:scale-105
+                sm:text-lg
               `}
               size="lg"
               asChild

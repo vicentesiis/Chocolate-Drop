@@ -7,8 +7,11 @@ const Navbar = () => {
   return (
     <nav
       className={`
-        sticky top-0 z-50 h-20 border-b border-border/40 bg-background/80 backdrop-blur-md
-        supports-[backdrop-filter]:bg-background/60
+        sticky top-0 z-50 h-16 border-b border-border/40 bg-background/95 backdrop-blur-md
+        transition-all duration-200
+        supports-[backdrop-filter]:bg-background/80
+        sm:h-18
+        lg:h-20
       `}
     >
       <div
@@ -17,17 +20,21 @@ const Navbar = () => {
           sm:px-6
         `}
       >
-        <Logo />
+        <div className="flex items-center">
+          <Logo />
+        </div>
 
         {/* Desktop Menu */}
-        <NavMenu
+        <div
           className={`
             hidden
-            md:block
+            md:flex
           `}
-        />
+        >
+          <NavMenu />
+        </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <CartSheet />
 
           {/* Mobile Menu */}
