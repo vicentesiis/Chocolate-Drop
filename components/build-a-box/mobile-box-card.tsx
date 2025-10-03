@@ -74,11 +74,9 @@ export function MobileBoxCard({
             className="bg-gradient-to-br from-amber-50/90 to-orange-50/80"
             style={{ height: "100dvh", maxHeight: "100dvh" }}
           >
-            <VisuallyHidden>
-              <DrawerHeader>
-                <DrawerTitle />
-              </DrawerHeader>
-            </VisuallyHidden>
+            <DrawerHeader>
+              <DrawerTitle />
+            </DrawerHeader>
             <div className="flex h-full flex-col px-4 pb-4">{children}</div>
           </DrawerContent>
         </Drawer>
