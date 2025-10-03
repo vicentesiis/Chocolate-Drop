@@ -46,14 +46,14 @@ export function DessertCardMobile({
           {/* Content - takes remaining space */}
           <div className="flex flex-1 flex-col justify-center">
             <div className="flex-1">
-              <h4 className="text-sm leading-tight font-semibold">{dessert.name}</h4>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              <h4 className="text leading-tight font-semibold text-primary">{dessert.name}</h4>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 {dessert.description}
               </p>
             </div>
 
             {/* Stepper controls - bigger for better mobile UX */}
-            <div className="mt-3 flex items-center justify-end gap-3">
+            <div className="mt-0 flex items-center justify-end gap-3">
               <Button
                 size="sm"
                 variant="outline"
