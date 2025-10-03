@@ -79,7 +79,7 @@ export default function BuildABox() {
         sm:py-16
       `}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div
           className={`
             mb-8 text-center
@@ -89,19 +89,26 @@ export default function BuildABox() {
           <h2
             className={`
               mb-3 text-2xl font-bold
-              sm:mb-4 sm:text-3xl
+              sm:mb-4 sm:text-4xl
             `}
           >
             Nuestros Empaques
           </h2>
           <p
             className={`
-              mx-auto max-w-2xl text-lg text-muted-foreground
+              mx-auto max-w-4xl text-lg text-muted-foreground
               sm:text-xl
             `}
           >
-            Elige el tamaño de la caja y añade los brigadeiros que más te gusten. Hechos con
-            ingredientes premium para deleitarte en cada bocado.
+            Elige el tamaño de la caja y añade los brigadeiros que más te gusten.
+          </p>
+          <p
+            className={`
+              mx-auto mt-2 max-w-4xl text-lg text-muted-foreground
+              sm:text-xl
+            `}
+          >
+            Hechos con ingredientes premium para deleitarte en cada bocado.
           </p>
         </div>
 

@@ -11,7 +11,6 @@ export function DessertCartHeader() {
       <CardTitle
         className={`
           font-display text-2xl leading-tight font-bold tracking-tight
-          sm:text-3xl
           md:text-4xl
         `}
       >

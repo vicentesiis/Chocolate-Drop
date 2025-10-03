@@ -61,7 +61,7 @@ export function BoxCard({
       <CardHeader
         className={`
           pb-3
-          lg:pb-4
+          lg:py-5
         `}
       >
         <CardTitle
@@ -75,12 +75,7 @@ export function BoxCard({
           {box.name}
         </CardTitle>
       </CardHeader>
-      <CardContent
-        className={`
-          pt-0
-          lg:px-6 lg:pb-6
-        `}
-      >
+      <CardContent className={`lg:px-6 lg:pb-4`}>
         <div className="flex items-center justify-between">
           <span
             className={`

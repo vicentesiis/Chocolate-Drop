@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Chewy } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const chewy = Chewy({
@@ -85,8 +86,11 @@ const Hero = () => {
                 hover:scale-105
               `}
               size="lg"
+              asChild
             >
-              Haz tu pedido <ArrowRight className="h-4 w-4" />
+              <Link href="#packages">
+                Haz tu pedido <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -121,8 +125,11 @@ const Hero = () => {
               hover:scale-105
             `}
             size="lg"
+            asChild
           >
-            Haz tu pedido <ArrowRight className="h-4 w-4" />
+            <Link href="#packages">
+              Haz tu pedido <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </div>

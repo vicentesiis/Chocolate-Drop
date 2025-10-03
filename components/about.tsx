@@ -62,7 +62,7 @@ export function About({ className }: AboutProps) {
             <div className="space-y-4">
               <h2
                 className={`
-                  font-display text-3xl font-bold tracking-tight
+                  font-display text-2xl font-bold tracking-tight
                   md:text-4xl
                 `}
               >
