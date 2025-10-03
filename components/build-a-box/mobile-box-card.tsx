@@ -1,3 +1,4 @@
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Package } from "lucide-react";
 import Image from "next/image";
@@ -74,10 +75,12 @@ export function MobileBoxCard({
             className="bg-gradient-to-br from-amber-50/90 to-orange-50/80"
             style={{ height: "100dvh", maxHeight: "100dvh" }}
           >
-            <DrawerHeader>
-              <DrawerTitle />
-            </DrawerHeader>
-            <div className="flex h-full flex-col px-4 pb-4">{children}</div>
+            {/* Drawer handle indicator */}
+            <DialogTitle />
+            <div className="flex justify-center">
+              <div className="h-1 w-20 rounded-full bg-primary" />
+            </div>
+            <div className="flex h-full flex-col px-2 pt-3 pb-4">{children}</div>
           </DrawerContent>
         </Drawer>
       </div>

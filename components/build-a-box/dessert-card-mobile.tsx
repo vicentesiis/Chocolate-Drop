@@ -24,8 +24,7 @@ export function DessertCardMobile({
       `}
     >
       <CardContent className="p-0">
-        <div className="flex items-center gap-4 p-3">
-          {/* Image - bigger and centered with proper badge space */}
+        <div className="flex items-center gap-3 p-2">
           <div className="relative h-20 w-20 flex-shrink-0">
             <div className="h-full w-full overflow-hidden rounded-lg">
               <img src={dessert.image} alt={dessert.name} className="h-full w-full object-cover" />

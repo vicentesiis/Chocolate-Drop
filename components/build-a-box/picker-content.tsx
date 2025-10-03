@@ -44,7 +44,7 @@ export function PickerContent({
           `}
         >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">Selecciona tus brigadeiros</span>
+            <span className="text font-medium">Selecciona tus brigadeiros</span>
             <div className="flex items-center gap-2">
               <Badge variant="secondary">
                 {totalSelected}/{selectedBox.capacity}
@@ -139,7 +139,7 @@ export function PickerContent({
       {isBoxFull && (
         <div
           className={`
-            fixed right-4 bottom-4 left-4 z-50 duration-500 animate-in slide-in-from-bottom-8
+            fixed right-4 bottom-12 left-4 z-50 duration-500 animate-in slide-in-from-bottom-16
             sm:hidden
           `}
         >
