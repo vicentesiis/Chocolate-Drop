@@ -1,7 +1,6 @@
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Package } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -71,13 +70,16 @@ export function MobileBoxCard({
               Armar - <span className="font-bold">${box.price}</span>
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="max-h-[80vh] bg-gradient-to-br from-amber-50/90 to-orange-50/80">
+          <DrawerContent
+            className="bg-gradient-to-br from-amber-50/90 to-orange-50/80"
+            style={{ height: "100dvh", maxHeight: "100dvh" }}
+          >
             <VisuallyHidden>
               <DrawerHeader>
                 <DrawerTitle />
               </DrawerHeader>
             </VisuallyHidden>
-            <div className="px-4">{children}</div>
+            <div className="flex h-full flex-col px-4 pb-4">{children}</div>
           </DrawerContent>
         </Drawer>
       </div>

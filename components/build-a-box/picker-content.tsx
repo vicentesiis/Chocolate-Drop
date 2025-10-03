@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type BOXES, DESSERTS } from "./data";
 import { DessertCard } from "./dessert-card";
+import { DessertCardMobile } from "./dessert-card-mobile";
 import type { SelectedDessert } from "./types";
 
 interface PickerContentProps {
@@ -29,9 +30,19 @@ export function PickerContent({
   onClearSelection,
 }: PickerContentProps) {
   return (
-    <div className="space-y-2">
+    <div
+      className={`
+        flex h-full flex-col space-y-2
+        md:block md:h-auto md:space-y-2
+      `}
+    >
       {selectedBox && (
-        <div className="space-y-2">
+        <div
+          className={`
+            flex-shrink-0 space-y-2
+            md:flex-shrink md:space-y-2
+          `}
+        >
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Selecciona tus brigadeiros</span>
             <div className="flex items-center gap-2">
@@ -57,14 +68,39 @@ export function PickerContent({
 
       <ScrollArea
         className={`
-          h-[70vh]
+          flex-1
           md:h-[630px]
         `}
       >
+        {/* Mobile list view */}
         <div
           className={`
-            grid grid-cols-2 gap-4 p-1
-            sm:grid-cols-4
+            space-y-2 p-1
+            sm:hidden
+          `}
+        >
+          {DESSERTS.map((dessert) => {
+            const selected = selectedDesserts.find((d) => d.id === dessert.id);
+            const quantity = selected?.quantity || 0;
+            const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
+
+            return (
+              <DessertCardMobile
+                key={dessert.id}
+                dessert={dessert}
+                quantity={quantity}
+                onUpdateQuantity={onUpdateQuantity}
+                isAddDisabled={isAddDisabled}
+              />
+            );
+          })}
+        </div>
+
+        {/* Desktop grid view */}
+        <div
+          className={`
+            hidden grid-cols-4 gap-4 p-1
+            sm:grid
             lg:grid-cols-6
           `}
         >
@@ -89,7 +125,7 @@ export function PickerContent({
       {/* Desktop button - always visible, disabled when not full */}
       <div
         className={`
-          hidden justify-end border-t py-2
+          hidden flex-shrink-0 justify-end border-t py-2
           sm:flex
         `}
       >
