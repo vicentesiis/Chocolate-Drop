@@ -19,7 +19,8 @@ export function DessertCard({
   return (
     <Card
       className={`
-        group relative overflow-hidden transition-all duration-200
+        group relative overflow-hidden bg-gradient-to-br from-white to-stone-50/80 transition-all
+        duration-200
         hover:scale-[1.02] hover:shadow-lg
       `}
     >

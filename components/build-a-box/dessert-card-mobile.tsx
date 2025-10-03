@@ -19,7 +19,7 @@ export function DessertCardMobile({
   return (
     <Card
       className={`
-        overflow-hidden transition-all duration-200
+        overflow-hidden bg-gradient-to-br from-white to-stone-50/80 transition-all duration-200
         hover:shadow-md
       `}
     >
