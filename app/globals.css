@@ -50,8 +50,10 @@
 
   --breakpoint-xs: 375px;
 
-  --height-screen-minus-navbar: calc(100vh - 5rem);
-  --height-screen-minus-navbar-dvh: calc(100dvh - 5rem);
+  --height-screen-minus-navbar: calc(100vh - 4rem);
+  --height-screen-minus-navbar-dvh: calc(100dvh - 4rem);
+  --height-screen-minus-navbar-lg: calc(100vh - 5rem);
+  --height-screen-minus-navbar-lg-dvh: calc(100dvh - 5rem);
 
   --color-sidebar-ring: var(--sidebar-ring);
 
@@ -200,6 +202,13 @@
   .h-screen-minus-navbar {
     height: var(--height-screen-minus-navbar);
     min-height: var(--height-screen-minus-navbar-dvh);
+  }
+
+  @media (min-width: 1024px) {
+    .h-screen-minus-navbar {
+      height: var(--height-screen-minus-navbar-lg);
+      min-height: var(--height-screen-minus-navbar-lg-dvh);
+    }
   }
 
   .chocolate-gradient {

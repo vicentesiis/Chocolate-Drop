@@ -13,7 +13,7 @@ export default function Home() {
       <div
         id="packages"
         className={`
-          scroll-mt-20 bg-gradient-to-r from-amber-100/30 to-orange-100/30
+          scroll-mt-15 bg-gradient-to-r from-amber-100/30 to-orange-100/30
           sm:scroll-mt-20
         `}
       >
@@ -21,10 +21,7 @@ export default function Home() {
       </div>
       <div
         id="events"
-        className={`
-          scroll-mt-20 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30
-          sm:scroll-mt-0
-        `}
+        className={`scroll-mt-0 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30`}
       >
         <DessertCartRental />
       </div>

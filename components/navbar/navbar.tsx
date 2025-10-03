@@ -10,7 +10,6 @@ const Navbar = () => {
         sticky top-0 z-50 h-16 border-b border-border/40 bg-background/95 backdrop-blur-md
         transition-all duration-200
         supports-[backdrop-filter]:bg-background/80
-        sm:h-18
         lg:h-20
       `}
     >
