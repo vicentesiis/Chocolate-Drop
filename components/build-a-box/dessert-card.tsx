@@ -38,8 +38,8 @@ export function DessertCard({
         {quantity > 0 && (
           <div
             className={`
-              absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full
-              bg-primary text-xs font-bold text-primary-foreground shadow-lg
+              text absolute top-1 right-1 flex h-9 w-9 items-center justify-center rounded-full
+              bg-primary font-bold text-primary-foreground shadow-lg
             `}
           >
             {quantity}
