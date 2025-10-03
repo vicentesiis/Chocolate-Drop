@@ -1,15 +1,8 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Package } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import type { BOXES } from "./data";
 
 interface MobileBoxCardProps {
@@ -63,12 +56,13 @@ export function MobileBoxCard({
               size="lg"
               onClick={() => onOpenPicker(box)}
               className={`
-                w-full gap-2 bg-gradient-to-r from-primary to-primary/90 transition-all duration-300
+                w-full gap-2 bg-gradient-to-r from-primary to-primary/90 font-bold transition-all
+                duration-300
                 hover:scale-105 hover:from-primary/90 hover:to-primary/80
               `}
             >
-              <Package className="h-4 w-4" />
-              Armar - <span className="font-bold">${box.price}</span>
+              <Package className="!size-5" />
+              Armar - ${box.price}
             </Button>
           </DrawerTrigger>
           <DrawerContent
@@ -78,7 +72,7 @@ export function MobileBoxCard({
             {/* Drawer handle indicator */}
             <DialogTitle />
             <div className="flex justify-center">
-              <div className="h-1 w-20 rounded-full bg-primary" />
+              <div className="h-1.5 w-20 rounded-full bg-primary" />
             </div>
             <div className="flex h-full flex-col px-2 pt-3 pb-4">{children}</div>
           </DrawerContent>

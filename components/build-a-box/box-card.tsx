@@ -50,7 +50,7 @@ export function BoxCard({
             object-cover transition-transform duration-300
             hover:scale-105
           `}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 800px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div
           className={`
@@ -86,8 +86,6 @@ export function BoxCard({
             className={`
               text-xl font-bold text-primary
               sm:text-2xl
-              lg:text-2xl
-              xl:text-3xl
             `}
           >
             ${box.price}
@@ -98,7 +96,7 @@ export function BoxCard({
                 size="sm"
                 onClick={() => onOpenPicker(box)}
                 className={`
-                  bg-gradient-to-r from-primary to-primary/90 transition-all duration-300
+                  bg-gradient-to-r from-primary to-primary/90 font-bold transition-all duration-300
                   hover:scale-105 hover:from-primary/90 hover:to-primary/80
                   lg:h-10 lg:px-4 lg:text-sm
                   xl:h-11 xl:px-5 xl:text-base

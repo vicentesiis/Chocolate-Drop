@@ -135,7 +135,7 @@ export default function BuildABox() {
               grid grid-cols-2 gap-4
               sm:grid-cols-2 sm:gap-6
               lg:grid-cols-3 lg:gap-6
-              xl:grid-cols-3 xl:gap-8
+              xl:grid-cols-3 xl:gap-12
             `}
           >
             {BOXES.map((box) => (
@@ -161,8 +161,6 @@ export default function BuildABox() {
             ))}
           </div>
         )}
-
-        <CartSummary cart={cart} />
       </div>
     </section>
   );
