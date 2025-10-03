@@ -46,10 +46,7 @@ const footerSections = [
 const Footer = () => {
   return (
     <footer
-      className={`
-        mt-12 border-t border-orange-200/30 bg-gradient-to-r from-orange-50/50 to-amber-50/50
-        xs:mt-20
-      `}
+      className={`border-t border-orange-200/30 bg-gradient-to-r from-orange-50/50 to-amber-50/50`}
     >
       <div className="mx-auto max-w-(--breakpoint-xl) px-6 py-12">
         {/* Main Footer Content */}
@@ -79,7 +76,7 @@ const Footer = () => {
               <span className="text-sm font-medium text-foreground">Síguenos:</span>
               <div className="flex items-center gap-3">
                 <Link
-                  href="https://instagram.com/chocolatedrop"
+                  href="https://www.instagram.com/chocolatedrop.27"
                   target="_blank"
                   className={`
                     rounded-full bg-gradient-to-r from-pink-500 to-rose-500 p-2 text-white

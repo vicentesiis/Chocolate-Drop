@@ -14,14 +14,17 @@ export default function Home() {
         id="packages"
         className={`
           scroll-mt-20 bg-gradient-to-r from-amber-100/30 to-orange-100/30
-          sm:scroll-mt-10
+          sm:scroll-mt-20
         `}
       >
         <BuildABox />
       </div>
       <div
         id="events"
-        className=" bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30"
+        className={`
+          scroll-mt-20 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30
+          sm:scroll-mt-0
+        `}
       >
         <DessertCartRental />
       </div>
@@ -29,7 +32,7 @@ export default function Home() {
         id="about-us"
         className={`
           scroll-mt-10 bg-gradient-to-r from-orange-100/20 to-amber-100/30
-          sm:scroll-mt-0
+          sm:scroll-mt-20
         `}
       >
         <About />

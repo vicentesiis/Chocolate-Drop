@@ -109,8 +109,9 @@ export function BoxCard({
             </DialogTrigger>
             <DialogContent
               className={`
-                max-h-[95vh] max-w-7xl overflow-hidden bg-gradient-to-br from-amber-50/90
-                to-orange-50/80 ring-1 ring-orange-200/30
+                max-h-[95vh] max-w-7xl overflow-hidden border border-orange-200/40 bg-gradient-to-br
+                from-amber-50 via-orange-50/95 to-rose-50/90 shadow-2xl ring-1 ring-orange-300/20
+                backdrop-blur-sm
               `}
             >
               <DialogHeader>
