@@ -3,12 +3,16 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { BoxCartItem } from "@/components/cart/box-cart-item";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCart } from "@/lib/contexts/cart-context";
 
 export default function CheckoutPage() {
+  const { cart, getTotalPrice, clearCart, removeFromCart } = useCart();
+
   const [customerData, setCustomerData] = useState({
     name: "",
     phone: "",
@@ -16,13 +20,7 @@ export default function CheckoutPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Mock cart data - in a real app, this would come from context/state
-  const mockCartItems = [
-    { id: 1, name: "Brigadeiro Tradicional", quantity: 12, price: 180 },
-    { id: 2, name: "Brigadeiro de Oreo", quantity: 6, price: 120 },
-  ];
-
-  const totalPrice = mockCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = getTotalPrice();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-MX", {
@@ -45,28 +43,39 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (cart.length === 0) {
+      alert("Tu carrito está vacío");
+      return;
+    }
+
     setIsSubmitting(true);
 
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Clear cart after successful purchase
+    clearCart();
 
     // Redirect to confirmation page
     window.location.href = "/checkout/confirmation";
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <div className="container mx-auto max-w-2xl px-4 py-8">
       <div className="mb-6">
         <Link
           href="/"
-          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+          className={`
+            inline-flex items-center text-sm text-muted-foreground
+            hover:text-foreground
+          `}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Volver al carrito
         </Link>
       </div>
 
-      <h1 className="text-3xl font-bold mb-8">Finalizar Pedido</h1>
+      <h1 className="mb-8 text-3xl font-bold">Finalizar Pedido</h1>
 
       {/* Order Summary */}
       <Card className="mb-6">
@@ -74,21 +83,24 @@ export default function CheckoutPage() {
           <CardTitle>Resumen del Pedido</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            {mockCartItems.map((item) => (
-              <div key={item.id} className="flex justify-between items-center">
-                <div>
-                  <span className="font-medium">{item.name}</span>
-                  <span className="text-muted-foreground ml-2">x{item.quantity}</span>
-                </div>
-                <span>{formatPrice(item.price * item.quantity)}</span>
+          {cart.length === 0 ? (
+            <p className="text-center text-muted-foreground">Tu carrito está vacío</p>
+          ) : (
+            <div className="space-y-4">
+              {cart.map((item, index) => (
+                <BoxCartItem
+                  key={`${item.boxType.id}-${item.totalPrice}-${index}`}
+                  item={item}
+                  index={index}
+                  onRemove={removeFromCart}
+                />
+              ))}
+              <div className="flex items-center justify-between border-t pt-3 text-lg font-semibold">
+                <span>Total:</span>
+                <span>{formatPrice(totalPrice)}</span>
               </div>
-            ))}
-            <div className="border-t pt-3 flex justify-between items-center font-semibold text-lg">
-              <span>Total:</span>
-              <span>{formatPrice(totalPrice)}</span>
             </div>
-          </div>
+          )}
         </CardContent>
       </Card>
 
@@ -126,7 +138,12 @@ export default function CheckoutPage() {
       </Card>
 
       {/* Confirm Button */}
-      <Button onClick={handleConfirmPurchase} disabled={isSubmitting} className="w-full" size="lg">
+      <Button
+        onClick={handleConfirmPurchase}
+        disabled={isSubmitting || cart.length === 0}
+        className="w-full"
+        size="lg"
+      >
         {isSubmitting ? "Procesando..." : "Confirmar Compra"}
       </Button>
     </div>
