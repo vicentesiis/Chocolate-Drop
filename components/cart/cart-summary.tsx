@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface CartSummaryProps {
@@ -18,9 +19,11 @@ export function CartSummary({ totalPrice }: CartSummaryProps) {
         <span>Total:</span>
         <span>{formatPrice(totalPrice)}</span>
       </div>
-      <Button className="mt-4 w-full" size="lg">
-        Proceder al Pago
-      </Button>
+      <Link href="/checkout" className="block">
+        <Button className="mt-4 w-full" size="lg">
+          Proceder al Pago
+        </Button>
+      </Link>
     </div>
   );
 }

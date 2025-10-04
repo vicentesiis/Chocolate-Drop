@@ -2,6 +2,7 @@ import type { BOXES } from "./data";
 
 export interface SelectedDessert {
   id: string;
+  name: string;
   quantity: number;
 }
 

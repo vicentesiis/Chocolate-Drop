@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BoxCard } from "./box-card";
-import { CartSummary } from "./cart-summary";
 import { BOXES } from "./data";
 import { MobileBoxCard } from "./mobile-box-card";
 import { PickerContent } from "./picker-content";
@@ -14,7 +13,7 @@ export default function BuildABox() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
   const [selectedDesserts, setSelectedDesserts] = useState<SelectedDessert[]>([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const { cart, addToCart } = useCart();
+  const { addToCart } = useCart();
   const isMobile = useIsMobile();
 
   const totalSelected = selectedDesserts.reduce((sum, dessert) => sum + dessert.quantity, 0);
