@@ -59,7 +59,7 @@ export function CartSheet() {
           <SheetTitle>Carrito de Compras</SheetTitle>
           <SheetDescription>
             {cart.length === 0
-              ? "Tu carrito está vacío"
+              ? ""
               : `${cart.length} caja${cart.length > 1 ? "s" : ""} en tu carrito`}
           </SheetDescription>
         </SheetHeader>

@@ -15,6 +15,15 @@
     "formatWithErrors": true
   },
 
+  "overrides": [
+    {
+      "include": ["components/ui/**"],
+      "formatter": {
+        "enabled": false
+      }
+    }
+  ],
+
   "linter": {
     "enabled": true,
     "rules": {
