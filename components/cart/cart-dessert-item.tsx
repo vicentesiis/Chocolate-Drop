@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DESSERTS } from "@/components/build-a-box/data";
+import type { DESSERTS } from "@/lib/data/products";
 import type { CartDessertItemProps } from "./types";
 
 export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {

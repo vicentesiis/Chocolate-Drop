@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import type { BOXES } from "./data";
+import type { BOXES } from "@/lib/data/products";
 
 interface BoxCardProps {
   box: (typeof BOXES)[0];

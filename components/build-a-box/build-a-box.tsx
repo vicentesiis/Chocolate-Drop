@@ -3,15 +3,15 @@
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/lib/contexts/cart-context";
+import { BOXES, DESSERTS } from "@/lib/data/products";
+import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { BoxCard } from "./box-card";
-import { BOXES } from "./data";
 import { MobileBoxCard } from "./mobile-box-card";
 import { PickerContent } from "./picker-content";
-import type { SelectedDessert } from "./types";
 
 export default function BuildABox() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
-  const [selectedDesserts, setSelectedDesserts] = useState<SelectedDessert[]>([]);
+  const [selectedDesserts, setSelectedDesserts] = useState<Brigadeiro[]>([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const { addToCart } = useCart();
   const isMobile = useIsMobile();
@@ -39,7 +39,10 @@ export default function BuildABox() {
 
         return prev.map((d) => (d.id === dessertId ? { ...d, quantity: newQuantity } : d));
       } else if (change > 0 && currentTotal < selectedBox.capacity) {
-        return [...prev, { id: dessertId, quantity: 1 }];
+        const dessert = DESSERTS.find((d) => d.id === dessertId);
+        if (dessert) {
+          return [...prev, { id: dessertId, name: dessert.name, quantity: 1 }];
+        }
       }
 
       return prev;
@@ -51,7 +54,7 @@ export default function BuildABox() {
 
     const cartItem = {
       boxType: selectedBox,
-      selectedDesserts: [...selectedDesserts],
+      brigadeiros: [...selectedDesserts],
       totalPrice: selectedBox.price,
     };
 

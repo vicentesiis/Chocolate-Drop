@@ -3,14 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type BOXES, DESSERTS } from "./data";
+import { type BOXES, DESSERTS } from "@/lib/data/products";
+import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { DessertCard } from "./dessert-card";
 import { DessertCardMobile } from "./dessert-card-mobile";
-import type { SelectedDessert } from "./types";
 
 interface PickerContentProps {
   selectedBox: (typeof BOXES)[0] | null;
-  selectedDesserts: SelectedDessert[];
+  selectedDesserts: Brigadeiro[];
   totalSelected: number;
   progressPercentage: number;
   isBoxFull: boolean;

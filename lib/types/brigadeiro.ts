@@ -1,4 +1,4 @@
-import type { BOXES, DESSERTS } from "../../components/build-a-box/data";
+import type { BOXES, DESSERTS } from "@/lib/data/products";
 
 // Base types from data
 export type Box = (typeof BOXES)[0];

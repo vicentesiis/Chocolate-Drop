@@ -1,7 +1,7 @@
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { DESSERTS } from "./data";
+import type { DESSERTS } from "@/lib/data/products";
 
 interface DessertCardMobileProps {
   dessert: (typeof DESSERTS)[0];
