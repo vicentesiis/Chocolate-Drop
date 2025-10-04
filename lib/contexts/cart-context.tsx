@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
-import type { CartItem } from "@/components/build-a-box/types";
+import type { CartItem } from "@/lib/types/cart";
 
 interface CartContextType {
   cart: CartItem[];
