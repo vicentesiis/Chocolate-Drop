@@ -11,8 +11,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCart } from "@/lib/contexts/cart-context";
+import { BoxCartItem } from "./box-cart-item";
 import { CartEmptyState } from "./cart-empty-state";
-import { CartItem } from "./cart-item";
 import { CartSummary } from "./cart-summary";
 
 export function CartSheet() {
@@ -70,7 +70,7 @@ export function CartSheet() {
           ) : (
             <div className="space-y-6">
               {cart.map((item, index) => (
-                <CartItem
+                <BoxCartItem
                   key={`cart-item-${index}`}
                   item={item}
                   index={index}

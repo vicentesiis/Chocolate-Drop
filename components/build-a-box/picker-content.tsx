@@ -3,14 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type BOXES, DESSERTS } from "@/lib/data/products";
+import { type BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { DessertCard } from "./dessert-card";
 import { DessertCardMobile } from "./dessert-card-mobile";
 
 interface PickerContentProps {
   selectedBox: (typeof BOXES)[0] | null;
-  selectedDesserts: Brigadeiro[];
+  brigadeiros: Brigadeiro[];
   totalSelected: number;
   progressPercentage: number;
   isBoxFull: boolean;
@@ -21,7 +21,7 @@ interface PickerContentProps {
 
 export function PickerContent({
   selectedBox,
-  selectedDesserts,
+  brigadeiros,
   totalSelected,
   progressPercentage,
   isBoxFull,
@@ -79,8 +79,8 @@ export function PickerContent({
             sm:hidden
           `}
         >
-          {DESSERTS.map((dessert) => {
-            const selected = selectedDesserts.find((d) => d.id === dessert.id);
+          {BRIGADEIROS.map((dessert) => {
+            const selected = brigadeiros.find((d) => d.id === dessert.id);
             const quantity = selected?.quantity || 0;
             const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
 
@@ -104,8 +104,8 @@ export function PickerContent({
             lg:grid-cols-6
           `}
         >
-          {DESSERTS.map((dessert) => {
-            const selected = selectedDesserts.find((d) => d.id === dessert.id);
+          {BRIGADEIROS.map((dessert) => {
+            const selected = brigadeiros.find((d) => d.id === dessert.id);
             const quantity = selected?.quantity || 0;
             const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
 

@@ -1,9 +1,13 @@
 import Image from "next/image";
-import type { DESSERTS } from "@/lib/data/products";
-import type { CartDessertItemProps } from "./types";
+import { BRIGADEIROS } from "@/lib/data/products";
+
+interface CartDessertItemProps {
+  dessertId: string;
+  quantity: number;
+}
 
 export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {
-  const dessert = DESSERTS.find((d) => d.id === dessertId);
+  const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
 
   if (!dessert) return null;
 

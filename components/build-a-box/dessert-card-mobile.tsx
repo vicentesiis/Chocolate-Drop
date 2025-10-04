@@ -1,10 +1,10 @@
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { DESSERTS } from "@/lib/data/products";
+import type { BRIGADEIROS } from "@/lib/data/products";
 
 interface DessertCardMobileProps {
-  dessert: (typeof DESSERTS)[0];
+  dessert: (typeof BRIGADEIROS)[0];
   quantity: number;
   onUpdateQuantity: (dessertId: string, change: number) => void;
   isAddDisabled: boolean;

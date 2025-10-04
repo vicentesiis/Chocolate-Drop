@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/lib/contexts/cart-context";
-import { BOXES, DESSERTS } from "@/lib/data/products";
+import { BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { BoxCard } from "./box-card";
 import { MobileBoxCard } from "./mobile-box-card";
@@ -11,19 +11,19 @@ import { PickerContent } from "./picker-content";
 
 export default function BuildABox() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
-  const [selectedDesserts, setSelectedDesserts] = useState<Brigadeiro[]>([]);
+  const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const { addToCart } = useCart();
   const isMobile = useIsMobile();
 
-  const totalSelected = selectedDesserts.reduce((sum, dessert) => sum + dessert.quantity, 0);
+  const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
   const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
   const isBoxFull = selectedBox ? totalSelected === selectedBox.capacity : false;
 
   const updateDessertQuantity = (dessertId: string, change: number) => {
     if (!selectedBox) return;
 
-    setSelectedDesserts((prev) => {
+    setBrigadeiros((prev) => {
       const existing = prev.find((d) => d.id === dessertId);
       const currentTotal = prev.reduce((sum, d) => sum + d.quantity, 0);
 
@@ -39,7 +39,7 @@ export default function BuildABox() {
 
         return prev.map((d) => (d.id === dessertId ? { ...d, quantity: newQuantity } : d));
       } else if (change > 0 && currentTotal < selectedBox.capacity) {
-        const dessert = DESSERTS.find((d) => d.id === dessertId);
+        const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
         if (dessert) {
           return [...prev, { id: dessertId, name: dessert.name, quantity: 1 }];
         }
@@ -54,24 +54,24 @@ export default function BuildABox() {
 
     const cartItem = {
       boxType: selectedBox,
-      brigadeiros: [...selectedDesserts],
+      brigadeiros: [...brigadeiros],
       totalPrice: selectedBox.price,
     };
 
     addToCart(cartItem);
     setSelectedBox(null);
-    setSelectedDesserts([]);
+    setBrigadeiros([]);
     setIsPickerOpen(false);
   };
 
   const openPicker = (box: (typeof BOXES)[0]) => {
     setSelectedBox(box);
-    setSelectedDesserts([]);
+    setBrigadeiros([]);
     setIsPickerOpen(true);
   };
 
   const clearSelection = () => {
-    setSelectedDesserts([]);
+    setBrigadeiros([]);
   };
 
   return (
@@ -127,7 +127,7 @@ export default function BuildABox() {
               >
                 <PickerContent
                   selectedBox={selectedBox}
-                  selectedDesserts={selectedDesserts}
+                  brigadeiros={brigadeiros}
                   totalSelected={totalSelected}
                   progressPercentage={progressPercentage}
                   isBoxFull={isBoxFull}
@@ -158,7 +158,7 @@ export default function BuildABox() {
               >
                 <PickerContent
                   selectedBox={selectedBox}
-                  selectedDesserts={selectedDesserts}
+                  brigadeiros={brigadeiros}
                   totalSelected={totalSelected}
                   progressPercentage={progressPercentage}
                   isBoxFull={isBoxFull}

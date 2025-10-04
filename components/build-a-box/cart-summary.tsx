@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { CartItem } from "./types";
+import type { CartItem } from "@/lib/types/cart";
 
 interface CartSummaryProps {
   cart: CartItem[];
@@ -32,7 +32,7 @@ export function CartSummary({ cart }: CartSummaryProps) {
                 <div>
                   <h4 className="font-medium">{item.boxType.name}</h4>
                   <p className="text-sm text-muted-foreground">
-                    {item.selectedDesserts.length} varieties
+                    {(item.brigadeiros || []).length} varieties
                   </p>
                 </div>
               </div>

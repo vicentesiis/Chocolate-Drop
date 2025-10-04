@@ -1,9 +1,15 @@
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { CartItem } from "@/lib/types/cart";
 import { CartDessertItem } from "./cart-dessert-item";
-import type { CartItemProps } from "./types";
 
-export function CartItem({ item, index, onRemove }: CartItemProps) {
+interface BoxCartItemProps {
+  item: CartItem;
+  index: number;
+  onRemove: (index: number) => void;
+}
+
+export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-MX", {
       style: "currency",
@@ -22,7 +28,10 @@ export function CartItem({ item, index, onRemove }: CartItemProps) {
           variant="ghost"
           size="sm"
           onClick={() => onRemove(index)}
-          className="text-destructive hover:text-destructive"
+          className={`
+            text-destructive
+            hover:text-destructive
+          `}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
@@ -30,11 +39,11 @@ export function CartItem({ item, index, onRemove }: CartItemProps) {
 
       <div className="mt-3 space-y-2">
         <p className="text-sm font-medium">Brigadeiros seleccionados:</p>
-        {item.selectedDesserts.map((selectedDessert) => (
+        {(item.brigadeiros || []).map((brigadeiro) => (
           <CartDessertItem
-            key={selectedDessert.id}
-            dessertId={selectedDessert.id}
-            quantity={selectedDessert.quantity}
+            key={brigadeiro.id}
+            dessertId={brigadeiro.id}
+            quantity={brigadeiro.quantity}
           />
         ))}
       </div>

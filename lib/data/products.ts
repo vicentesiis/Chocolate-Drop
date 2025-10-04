@@ -22,7 +22,7 @@ export const BOXES = [
   },
 ];
 
-export const DESSERTS = [
+export const BRIGADEIROS = [
   {
     id: "cheesecake-guayaba",
     name: "Cheesecake de Guayaba",

@@ -27,6 +27,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       console.error("Error loading cart from localStorage:", error);
+      // Clear corrupted cart data
+      localStorage.removeItem("cart");
     } finally {
       setIsLoaded(true);
     }
@@ -57,8 +59,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalItems = () => {
     return cart.reduce(
-      (total, item) =>
-        total + item.selectedDesserts.reduce((sum, dessert) => sum + dessert.quantity, 0),
+      (total, item) => total + item.brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0),
       0,
     );
   };
