@@ -51,11 +51,11 @@ export function CartSheet() {
       </SheetTrigger>
       <SheetContent
         className={`
-          w-full
+          flex h-full w-full flex-col
           sm:max-w-lg
         `}
       >
-        <SheetHeader>
+        <SheetHeader className="flex-shrink-0">
           <SheetTitle>Carrito de Compras</SheetTitle>
           <SheetDescription>
             {cart.length === 0
@@ -64,11 +64,11 @@ export function CartSheet() {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 flex-1 overflow-y-auto">
+        <div className="-mr-2 flex-1 overflow-y-auto pr-2">
           {cart.length === 0 ? (
             <CartEmptyState />
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {cart.map((item, index) => (
                 <BoxCartItem
                   key={`cart-item-${index}`}
@@ -81,7 +81,11 @@ export function CartSheet() {
           )}
         </div>
 
-        {cart.length > 0 && <CartSummary totalPrice={getTotalPrice()} />}
+        {cart.length > 0 && (
+          <div className="flex-shrink-0 border-t pt-4">
+            <CartSummary totalPrice={getTotalPrice()} />
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );

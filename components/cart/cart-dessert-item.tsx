@@ -12,19 +12,34 @@ export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {
   if (!dessert) return null;
 
   return (
-    <div className="flex items-center gap-3 rounded-md bg-muted/50 p-2">
-      <Image
-        src={dessert.image}
-        alt={dessert.name}
-        width={32}
-        height={32}
-        className="rounded-full"
-      />
-      <div className="flex-1">
-        <p className="text-sm font-medium">{dessert.name}</p>
+    <div
+      className={`
+      flex items-center gap-3 rounded-lg bg-muted/30 p-3 transition-colors
+      hover:bg-muted/50
+    `}
+    >
+      <div className="relative">
+        <Image
+          src={dessert.image}
+          alt={dessert.name}
+          width={40}
+          height={40}
+          className="rounded-full object-cover shadow-sm ring-2 ring-background"
+        />
+        <div
+          className={`
+          absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary
+          text-xs font-bold text-primary-foreground
+        `}
+        >
+          {quantity}
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium">{quantity}</span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-medium text-foreground">{dessert.name}</p>
+        <p className="text-xs text-muted-foreground">
+          {quantity} {quantity === 1 ? "pieza" : "piezas"}
+        </p>
       </div>
     </div>
   );
