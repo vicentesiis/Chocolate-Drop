@@ -31,7 +31,7 @@ export function CartSheet() {
         >
           <ShoppingCart
             className={`
-              !size-5 transition-transform
+              !size-6 transition-transform
               group-hover:scale-110
               sm:!size-6
             `}

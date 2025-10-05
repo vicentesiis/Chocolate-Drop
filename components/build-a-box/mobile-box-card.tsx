@@ -70,7 +70,7 @@ export function MobileBoxCard({
           </DrawerTrigger>
           <DrawerContent
             className="bg-gradient-to-br from-orange-50/90 via-amber-100/80 to-yellow-50/70"
-            style={{ height: "100dvh", maxHeight: "100dvh" }}
+            style={{ height: "97dvh", maxHeight: "100dvh" }}
           >
             {/* Drawer handle indicator */}
             <DialogTitle />

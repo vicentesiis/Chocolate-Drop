@@ -25,7 +25,7 @@ export const NavigationSheet = () => {
             hover:bg-accent hover:text-accent-foreground
           `}
         >
-          <Menu className="!size-5" />
+          <Menu className="!size-6" />
         </Button>
       </SheetTrigger>
       <SheetContent

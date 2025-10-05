@@ -16,7 +16,6 @@ export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {
       className={`
         flex items-center gap-4 rounded-lg bg-muted/30 py-2 transition-colors
         hover:bg-muted/50
-        lg:p-4
       `}
     >
       <div className="relative">

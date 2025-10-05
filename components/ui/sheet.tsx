@@ -93,7 +93,7 @@ const SheetContent = React.forwardRef<
           data-[state=open]:bg-secondary
         `}
       >
-        <X className="h-4 w-4" />
+        <X className="h-6 w-6" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
       {children}

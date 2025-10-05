@@ -139,7 +139,7 @@ export function PickerContent({
       {isBoxFull && (
         <div
           className={`
-            fixed right-4 bottom-12 left-4 z-50 duration-500 animate-in slide-in-from-bottom-16
+            fixed right-4 bottom-8 left-4 z-50 duration-500 animate-in slide-in-from-bottom-16
             sm:hidden
           `}
         >
