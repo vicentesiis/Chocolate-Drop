@@ -53,7 +53,7 @@ export function MobileBoxCard({
       <div className="flex flex-col gap-3">
         <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange}>
 
-          <DrawerSmoothScrollFix open={isPickerOpen} />
+          <DrawerSmoothScrollFix open={isPickerOpen && selectedBoxId === box.id} />
           <DrawerTrigger asChild>
             <Button
               size="lg"

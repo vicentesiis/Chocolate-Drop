@@ -64,7 +64,7 @@ export function CartSheet() {
           </SheetDescription>
         </SheetHeader>
 
-        <div className="-mr-2 flex-1 overflow-y-auto pr-2">
+        <div className=" flex-1 overflow-y-auto">
           {cart.length === 0 ? (
             <CartEmptyState />
           ) : (

@@ -22,48 +22,62 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
   return (
     <div
       className={`
-      group rounded-xl border border-border/50 bg-card p-5 shadow-sm transition-all
-      hover:border-border hover:shadow-md
-    `}
+        group relative rounded-xl border border-border/50 bg-card p-4 shadow-sm transition-all
+        hover:border-border hover:shadow-md
+        sm:p-5
+      `}
     >
-      <div className="mb-4 flex items-start justify-between">
-        <div className="flex-1">
-          <div className="mb-1 flex items-center gap-2">
-            <h3 className="text-lg font-semibold text-foreground">{item.boxType.name}</h3>
-            <span
-              className={`
-              inline-flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-medium
-              text-primary
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onRemove(index)}
+        className={`
+          absolute top-2 right-2 h-8 w-8 p-0 text-muted-foreground opacity-60 transition-all
+          hover:bg-destructive/10 hover:text-destructive hover:opacity-100
+          sm:opacity-0 sm:group-hover:opacity-100
+        `}
+      >
+        <Trash2 className="h-4 w-4" />
+      </Button>
+
+      <div className="mb-4">
+        <h3 className={`
+          mb-2 truncate text-base font-semibold text-foreground
+          sm:text-lg
+        `}>
+          {item.boxType.name}
+        </h3>
+        <div className="flex items-center justify-between">
+          <p className={`
+            text-lg font-bold text-primary
+            sm:text-xl
+          `}>{formatPrice(item.totalPrice)}</p>
+          <span
+            className={`
+              inline-flex w-fit items-center rounded-full bg-primary/10 px-2 py-1 text-xs
+              font-medium text-primary
             `}
-            >
-              {totalBrigadeiros} piezas
-            </span>
-          </div>
-          <p className="text-xl font-bold text-primary">{formatPrice(item.totalPrice)}</p>
+          >
+            {totalBrigadeiros} piezas
+          </span>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onRemove(index)}
-          className={`
-            text-muted-foreground opacity-0 transition-opacity
-            group-hover:opacity-100
-            hover:bg-destructive/10 hover:text-destructive
-          `}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
       </div>
 
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <div className="h-px flex-1 bg-border"></div>
-          <p className="px-2 text-sm font-medium text-muted-foreground">
+          <p className={`
+            px-2 text-xs font-medium whitespace-nowrap text-muted-foreground
+            sm:text-sm
+          `}>
             Brigadeiros seleccionados
           </p>
           <div className="h-px flex-1 bg-border"></div>
         </div>
-        <div className="grid gap-2">
+        <div className={`
+          grid gap-2
+          sm:gap-3
+        `}>
           {(item.brigadeiros || []).map((brigadeiro) => (
             <CartDessertItem
               key={brigadeiro.id}
