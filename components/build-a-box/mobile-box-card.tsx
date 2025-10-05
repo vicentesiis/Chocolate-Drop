@@ -3,7 +3,8 @@ import { Package } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import type { BOXES } from "./data";
+import type { BOXES } from "@/lib/data/products"
+import DrawerSmoothScrollFix from "../drawer-smooth-scroll.fix";
 
 interface MobileBoxCardProps {
   box: (typeof BOXES)[0];
@@ -51,6 +52,8 @@ export function MobileBoxCard({
 
       <div className="flex flex-col gap-3">
         <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange}>
+
+          <DrawerSmoothScrollFix open={isPickerOpen} />
           <DrawerTrigger asChild>
             <Button
               size="lg"
