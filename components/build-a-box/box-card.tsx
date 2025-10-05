@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -109,6 +110,7 @@ export function BoxCard({
             >
               <DialogHeader>
                 <DialogTitle>{box.name}</DialogTitle>
+                <DialogDescription />
               </DialogHeader>
               {children}
             </DialogContent>

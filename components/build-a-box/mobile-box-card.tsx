@@ -1,4 +1,4 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
 import { Package } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export function MobileBoxCard({
       </div>
 
       <div className="flex flex-col gap-3">
-        <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange}>
+        <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange} modal={true}>
 
           <DrawerSmoothScrollFix open={isPickerOpen && selectedBoxId === box.id} />
           <DrawerTrigger asChild>
@@ -63,6 +63,7 @@ export function MobileBoxCard({
                 duration-300
                 hover:scale-105 hover:from-primary/90 hover:to-primary/80
               `}
+
             >
               <Package className="!size-5" />
               Armar - ${box.price}
@@ -74,6 +75,7 @@ export function MobileBoxCard({
           >
             {/* Drawer handle indicator */}
             <DialogTitle />
+            <DialogDescription />
             <div className="flex justify-center">
               <div className="h-1.5 w-20 rounded-full bg-primary" />
             </div>

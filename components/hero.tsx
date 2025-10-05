@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Instagram } from "lucide-react";
 import { Chewy } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,9 +13,10 @@ const Hero = () => {
   return (
     <div
       className={`
-        relative flex h-screen-minus-navbar w-full items-start justify-center overflow-hidden
-        border-b border-orange-200/50 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 pt-4
-        lg:items-start
+        relative flex min-h-screen-minus-navbar w-full items-center justify-center overflow-hidden
+        border-b border-orange-200/50 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50
+        sm:py-12
+        lg:py-16
       `}
     >
       {/* Decorative background elements */}
@@ -41,21 +42,24 @@ const Hero = () => {
       </div>
       <div
         className={`
-          mx-auto flex w-full max-w-(--breakpoint-xl) flex-col items-center justify-start gap-x-8
-          gap-y-4 px-4 py-2
-          sm:gap-y-6 sm:px-6 sm:py-4
-          md:gap-y-8 md:py-6
-          lg:h-full lg:flex-row lg:justify-center
+          mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-8 px-4
+          sm:px-6
+          lg:flex-row lg:gap-12
+          xl:gap-16
         `}
       >
-        <div className="max-w-xl">
+        <div className={`
+          flex-1 text-center
+          lg:text-left
+        `}>
           <h1
             className={`
-              font-display bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-3xl
+              font-display bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-4xl
               leading-tight font-bold tracking-tight text-transparent
-              sm:text-5xl
-              md:text-6xl
-              lg:text-7xl lg:leading-[1.1]
+              sm:text-5xl sm:leading-tight
+              md:text-6xl md:leading-tight
+              lg:text-6xl lg:leading-tight
+              xl:text-7xl xl:leading-[1.1]
             `}
           >
             BRIGADEIROS GOURMET, DULCES DE BRASIL
@@ -63,75 +67,86 @@ const Hero = () => {
           <p
             className={`
               ${chewy.className}
-              mt-2 max-w-[700px] text-xl text-muted-foreground
-              sm:mt-3 sm:text-2xl
-              md:mt-4 md:text-3xl
-              lg:mt-6 lg:text-4xl
+              text-lg text-muted-foreground/80
+              sm:mt-4 sm:text-xl
+              md:mt-6 md:text-2xl
+              lg:text-2xl
+              xl:text-3xl
             `}
           >
             From our hearts, to your hands
           </p>
-          {/* Button visible on sm+ screens */}
           <div
             className={`
-              mt-4 hidden flex-col items-center gap-4
-              sm:mt-5 sm:flex sm:flex-row
-              md:mt-6
-              lg:mt-8
+              mt-6 flex flex-col items-center gap-3
+              sm:mt-8 sm:flex-row sm:justify-center sm:gap-4
+              lg:justify-start
             `}
           >
             <Button
               className={`
-                h-12 gap-1.5 px-8 font-semibold text-white transition-all duration-300
-                hover:scale-105
-                sm:text-lg
+                h-12 w-full gap-2 px-8 font-semibold text-white shadow-lg transition-all
+                duration-300
+                hover:scale-105 hover:shadow-xl
+                sm:w-auto sm:text-lg
               `}
               size="lg"
               asChild
             >
               <Link href="#packages">
-                Haz tu pedido <ArrowRight className="h-4 w-4" />
+                Haz tu pedido <ArrowRight className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              className={`
+                h-12 w-full gap-2 px-8 font-semibold shadow-md transition-all duration-300
+                hover:scale-105 hover:shadow-lg
+                sm:w-auto sm:text-lg
+              `}
+              size="lg"
+              variant="outline"
+              asChild
+            >
+              <Link href="https://www.instagram.com/chocolatedrop.27" target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-5 w-5" />
+                Síguenos en Instagram
               </Link>
             </Button>
           </div>
         </div>
         <div
           className={`
-            chocolate-shadow warm-glow relative aspect-square w-full max-w-sm rounded-xl
-            bg-gradient-to-br from-orange-100 to-amber-100 ring-1 ring-orange-200/50
+            chocolate-shadow warm-glow relative aspect-square w-full max-w-sm flex-shrink-0
+            overflow-hidden rounded-2xl bg-gradient-to-br from-orange-100 to-amber-100 ring-1
+            ring-orange-200/50 transition-transform duration-500
+            hover:scale-105
             sm:max-w-md
-            md:max-w-lg
-            lg:max-w-lg
+            lg:aspect-[1] lg:max-w-lg
             xl:max-w-xl
           `}
         >
-          <Image src="/hero.jpg" fill alt="" className="rounded-xl object-cover" />
+          <Image 
+            src="/hero.jpg" 
+            fill 
+            alt="Delicious Brazilian brigadeiros" 
+            className="rounded-2xl object-cover" 
+            priority 
+          />
           <div
             className={`
-              absolute inset-0 rounded-xl bg-gradient-to-t from-orange-900/10 via-transparent
+              absolute inset-0 rounded-2xl bg-gradient-to-t from-orange-900/20 via-transparent
               to-transparent
             `}
           ></div>
-        </div>
-        {/* Button visible only on mobile */}
-        <div
-          className={`
-            flex w-full flex-col items-center gap-4
-            sm:hidden
-          `}
-        >
-          <Button
+          {/* Floating badge */}
+          <div
             className={`
-              h-12 gap-1.5 px-8 font-semibold text-white transition-all duration-300
-              hover:scale-105
+              absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold
+              text-orange-800 shadow-lg backdrop-blur-sm
             `}
-            size="lg"
-            asChild
           >
-            <Link href="#packages">
-              Haz tu pedido <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+            Artesanal
+          </div>
         </div>
       </div>
     </div>

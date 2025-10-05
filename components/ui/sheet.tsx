@@ -36,9 +36,10 @@ SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
   `
-    fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out
+    fixed z-50 gap-4 bg-background p-4 shadow-lg transition ease-in-out
     data-[state=closed]:duration-300 data-[state=closed]:animate-out
     data-[state=open]:duration-500 data-[state=open]:animate-in
+    sm:p-6
   `,
   {
     variants: {
@@ -86,9 +87,9 @@ const SheetContent = React.forwardRef<
     <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
       <SheetPrimitive.Close
         className={`
-          absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity
+          absolute top-4 right-4 rounded-sm opacity-70 transition-opacity
           hover:opacity-100
-          focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none
+          focus:outline-none
           disabled:pointer-events-none
           data-[state=open]:bg-secondary
         `}
@@ -106,8 +107,8 @@ const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   <div
     className={cn(
       `
-        flex flex-col space-y-2 text-center
-        sm:text-left
+        flex flex-col space-y-0 text-center
+        sm:space-y-2 sm:text-left
       `,
       className,
     )}
@@ -136,7 +137,10 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("text-xl font-semibold text-foreground", className)}
+    className={cn(`
+      text-lg font-semibold text-foreground
+      sm:text-xl
+    `, className)}
     {...props}
   />
 ));
@@ -148,7 +152,10 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn("text-lg text-muted-foreground", className)}
+    className={cn(`
+      text-md text-muted-foreground
+      sm:text-lg
+    `, className)}
     {...props}
   />
 ));

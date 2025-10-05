@@ -16,7 +16,7 @@ import { CartEmptyState } from "./cart-empty-state";
 import { CartSummary } from "./cart-summary";
 
 export function CartSheet() {
-  const { cart, removeFromCart, getTotalItems, getTotalPrice } = useCart();
+  const { cart, removeFromCart, getTotalPrice } = useCart();
 
   return (
     <Sheet>
@@ -36,7 +36,7 @@ export function CartSheet() {
               sm:!size-6
             `}
           />
-          {getTotalItems() > 0 && (
+          {cart.length > 0 && (
             <span
               className={`
                 absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full
@@ -44,7 +44,7 @@ export function CartSheet() {
                 font-semibold text-primary-foreground shadow-lg duration-200 animate-in zoom-in-50
               `}
             >
-              {getTotalItems()}
+              {cart.length}
             </span>
           )}
         </Button>
@@ -82,7 +82,7 @@ export function CartSheet() {
         </div>
 
         {cart.length > 0 && (
-          <div className="flex-shrink-0 border-t pt-4">
+          <div className={`flex-shrink-0 border-t pt-2`}>
             <CartSummary totalPrice={getTotalPrice()} />
           </div>
         )}

@@ -20,7 +20,7 @@ export function CartSummary({ totalPrice }: CartSummaryProps) {
         <span>{formatPrice(totalPrice)}</span>
       </div>
       <Link href="/checkout" className="block">
-        <Button className="mt-4 w-full" size="lg">
+        <Button className="mt-2 w-full" size="lg">
           Proceder al Pago
         </Button>
       </Link>

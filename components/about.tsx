@@ -100,7 +100,10 @@ export function About({ className }: AboutProps) {
               {highlights.map((highlight, index) => (
                 <div className="flex items-center gap-3" key={index}>
                   <div
-                    className={`flex h-5 w-5 items-center justify-center rounded-full bg-primary/20`}
+                    className={`
+                      flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
+                      bg-primary/20
+                    `}
                   >
                     <Check className="h-3 w-3 text-primary" />
                   </div>
