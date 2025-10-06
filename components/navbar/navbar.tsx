@@ -14,10 +14,7 @@ const Navbar = () => {
       `}
     >
       <div
-        className={`
-          mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-4
-          sm:px-6
-        `}
+        className={`mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-6`}
       >
         <div className="flex items-center">
           <Logo />

@@ -8,11 +8,11 @@ export default function ConfirmationPage() {
   const orderNumber = "ORD-" + Math.random().toString(36).substr(2, 9).toUpperCase();
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <div className="container mx-auto max-w-2xl px-4 py-8">
       <div className="text-center">
-        <CheckCircle className="mx-auto h-16 w-16 text-green-500 mb-4" />
-        <h1 className="text-3xl font-bold mb-2">¡Pedido Confirmado!</h1>
-        <p className="text-muted-foreground mb-8">
+        <CheckCircle className="mx-auto mb-4 h-16 w-16 text-green-500" />
+        <h1 className="mb-2 text-3xl font-bold">¡Pedido Confirmado!</h1>
+        <p className="mb-8 text-muted-foreground">
           Gracias por tu compra. Hemos recibido tu pedido correctamente.
         </p>
       </div>
@@ -39,16 +39,19 @@ export default function ConfirmationPage() {
         </CardContent>
       </Card>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-        <h3 className="font-semibold text-blue-900 mb-2">¿Qué sigue?</h3>
-        <ul className="text-sm text-blue-800 space-y-1">
+      <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <h3 className="mb-2 font-semibold text-blue-900">¿Qué sigue?</h3>
+        <ul className="space-y-1 text-sm text-blue-800">
           <li>• Nos pondremos en contacto contigo para coordinar la entrega</li>
           <li>• Recibirás una confirmación por WhatsApp</li>
           <li>• El tiempo de preparación es de 24-48 horas</li>
         </ul>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className={`
+        flex flex-col gap-4
+        sm:flex-row
+      `}>
         <Link href="/" className="flex-1">
           <Button variant="outline" className="w-full">
             Seguir Comprando

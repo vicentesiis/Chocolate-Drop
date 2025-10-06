@@ -81,9 +81,7 @@ export function CartSheet() {
         </div>
 
         {cart.length > 0 && (
-          <div className={`flex-shrink-0 border-t pt-2`}>
-            <CartSummary totalPrice={getTotalPrice()} />
-          </div>
+          <CartSummary totalPrice={getTotalPrice()} />
         )}
       </SheetContent>
     </Sheet>
