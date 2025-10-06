@@ -66,10 +66,7 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <div className="h-px flex-1 bg-border"></div>
-          <p className={`
-            px-2 text-xs font-medium whitespace-nowrap text-muted-foreground
-            sm:text-sm
-          `}>
+          <p className={`px-2 text-sm font-medium whitespace-nowrap text-muted-foreground`}>
             Brigadeiros seleccionados
           </p>
           <div className="h-px flex-1 bg-border"></div>

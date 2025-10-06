@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/lib/contexts/cart-context";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -70,7 +71,10 @@ export default function RootLayout({
         `}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            {children}
+            <Toaster />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>
