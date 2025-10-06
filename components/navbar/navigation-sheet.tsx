@@ -25,19 +25,19 @@ export const NavigationSheet = () => {
             hover:bg-accent hover:text-accent-foreground
           `}
         >
-          <Menu className="!size-6" />
+          <Menu className="!size-7" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
         className={`
-          w-60 border-l border-border/40 bg-background/95 backdrop-blur-md
+          w-64 border-l border-border/40 bg-background/95 backdrop-blur-md
           supports-[backdrop-filter]:bg-background/80
         `}
       >
         <Logo />
 
-        <div className="mt-8 space-y-1">
+        <div className="mt-4">
           <NavMenu orientation="vertical" onItemClick={() => setIsOpen(false)} />
         </div>
       </SheetContent>

@@ -30,7 +30,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
-              text-lg font-medium text-primary transition-colors
+              text-xl font-medium text-primary transition-colors
               hover:bg-accent hover:text-accent-foreground
               disabled:pointer-events-none disabled:opacity-50
               data-[active]:bg-accent/50
@@ -63,7 +63,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
-              text-lg font-medium text-primary transition-colors
+              text-xl font-medium text-primary transition-colors
               hover:bg-accent hover:text-accent-foreground
               disabled:pointer-events-none disabled:opacity-50
               data-[active]:bg-accent/50
@@ -96,7 +96,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
-              text-lg font-medium text-primary transition-colors
+              text-xl font-medium text-primary transition-colors
               hover:bg-accent hover:text-accent-foreground
               disabled:pointer-events-none disabled:opacity-50
               data-[active]:bg-accent/50
@@ -129,7 +129,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
-              text-lg font-medium text-primary transition-colors
+              text-xl font-medium text-primary transition-colors
               hover:bg-accent hover:text-accent-foreground
               disabled:pointer-events-none disabled:opacity-50
               data-[active]:bg-accent/50

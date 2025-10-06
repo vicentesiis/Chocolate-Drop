@@ -25,15 +25,14 @@ export function CartSheet() {
           variant="ghost"
           size="icon"
           className={`
-            group relative h-10 w-10 rounded-full transition-all duration-200 ease-in-out
+            group relative rounded-full transition-all duration-200 ease-in-out
             hover:scale-105 hover:bg-accent/50
           `}
         >
           <ShoppingCart
             className={`
-              !size-6 transition-transform
+              !size-7 transition-transform
               group-hover:scale-110
-              sm:!size-6
             `}
           />
           {cart.length > 0 && (
