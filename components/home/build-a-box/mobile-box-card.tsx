@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import type { BOXES } from "@/lib/data/products"
-import DrawerSmoothScrollFix from "../drawer-smooth-scroll.fix";
+import DrawerSmoothScrollFix from "@/components/drawer-smooth-scroll.fix";
 
 interface MobileBoxCardProps {
   box: (typeof BOXES)[0];
