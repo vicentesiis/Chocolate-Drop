@@ -1,4 +1,4 @@
-import { Carousel } from "@/components/carousel";
+import { Carousel } from "./carousel";
 import type { DessertCartImage } from "./types";
 
 const dessertCartImages: DessertCartImage[] = [
