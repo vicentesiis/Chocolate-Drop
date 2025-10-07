@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { RotateCcw, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type BOXES, BRIGADEIROS } from "@/lib/data/products";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { type BOXES, BRIGADEIROS, HALLOWEEN_BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { DessertCard } from "./dessert-card";
 import { DessertCardMobile } from "./dessert-card-mobile";
@@ -29,10 +31,65 @@ export function PickerContent({
   onAddToCart,
   onClearSelection,
 }: PickerContentProps) {
+  const [activeTab, setActiveTab] = useState("regular");
+
+  const renderProductList = (products: typeof BRIGADEIROS) => (
+    <>
+      {/* Mobile list view */}
+      <div
+        className={`
+          space-y-2 p-1
+          sm:hidden
+        `}
+      >
+        {products.map((dessert) => {
+          const selected = brigadeiros.find((d) => d.id === dessert.id);
+          const quantity = selected?.quantity || 0;
+          const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
+
+          return (
+            <DessertCardMobile
+              key={dessert.id}
+              dessert={dessert}
+              quantity={quantity}
+              onUpdateQuantity={onUpdateQuantity}
+              isAddDisabled={isAddDisabled}
+            />
+          );
+        })}
+      </div>
+
+      {/* Desktop grid view */}
+      <div
+        className={`
+          hidden grid-cols-4 gap-4 p-1
+          sm:grid
+          lg:grid-cols-6
+        `}
+      >
+        {products.map((dessert) => {
+          const selected = brigadeiros.find((d) => d.id === dessert.id);
+          const quantity = selected?.quantity || 0;
+          const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
+
+          return (
+            <DessertCard
+              key={dessert.id}
+              dessert={dessert}
+              quantity={quantity}
+              onUpdateQuantity={onUpdateQuantity}
+              isAddDisabled={isAddDisabled}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+
   return (
     <div
       className={`
-        flex h-full flex-col space-y-2
+        flex h-full min-h-0 flex-col space-y-2
         md:block md:h-auto md:space-y-2
       `}
     >
@@ -66,61 +123,34 @@ export function PickerContent({
         </div>
       )}
 
-      <ScrollArea
-        className={`
-          flex-1
-          md:h-[630px]
-        `}
-      >
-        {/* Mobile list view */}
-        <div
-          className={`
-            space-y-2 p-1
-            sm:hidden
-          `}
-        >
-          {BRIGADEIROS.map((dessert) => {
-            const selected = brigadeiros.find((d) => d.id === dessert.id);
-            const quantity = selected?.quantity || 0;
-            const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex min-h-0 flex-1 flex-col">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="regular">Clásicos</TabsTrigger>
+          <TabsTrigger value="halloween">Halloween</TabsTrigger>
+        </TabsList>
 
-            return (
-              <DessertCardMobile
-                key={dessert.id}
-                dessert={dessert}
-                quantity={quantity}
-                onUpdateQuantity={onUpdateQuantity}
-                isAddDisabled={isAddDisabled}
-              />
-            );
-          })}
-        </div>
+        <TabsContent value="regular" className="mt-2 flex-1 overflow-hidden">
+          <ScrollArea
+            className={`
+              h-full
+              md:h-[600px]
+            `}
+          >
+            {renderProductList(BRIGADEIROS)}
+          </ScrollArea>
+        </TabsContent>
 
-        {/* Desktop grid view */}
-        <div
-          className={`
-            hidden grid-cols-4 gap-4 p-1
-            sm:grid
-            lg:grid-cols-6
-          `}
-        >
-          {BRIGADEIROS.map((dessert) => {
-            const selected = brigadeiros.find((d) => d.id === dessert.id);
-            const quantity = selected?.quantity || 0;
-            const isAddDisabled = selectedBox ? totalSelected >= selectedBox.capacity : true;
-
-            return (
-              <DessertCard
-                key={dessert.id}
-                dessert={dessert}
-                quantity={quantity}
-                onUpdateQuantity={onUpdateQuantity}
-                isAddDisabled={isAddDisabled}
-              />
-            );
-          })}
-        </div>
-      </ScrollArea>
+        <TabsContent value="halloween" className="mt-2 flex-1 overflow-hidden">
+          <ScrollArea
+            className={`
+              h-full
+              md:h-[600px]
+            `}
+          >
+            {renderProductList(HALLOWEEN_BRIGADEIROS)}
+          </ScrollArea>
+        </TabsContent>
+      </Tabs>
 
       {/* Desktop button - always visible, disabled when not full */}
       <div

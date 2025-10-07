@@ -51,7 +51,7 @@ export function MobileBoxCard({
       </div>
 
       <div className="flex flex-col gap-3">
-        <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange} modal={true}>
+        <Drawer open={isPickerOpen && selectedBoxId === box.id} onOpenChange={onPickerOpenChange} >
 
           <DrawerSmoothScrollFix open={isPickerOpen && selectedBoxId === box.id} />
           <DrawerTrigger asChild>
@@ -76,10 +76,7 @@ export function MobileBoxCard({
             {/* Drawer handle indicator */}
             <DialogTitle />
             <DialogDescription />
-            <div className="flex justify-center">
-              <div className="h-1.5 w-20 rounded-full bg-primary" />
-            </div>
-            <div className="flex h-full flex-col px-2 pt-3 pb-4">{children}</div>
+            <div className="flex h-full flex-col px-2 pb-4">{children}</div>
           </DrawerContent>
         </Drawer>
       </div>
