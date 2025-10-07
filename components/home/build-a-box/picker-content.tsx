@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { type BOXES, BRIGADEIROS, HALLOWEEN_BRIGADEIROS } from "@/lib/data/products";
+import { type BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
 import { DessertCard } from "./dessert-card";
 import { DessertCardMobile } from "./dessert-card-mobile";
@@ -32,6 +32,10 @@ export function PickerContent({
   onClearSelection,
 }: PickerContentProps) {
   const [activeTab, setActiveTab] = useState("regular");
+
+  // Filter brigadeiros by season
+  const regularBrigadeiros = BRIGADEIROS.filter(b => !b.isSeasonal);
+  const halloweenBrigadeiros = BRIGADEIROS.filter(b => b.isSeasonal && b.season === "halloween");
 
   const renderProductList = (products: typeof BRIGADEIROS) => (
     <>
@@ -136,7 +140,7 @@ export function PickerContent({
               md:h-[600px]
             `}
           >
-            {renderProductList(BRIGADEIROS)}
+            {renderProductList(regularBrigadeiros)}
           </ScrollArea>
         </TabsContent>
 
@@ -147,7 +151,7 @@ export function PickerContent({
               md:h-[600px]
             `}
           >
-            {renderProductList(HALLOWEEN_BRIGADEIROS)}
+            {renderProductList(halloweenBrigadeiros)}
           </ScrollArea>
         </TabsContent>
       </Tabs>
