@@ -47,8 +47,7 @@ export function HeroContent() {
       >
         <Button
           className={`
-            h-12 w-full gap-2 px-8 font-semibold text-white shadow-lg transition-all
-            duration-300
+            h-12 w-full gap-2 px-8 font-semibold text-white shadow-lg transition-all duration-300
             hover:scale-105 hover:shadow-xl
             sm:w-auto sm:text-lg
           `}

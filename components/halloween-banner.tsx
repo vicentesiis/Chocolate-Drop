@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export function HalloweenBanner() {
@@ -93,7 +92,10 @@ export function HalloweenBanner() {
                 duration-200
               `}
             >
-              Ordenar Ahora
+              
+              <Link href="#packages">
+                Ordenar Ahora!
+              </Link>
             </Button>
           </div>
         </CardContent>

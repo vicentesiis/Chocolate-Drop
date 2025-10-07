@@ -14,7 +14,7 @@ export default function ConfirmationPage() {
     <div className="container mx-auto max-w-2xl px-4 py-8">
       <ConfirmationHeader />
       <OrderDetails orderNumber={orderNumber} />
-      <NextSteps />
+      {/* <NextSteps /> */}
       <ConfirmationActions />
     </div>
   );
