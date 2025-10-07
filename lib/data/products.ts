@@ -125,3 +125,30 @@ export const BRIGADEIROS = [
     image: "/brigadeiros/brigadeiro.png",
   },
 ];
+
+export const HALLOWEEN_BRIGADEIROS = [
+  {
+    id: "murcielago",
+    name: "Murciélago",
+    description: "Con Oreo oscuro y un toque travieso.",
+    image: "/brigadeiros/brigadeiro.png",
+  },
+  {
+    id: "calabaza",
+    name: "Calabaza",
+    description: "Coco gourmet cubierto con coco tostado. Un bocado verdaderamente hechizante.",
+    image: "/brigadeiros/brigadeiro.png",
+  },
+  {
+    id: "monstruo",
+    name: "Monstruo",
+    description: "Chocolate Milk Callebaut con frosting de cream cheese.",
+    image: "/brigadeiros/brigadeiro.png",
+  },
+  {
+    id: "momia",
+    name: "Momia",
+    description: "Chocolate blanco con corazón de fresa y vendas dulces que derriten.",
+    image: "/brigadeiros/brigadeiro.png",
+  },
+];

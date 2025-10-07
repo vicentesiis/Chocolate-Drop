@@ -1,5 +1,6 @@
 import { About, BuildABox, DessertCartRental, Footer, Hero } from "@/components/home";
 import { Navbar } from "@/components/navbar";
+import { HalloweenBanner } from "@/components/halloween-banner";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
         <About />
       </div>
       <Footer />
+      <HalloweenBanner />
     </div>
   );
 }
