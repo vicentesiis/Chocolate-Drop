@@ -1,21 +1,10 @@
-import { About, BuildABox, DessertCartRental, Footer, Hero } from "@/components/home";
-import { Navbar } from "@/components/navbar";
 import { HalloweenBanner } from "@/components/halloween-banner";
+import { About, DessertCartRental, Footer, Hero } from "@/components/home";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
-      <Navbar />
       <Hero />
-      <div
-        id="packages"
-        className={`
-          scroll-mt-15 bg-gradient-to-r from-amber-100/30 to-orange-100/30
-          sm:scroll-mt-20
-        `}
-      >
-        <BuildABox />
-      </div>
       <div
         id="events"
         className={`scroll-mt-0 bg-gradient-to-l from-rose-100/40 via-orange-50/20 to-amber-50/30`}

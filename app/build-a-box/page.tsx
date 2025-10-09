@@ -69,28 +69,6 @@ export default function BuildABoxPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Volver
-                </Button>
-              </Link>
-              <div>
-                <h1 className="text-2xl font-bold">Arma tu Caja</h1>
-                <p className="text-sm text-muted-foreground">
-                  Personaliza tu selección de brigadeiros
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Progress Header */}
         {selectedBox && (

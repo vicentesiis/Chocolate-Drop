@@ -10,10 +10,12 @@ const chewy = Chewy({
 
 export function HeroContent() {
   return (
-    <div className={`
-      flex-1 text-center
-      lg:text-left
-    `}>
+    <div
+      className={`
+        flex-1 text-center
+        lg:text-left
+      `}
+    >
       <h1
         className={`
           font-display bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-4xl
@@ -54,7 +56,7 @@ export function HeroContent() {
           size="lg"
           asChild
         >
-          <Link href="#packages">
+          <Link href="/build-a-box">
             Haz tu pedido <ArrowRight className="h-5 w-5" />
           </Link>
         </Button>
@@ -68,7 +70,11 @@ export function HeroContent() {
           variant="outline"
           asChild
         >
-          <Link href="https://www.instagram.com/chocolatedrop.27" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://www.instagram.com/chocolatedrop.27"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Instagram className="h-5 w-5" />
             Síguenos en Instagram
           </Link>

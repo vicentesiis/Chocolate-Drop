@@ -11,38 +11,38 @@ export default function BuildABox() {
   return (
     <section
       className={`
-      flex items-center px-4 py-8
-      sm:py-16
-    `}
+        flex items-center px-4 py-8
+        sm:py-16
+      `}
     >
       <div className="mx-auto max-w-7xl">
         <div
           className={`
-          mb-8 text-center
-          sm:mb-12
-        `}
+            mb-8 text-center
+            sm:mb-12
+          `}
         >
           <h2
             className={`
-            mb-3 text-2xl font-bold
-            sm:mb-4 sm:text-4xl
-          `}
+              mb-3 text-2xl font-bold
+              sm:mb-4 sm:text-4xl
+            `}
           >
             Arma tu Caja Personalizada
           </h2>
           <p
             className={`
-            mx-auto max-w-4xl text-lg text-muted-foreground
-            sm:text-xl
-          `}
+              mx-auto max-w-4xl text-lg text-muted-foreground
+              sm:text-xl
+            `}
           >
             Elige el tamaño de la caja y añade los brigadeiros que más te gusten.
           </p>
           <p
             className={`
-            mx-auto mt-2 max-w-4xl text-lg text-muted-foreground
-            sm:text-xl
-          `}
+              mx-auto mt-2 max-w-4xl text-lg text-muted-foreground
+              sm:text-xl
+            `}
           >
             Hechos con ingredientes premium para deleitarte en cada bocado.
           </p>
@@ -51,10 +51,10 @@ export default function BuildABox() {
         {/* Preview Cards */}
         <div
           className={`
-          mb-8 grid gap-6
-          sm:grid-cols-2
-          lg:grid-cols-3
-        `}
+            mb-8 grid gap-6
+            sm:grid-cols-2
+            lg:grid-cols-3
+          `}
         >
           {BOXES.map((box) => (
             <Card

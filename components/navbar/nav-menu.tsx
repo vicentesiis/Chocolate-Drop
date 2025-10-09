@@ -59,7 +59,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
-            href="#packages"
+            href="/build-a-box"
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
