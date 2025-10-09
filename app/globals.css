@@ -155,4 +155,19 @@
       0 0 20px hsl(39 80% 70% / 0.3),
       0 0 40px hsl(33 70% 75% / 0.2);
   }
+
+  /* Mobile carousel improvements */
+  .mobile-carousel-smooth {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .mobile-carousel-smooth::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-carousel-smooth {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
