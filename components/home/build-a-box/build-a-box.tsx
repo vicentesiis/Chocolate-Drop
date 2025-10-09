@@ -1,175 +1,107 @@
 "use client";
 
-import { useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useCart } from "@/lib/contexts/cart-context";
-import { BOXES, BRIGADEIROS } from "@/lib/data/products";
-import type { Brigadeiro } from "@/lib/types/brigadeiro";
-import { BoxCard } from "./box-card";
-import { MobileBoxCard } from "./mobile-box-card";
-import { PickerContent } from "./picker-content";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { BOXES } from "@/lib/data/products";
 
 export default function BuildABox() {
-  const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
-  const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const { addToCart } = useCart();
-  const isMobile = useIsMobile();
-
-  const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
-  const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
-  const isBoxFull = selectedBox ? totalSelected === selectedBox.capacity : false;
-
-  const updateDessertQuantity = (dessertId: string, change: number) => {
-    if (!selectedBox) return;
-
-    setBrigadeiros((prev) => {
-      const existing = prev.find((d) => d.id === dessertId);
-      const currentTotal = prev.reduce((sum, d) => sum + d.quantity, 0);
-
-      if (existing) {
-        const newQuantity = Math.max(0, existing.quantity + change);
-        const newTotal = currentTotal - existing.quantity + newQuantity;
-
-        if (newTotal > selectedBox.capacity) return prev;
-
-        if (newQuantity === 0) {
-          return prev.filter((d) => d.id !== dessertId);
-        }
-
-        return prev.map((d) => (d.id === dessertId ? { ...d, quantity: newQuantity } : d));
-      } else if (change > 0 && currentTotal < selectedBox.capacity) {
-        const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
-        if (dessert) {
-          return [...prev, { id: dessertId, name: dessert.name, quantity: 1 }];
-        }
-      }
-
-      return prev;
-    });
-  };
-
-  const handleAddToCart = () => {
-    if (!selectedBox || !isBoxFull) return;
-
-    const cartItem = {
-      boxType: selectedBox,
-      brigadeiros: [...brigadeiros],
-      totalPrice: selectedBox.price,
-    };
-
-    addToCart(cartItem);
-    setSelectedBox(null);
-    setBrigadeiros([]);
-    setIsPickerOpen(false);
-  };
-
-  const openPicker = (box: (typeof BOXES)[0]) => {
-    setSelectedBox(box);
-    setBrigadeiros([]);
-    setIsPickerOpen(true);
-  };
-
-  const clearSelection = () => {
-    setBrigadeiros([]);
-  };
-
   return (
     <section
       className={`
-        flex items-center px-4 py-8
-        sm:py-16
-      `}
+      flex items-center px-4 py-8
+      sm:py-16
+    `}
     >
       <div className="mx-auto max-w-7xl">
         <div
           className={`
-            mb-8 text-center
-            sm:mb-12
-          `}
+          mb-8 text-center
+          sm:mb-12
+        `}
         >
           <h2
             className={`
-              mb-3 text-2xl font-bold
-              sm:mb-4 sm:text-4xl
-            `}
+            mb-3 text-2xl font-bold
+            sm:mb-4 sm:text-4xl
+          `}
           >
-            Nuestros Empaques
+            Arma tu Caja Personalizada
           </h2>
           <p
             className={`
-              mx-auto max-w-4xl text-lg text-muted-foreground
-              sm:text-xl
-            `}
+            mx-auto max-w-4xl text-lg text-muted-foreground
+            sm:text-xl
+          `}
           >
             Elige el tamaño de la caja y añade los brigadeiros que más te gusten.
           </p>
           <p
             className={`
-              mx-auto mt-2 max-w-4xl text-lg text-muted-foreground
-              sm:text-xl
-            `}
+            mx-auto mt-2 max-w-4xl text-lg text-muted-foreground
+            sm:text-xl
+          `}
           >
             Hechos con ingredientes premium para deleitarte en cada bocado.
           </p>
         </div>
 
-        {isMobile ? (
-          <div className="space-y-3">
-            {BOXES.map((box) => (
-              <MobileBoxCard
-                key={box.id}
-                box={box}
-                isPickerOpen={isPickerOpen}
-                selectedBoxId={selectedBox?.id || null}
-                onOpenPicker={openPicker}
-                onPickerOpenChange={setIsPickerOpen}
-              >
-                <PickerContent
-                  selectedBox={selectedBox}
-                  brigadeiros={brigadeiros}
-                  totalSelected={totalSelected}
-                  progressPercentage={progressPercentage}
-                  isBoxFull={isBoxFull}
-                  onUpdateQuantity={updateDessertQuantity}
-                  onAddToCart={handleAddToCart}
-                  onClearSelection={clearSelection}
+        {/* Preview Cards */}
+        <div
+          className={`
+          mb-8 grid gap-6
+          sm:grid-cols-2
+          lg:grid-cols-3
+        `}
+        >
+          {BOXES.map((box) => (
+            <Card
+              key={box.id}
+              className={`
+                group overflow-hidden transition-all duration-200
+                hover:shadow-lg
+              `}
+            >
+              <div className="aspect-square overflow-hidden">
+                <img
+                  src={box.image}
+                  alt={box.name}
+                  className={`
+                    h-full w-full object-cover transition-transform duration-200
+                    group-hover:scale-105
+                  `}
                 />
-              </MobileBoxCard>
-            ))}
-          </div>
-        ) : (
-          <div
-            className={`
-              grid grid-cols-2 gap-4
-              sm:grid-cols-2 sm:gap-6
-              lg:grid-cols-3 lg:gap-6
-              xl:grid-cols-3 xl:gap-12
-            `}
-          >
-            {BOXES.map((box) => (
-              <BoxCard
-                key={box.id}
-                box={box}
-                isPickerOpen={isPickerOpen}
-                selectedBoxId={selectedBox?.id || null}
-                onOpenPicker={openPicker}
-                onPickerOpenChange={setIsPickerOpen}
-              >
-                <PickerContent
-                  selectedBox={selectedBox}
-                  brigadeiros={brigadeiros}
-                  totalSelected={totalSelected}
-                  progressPercentage={progressPercentage}
-                  isBoxFull={isBoxFull}
-                  onUpdateQuantity={updateDessertQuantity}
-                  onAddToCart={handleAddToCart}
-                  onClearSelection={clearSelection}
-                />
-              </BoxCard>
-            ))}
-          </div>
-        )}
+              </div>
+              <CardContent className="p-6">
+                <div className="mb-2 flex items-center justify-between">
+                  <h3 className="text-xl font-semibold">{box.name}</h3>
+                  <Badge variant="secondary">{box.capacity} piezas</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-primary">${box.price}</span>
+                  <span className="text-sm text-muted-foreground">
+                    ${Math.round(box.price / box.capacity)} por pieza
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center">
+          <Link href="/build-a-box">
+            <Button size="lg" className="gap-2 px-8 py-6 text-lg">
+              Personalizar mi Caja
+              <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Experiencia completa de personalización con filtros y vista previa
+          </p>
+        </div>
       </div>
     </section>
   );
