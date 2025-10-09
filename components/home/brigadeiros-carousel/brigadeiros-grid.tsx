@@ -36,7 +36,7 @@ export function BrigadeirosGrid({ brigadeiros }: BrigadeirosGridProps) {
         >
           <CarouselContent
             className={`
-              -ml-3
+              mb-1 -ml-3
               md:-ml-4
             `}
           >
