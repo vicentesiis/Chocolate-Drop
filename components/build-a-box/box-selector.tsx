@@ -14,7 +14,10 @@ interface BoxSelectorProps {
 export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProps) {
   return (
     <div className="mb-12">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={`
+        grid grid-cols-2 gap-6
+        lg:grid-cols-4
+      `}>
         {boxes.map((box) => {
           const isSelected = selectedBox?.id === box.id;
 
@@ -27,13 +30,19 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                 ${
                   isSelected
                     ? "border-primary bg-primary/5 shadow-lg"
-                    : "border-border hover:border-primary/50"
+                    : `
+                      border-border
+                      hover:border-primary/50
+                    `
                 }
               `}
               onClick={() => onSelectBox(box)}
             >
               {isSelected && (
-                <div className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                <div className={`
+                  absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full
+                  bg-primary text-primary-foreground
+                `}>
                   <Check className="h-4 w-4" />
                 </div>
               )}
@@ -42,7 +51,10 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                 <img
                   src={box.image}
                   alt={box.name}
-                  className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                  className={`
+                    h-full w-full object-cover transition-transform duration-200
+                    group-hover:scale-105
+                  `}
                 />
               </div>
 

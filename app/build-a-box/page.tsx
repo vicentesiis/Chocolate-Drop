@@ -1,12 +1,10 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { BoxSelector } from "@/components/build-a-box/box-selector";
 import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
 import { ProgressHeader } from "@/components/build-a-box/progress-header";
-import { Button } from "@/components/ui/button";
+import { BrigadeiroFilters } from "@/components/build-a-box";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
@@ -14,6 +12,8 @@ import type { Brigadeiro } from "@/lib/types/brigadeiro";
 export default function BuildABoxPage() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
   const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("regular");
   const { addToCart } = useCart();
 
   const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
@@ -69,44 +69,106 @@ export default function BuildABoxPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        {/* Progress Header */}
-        {selectedBox && (
-          <ProgressHeader
-            selectedBox={selectedBox}
-            totalSelected={totalSelected}
-            progressPercentage={progressPercentage}
-            isBoxFull={isBoxFull}
-            onClearSelection={clearSelection}
-            onAddToCart={handleAddToCart}
-          />
-        )}
-
-        {/* Sub Header */}
-        <div className="mb-8 text-center">
-          <h2 className="mb-2 text-3xl font-bold">
-            {selectedBox ? "Selecciona tus Brigadeiros" : "Elige tu Empaque"}
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            {selectedBox
-              ? `Completa tu ${selectedBox.name} con los sabores que más te gusten`
-              : "Primero selecciona el tamaño de caja que prefieras"}
-          </p>
+      {/* Main Content Container */}
+      <div className={`
+        mx-auto max-w-7xl px-4
+        sm:px-6
+        lg:px-8
+      `}>
+        {/* Header Section */}
+        <div className={`
+          py-6
+          sm:py-8
+          lg:py-12
+        `}>
+          <div className="text-center">
+            <h1 className={`
+              mb-3 text-2xl font-bold text-gray-900
+              sm:mb-4 sm:text-3xl
+              lg:text-4xl
+            `}>
+              {selectedBox ? "Selecciona tus Brigadeiros" : "Elige tu Empaque"}
+            </h1>
+            <p className={`
+              mx-auto max-w-2xl px-4 text-base text-gray-600
+              sm:text-lg
+            `}>
+              {selectedBox
+                ? `Completa tu ${selectedBox.name} con los sabores que más te gusten`
+                : "Primero selecciona el tamaño de caja que prefieras"}
+            </p>
+          </div>
         </div>
 
-        {/* Box Selector */}
-        <BoxSelector boxes={BOXES} selectedBox={selectedBox} onSelectBox={setSelectedBox} />
-
-        {/* Brigadeiro Grid */}
-        {selectedBox && (
-          <BrigadeiroGrid
-            selectedBox={selectedBox}
-            brigadeiros={brigadeiros}
-            totalSelected={totalSelected}
-            onUpdateQuantity={updateDessertQuantity}
-          />
-        )}
+        {/* Box Selector Grid */}
+        <div className={`
+          mb-8
+          sm:mb-12
+        `}>
+          <BoxSelector boxes={BOXES} selectedBox={selectedBox} onSelectBox={setSelectedBox} />
+        </div>
       </div>
+
+      {/* Sticky Progress Header - Only shown when box is selected */}
+      {selectedBox && (
+        <div className={`
+          sticky top-16 z-40 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-sm
+          sm:top-20
+        `}>
+          <div className={`
+            mx-auto max-w-7xl px-4
+            sm:px-6
+            lg:px-8
+          `}>
+            <ProgressHeader
+              selectedBox={selectedBox}
+              totalSelected={totalSelected}
+              progressPercentage={progressPercentage}
+              isBoxFull={isBoxFull}
+              onClearSelection={clearSelection}
+              onAddToCart={handleAddToCart}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Filters and Brigadeiro Grid - Only shown when box is selected */}
+      {selectedBox && (
+        <div className={`
+          mx-auto max-w-7xl px-4
+          sm:px-6
+          lg:px-8
+        `}>
+          {/* Filters Section */}
+          <div className={`
+            py-6
+            sm:py-8
+          `}>
+            <BrigadeiroFilters
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
+
+          {/* Brigadeiro Grid */}
+          <div className={`
+            pb-8
+            sm:pb-12
+            lg:pb-16
+          `}>
+            <BrigadeiroGrid
+              selectedBox={selectedBox}
+              brigadeiros={brigadeiros}
+              totalSelected={totalSelected}
+              onUpdateQuantity={updateDessertQuantity}
+              searchTerm={searchTerm}
+              activeTab={activeTab}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
