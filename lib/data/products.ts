@@ -4,21 +4,28 @@ export const BOXES = [
     name: "Empaque Especial x 4",
     capacity: 4,
     price: 280,
-    image: "/boxes/box.png",
+    image: "/boxes/empaque-4.jpg",
   },
-  {
+{
     id: "box-6",
     name: "Empaque Especial x 6",
     capacity: 6,
-    price: 340,
-    image: "/boxes/box.png",
+    price: 280,
+    image: "/boxes/empaque-6.jpg",
+  },
+{
+    id: "box-9",
+    name: "Empaque Especial x 9",
+    capacity: 9,
+    price: 280,
+    image: "/boxes/empaque-9.jpg",
   },
   {
     id: "box-10",
     name: "Empaque Especial x 10",
     capacity: 10,
-    price: 450,
-    image: "/boxes/box.png",
+    price: 280,
+    image: "/boxes/empaque-10.jpg",
   },
 ];
 
