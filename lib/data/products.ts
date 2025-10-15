@@ -30,11 +30,10 @@ export const BOXES = [
 ];
 
 export const BRIGADEIROS = [
-  // 🍫 Clásicos de Chocolate
   {
     id: "triple-chocolate",
     name: "Triple Chocolate",
-    description: "Cacao orgánico 100%, 70% cacao y Milk Callebaut en capas de puro chocolate.",
+    description: "Tres capas de cacao: 100%, 70% y Milk Callebaut.",
     image: "/brigadeiros/triple-chocolate.png",
     isActive: true,
     isSeasonal: false,
@@ -44,7 +43,7 @@ export const BRIGADEIROS = [
   {
     id: "cacao70",
     name: "70% Cacao",
-    description: "Chocolate amargo 70% cacao con chispas de chocolate semi amargo.",
+    description: "Chocolate amargo 70% con chispas semi amargas.",
     image: "/brigadeiros/70-cacao.png",
     isActive: true,
     isSeasonal: false,
@@ -54,7 +53,7 @@ export const BRIGADEIROS = [
   {
     id: "belga",
     name: "Belga",
-    description: "Chocolate Milk Callebaut cubierto con sprinkles de chocolate belga.",
+    description: "Milk Callebaut con sprinkles de chocolate belga.",
     image: "/brigadeiros/belga.png",
     isActive: true,
     isSeasonal: false,
@@ -64,7 +63,7 @@ export const BRIGADEIROS = [
   {
     id: "marmoleado",
     name: "Marmoleado",
-    description: "Fusión de chocolate Milk y White Callebaut en textura marmoleada.",
+    description: "Combinación de chocolate Milk y White en textura marmoleada.",
     image: "/brigadeiros/marmoleado.png",
     isActive: true,
     isSeasonal: false,
@@ -72,11 +71,10 @@ export const BRIGADEIROS = [
     category: "Clásicos de Chocolate",
   },
 
-  // 🥜 Nueces & Cacahuates
   {
     id: "almendra-tostada",
     name: "Almendra Tostada",
-    description: "Chocolate White Callebaut con almendra tostada por dentro y por fuera.",
+    description: "Chocolate blanco con almendra tostada dentro y fuera.",
     image: "/brigadeiros/almendra.png",
     isActive: true,
     isSeasonal: false,
@@ -86,7 +84,7 @@ export const BRIGADEIROS = [
   {
     id: "mazapan",
     name: "Mazapán",
-    description: "Mazapán artesanal con relleno de chocolate semi amargo y cobertura de cacahuate.",
+    description: "Mazapán artesanal con centro de chocolate y cobertura de cacahuate.",
     image: "/brigadeiros/mazapan.png",
     isActive: true,
     isSeasonal: false,
@@ -96,7 +94,7 @@ export const BRIGADEIROS = [
   {
     id: "pistache",
     name: "Pistache",
-    description: "Chocolate White Callebaut con pistache tostado por dentro y por fuera.",
+    description: "Chocolate blanco con pistache tostado y cremoso.",
     image: "/brigadeiros/pistache.png",
     isActive: true,
     isSeasonal: false,
@@ -106,7 +104,7 @@ export const BRIGADEIROS = [
   {
     id: "ferrero",
     name: "Ferrero",
-    description: "Chocolate Milk Callebaut con Ferrero y avellanas tostadas, coronado con Nutella.",
+    description: "Chocolate Milk con Ferrero, avellanas y un toque de Nutella.",
     image: "/brigadeiros/ferrero.png",
     isActive: true,
     isSeasonal: false,
@@ -114,11 +112,10 @@ export const BRIGADEIROS = [
     category: "Nueces & Cacahuates",
   },
 
-  // 🍓 Frutales & Refrescantes
   {
     id: "cereza",
     name: "Cereza",
-    description: "Chocolate White Callebaut con trocitos de cereza natural.",
+    description: "Chocolate blanco con trocitos de cereza natural.",
     image: "/brigadeiros/cereza.png",
     isActive: true,
     isSeasonal: false,
@@ -128,7 +125,7 @@ export const BRIGADEIROS = [
   {
     id: "uva",
     name: "Uva",
-    description: "Chocolate White Callebaut con relleno de uva fresca.",
+    description: "Chocolate blanco con relleno de uva fresca.",
     image: "/brigadeiros/uva.png",
     isActive: true,
     isSeasonal: false,
@@ -138,7 +135,7 @@ export const BRIGADEIROS = [
   {
     id: "cheesecake-guayaba",
     name: "Cheesecake de Guayaba",
-    description: "Guayaba fresca con cream cheese y cobertura de chocolate blanco.",
+    description: "Guayaba con cream cheese y cobertura blanca.",
     image: "/brigadeiros/guayaba.png",
     isActive: true,
     isSeasonal: false,
@@ -148,7 +145,7 @@ export const BRIGADEIROS = [
   {
     id: "cheesecake-maracuya",
     name: "Cheesecake de Maracuyá",
-    description: "Pulpa natural de maracuyá con Chocolate White Callebaut.",
+    description: "Pulpa de maracuyá con chocolate blanco Callebaut.",
     image: "/brigadeiros/maracuya.png",
     isActive: true,
     isSeasonal: false,
@@ -158,7 +155,7 @@ export const BRIGADEIROS = [
   {
     id: "platano",
     name: "Plátano",
-    description: "Plátano caramelizado con canela y dulce de leche artesanal.",
+    description: "Plátano caramelizado con canela y dulce de leche.",
     image: "/brigadeiros/platano.png",
     isActive: true,
     isSeasonal: false,
@@ -168,7 +165,7 @@ export const BRIGADEIROS = [
   {
     id: "frambuesa-macadamia",
     name: "Frambuesa y Macadamia",
-    description: "Chocolate Ruby Callebaut con frambuesa natural y macadamia.",
+    description: "Chocolate Ruby con frambuesa natural y macadamia.",
     image: "/brigadeiros/frambuesa.png",
     isActive: true,
     isSeasonal: false,
@@ -176,11 +173,10 @@ export const BRIGADEIROS = [
     category: "Frutales & Refrescantes",
   },
 
-  // 🍰 Inspirados en Postres
   {
     id: "cheesecake-elote",
     name: "Cheesecake de Elote",
-    description: "Elote real con cream cheese, coco tostado y dulce de leche artesanal.",
+    description: "Elote con cream cheese, coco tostado y dulce de leche.",
     image: "/brigadeiros/elote.png",
     isActive: true,
     isSeasonal: false,
@@ -190,7 +186,7 @@ export const BRIGADEIROS = [
   {
     id: "lotus-biscoff",
     name: "Lotus Biscoff",
-    description: "Chocolate White Callebaut con crema y trocitos de galleta Lotus.",
+    description: "Chocolate blanco con crema y trocitos de galleta Lotus.",
     image: "/brigadeiros/lotus.png",
     isActive: true,
     isSeasonal: false,
@@ -200,7 +196,7 @@ export const BRIGADEIROS = [
   {
     id: "kinder",
     name: "Kinder",
-    description: "Chocolate Milk Callebaut con relleno de Kinder Bueno y cobertura Kinder White.",
+    description: "Chocolate Milk con relleno Kinder y cobertura blanca.",
     image: "/brigadeiros/kinder.png",
     isActive: true,
     isSeasonal: false,
@@ -210,7 +206,7 @@ export const BRIGADEIROS = [
   {
     id: "oreo",
     name: "Oreo",
-    description: "Chocolate White Callebaut con relleno cremoso y cobertura de galleta Oreo.",
+    description: "Chocolate blanco con centro cremoso y cobertura Oreo.",
     image: "/brigadeiros/oreo.png",
     isActive: true,
     isSeasonal: false,
@@ -218,11 +214,10 @@ export const BRIGADEIROS = [
     category: "Inspirados en Postres",
   },
 
-  // 🥥 Blancos & Suaves
   {
     id: "coco",
     name: "Coco",
-    description: "Chocolate White Callebaut con coco orgánico, envuelto en coco tostado.",
+    description: "Chocolate blanco con coco orgánico y tostado.",
     image: "/brigadeiros/coco.png",
     isActive: true,
     isSeasonal: false,
@@ -232,7 +227,7 @@ export const BRIGADEIROS = [
   {
     id: "perlas-crispy",
     name: "Perlas Crispy",
-    description: "Chocolate White Callebaut cubierto de perlas crujientes de chocolate blanco.",
+    description: "Chocolate blanco con perlas crujientes.",
     image: "/brigadeiros/perlas.png",
     isActive: true,
     isSeasonal: false,
@@ -240,11 +235,10 @@ export const BRIGADEIROS = [
     category: "Blancos & Suaves",
   },
 
-  // 🎃 De Temporada (sin categoría)
   {
     id: "murcielago",
     name: "Murciélago",
-    description: "Con Oreo oscuro y un toque travieso.",
+    description: "Oreo oscuro con un toque travieso.",
     image: "/brigadeiros/halloween/Murcielago.png",
     isActive: true,
     isSeasonal: true,
@@ -253,7 +247,7 @@ export const BRIGADEIROS = [
   {
     id: "calabaza",
     name: "Calabaza",
-    description: "Coco gourmet cubierto con coco tostado. Un bocado verdaderamente hechizante.",
+    description: "Coco gourmet tostado con un encanto otoñal.",
     image: "/brigadeiros/halloween/Calabaza.png",
     isActive: true,
     isSeasonal: true,
@@ -262,7 +256,7 @@ export const BRIGADEIROS = [
   {
     id: "monstruo",
     name: "Monstruo",
-    description: "Chocolate Milk Callebaut con frosting de cream cheese.",
+    description: "Chocolate Milk con frosting de cream cheese.",
     image: "/brigadeiros/halloween/Monstruo.png",
     isActive: true,
     isSeasonal: true,
@@ -271,7 +265,7 @@ export const BRIGADEIROS = [
   {
     id: "momia",
     name: "Momia",
-    description: "Chocolate blanco con corazón de fresa y vendas dulces que derriten.",
+    description: "Chocolate blanco con corazón de fresa y vendas dulces.",
     image: "/brigadeiros/halloween/Momia.png",
     isActive: true,
     isSeasonal: true,

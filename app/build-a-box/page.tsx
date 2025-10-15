@@ -15,7 +15,7 @@ export default function BuildABoxPage() {
   const [activeTab, setActiveTab] = useState("regular");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { addToCart } = useCart();
-  const brigadeirosRef = useRef<HTMLDivElement>(null);
+  const filtersRef = useRef<HTMLDivElement>(null);
 
   const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
   const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
@@ -70,13 +70,23 @@ export default function BuildABoxPage() {
 
   // Scroll to brigadeiros section when a box is selected
   useEffect(() => {
-    if (selectedBox && brigadeirosRef.current) {
+    if (selectedBox && filtersRef.current) {
       // Use a longer timeout to ensure DOM has fully rendered
       setTimeout(() => {
-        brigadeirosRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        const element = filtersRef.current;
+        if (element) {
+          const elementTop = element.offsetTop;
+          // Calculate sticky header height: navbar (64px mobile, 80px desktop) + progress header (py-4 = 32px mobile, py-6 = 48px desktop)
+          const isMobile = window.innerWidth < 640;
+          const navbarHeight = isMobile ? 64 : 80; // top-16 = 64px, top-20 = 80px
+          const progressHeader = isMobile ? 130 : 150;
+          const stickyHeaderHeight = navbarHeight + progressHeader;
+          
+          window.scrollTo({
+            top: elementTop - stickyHeaderHeight,
+            behavior: 'smooth'
+          });
+        }
       }, 200);
     }
   }, [selectedBox]);
@@ -131,7 +141,7 @@ export default function BuildABoxPage() {
       {/* Sticky Progress Header - Only shown when box is selected */}
       {selectedBox && (
         <div className={`
-          sticky top-16 z-40 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-sm
+          sticky top-16 z-40 border-b border-gray-200 bg-white/85 shadow-sm backdrop-blur-sm
           sm:top-20
         `}>
           <div className={`
@@ -159,10 +169,7 @@ export default function BuildABoxPage() {
           lg:px-8
         `}>
           {/* Filters Section */}
-          <div ref={brigadeirosRef} className={`
-            py-6
-            sm:py-8
-          `}>
+          <div ref={filtersRef} className={`py-4`}>
             <div className={`
               rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm backdrop-blur-sm
               sm:p-6

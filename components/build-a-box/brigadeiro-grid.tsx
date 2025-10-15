@@ -58,7 +58,6 @@ export function BrigadeiroGrid({
       sm:grid-cols-3 sm:gap-6
       md:grid-cols-4
       lg:grid-cols-5
-      xl:grid-cols-6
     `}>
       {filteredBrigadeiros.map((dessert) => {
         const selected = brigadeiros.find((d) => d.id === dessert.id);

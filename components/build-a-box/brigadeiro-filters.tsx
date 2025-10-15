@@ -38,7 +38,7 @@ export function BrigadeiroTabs({ activeTab, onTabChange }: BrigadeiroTabsProps) 
           </Badge>
         </TabsTrigger>
         <TabsTrigger value="seasonal" className="flex items-center gap-2 text-sm font-medium">
-          Temporada
+          Halloween
           <Badge variant="secondary" className="px-2 py-0.5 text-xs">
             {seasonalCount}
           </Badge>

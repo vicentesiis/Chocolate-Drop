@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Minus, Plus, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,20 +22,9 @@ export function BrigadeiroCard({
 }: BrigadeiroCardProps) {
   return (
     <Card className={`
-      group relative overflow-hidden transition-all duration-200
+      group relative flex flex-col overflow-hidden bg-white transition-all duration-200
       hover:scale-[1.02] hover:shadow-lg
     `}>
-      {/* Seasonal Badge */}
-      {dessert.isSeasonal && (
-        <Badge
-          variant="secondary"
-          className="absolute top-2 left-2 z-10 gap-1 bg-orange-100 text-orange-800"
-        >
-          <Sparkles className="h-3 w-3" />
-          {dessert.season}
-        </Badge>
-      )}
-
       {/* Quantity Badge */}
       {quantity > 0 && (
         <div className={`
@@ -45,14 +35,20 @@ export function BrigadeiroCard({
         </div>
       )}
 
-      <div className="relative aspect-square overflow-hidden">
-        <img
+      <div className={`
+        relative aspect-square overflow-hidden bg-gradient-to-br from-orange-100 via-amber-100
+        to-yellow-50
+      `}>
+        <Image
           src={dessert.image}
           alt={dessert.name}
+          fill
+          sizes="(max-width: 640px) 45vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
           className={`
-            h-full w-full object-cover transition-transform duration-200
+            object-contain p-4 transition-transform duration-200
             group-hover:scale-105
           `}
+          loading="lazy"
         />
 
         {/* Overlay gradient */}
@@ -63,45 +59,47 @@ export function BrigadeiroCard({
         `} />
       </div>
 
-      <CardContent className="p-4">
-        <div className="mb-3">
+      <CardContent className={`
+        flex flex-1 flex-col p-3
+        sm:p-4
+      `}>
+        <div className="flex-1">
           <h4 className="leading-tight font-semibold">{dessert.name}</h4>
           <p className="mt-1 text-sm text-muted-foreground">{dessert.description}</p>
         </div>
 
         {/* Quantity Controls */}
         <div className={`
-          flex items-center justify-between rounded-full border bg-white/95 p-1 shadow-sm
-          backdrop-blur-sm
+          mt-3 flex items-center justify-between rounded-full border p-1 shadow-sm backdrop-blur-sm
         `}>
           <Button
-            size="sm"
+            size="lg"
             variant="ghost"
             onClick={() => onUpdateQuantity(dessert.id, -1)}
             disabled={quantity === 0}
             className={`
-              h-8 w-8 rounded-full p-0
+              h-8 w-12 rounded-full p-0
               hover:bg-gray-100
               disabled:opacity-50
             `}
           >
-            <Minus className="h-3 w-3" />
+            <Minus className="!size-5" />
           </Button>
 
-          <span className="min-w-[32px] text-center text-sm font-semibold">{quantity}</span>
+          <span className="min-w-[32px] text-center font-semibold">{quantity}</span>
 
           <Button
-            size="sm"
+            size="lg"
             variant="ghost"
             onClick={() => onUpdateQuantity(dessert.id, 1)}
             disabled={isAddDisabled && quantity === 0}
             className={`
-              h-8 w-8 rounded-full p-0
+              h-8 w-12 rounded-full p-0
               hover:bg-gray-100
               disabled:opacity-50
             `}
           >
-            <Plus className="h-3 w-3" />
+            <Plus className="!size-5" />
           </Button>
         </div>
       </CardContent>
