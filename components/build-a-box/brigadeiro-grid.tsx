@@ -31,13 +31,19 @@ export function BrigadeiroGrid({
 
   if (filteredBrigadeiros.length === 0) {
     return (
-      <div className="py-12 sm:py-16 text-center">
-        <div className="max-w-md mx-auto">
-          <p className="text-gray-500 text-base sm:text-lg mb-2">
+      <div className={`
+        py-12 text-center
+        sm:py-16
+      `}>
+        <div className="mx-auto max-w-md">
+          <p className={`
+            mb-2 text-base text-gray-500
+            sm:text-lg
+          `}>
             No se encontraron brigadeiros
           </p>
           {searchTerm && (
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm text-gray-400">
               Intenta con otro término de búsqueda o cambia de categoría
             </p>
           )}
@@ -47,7 +53,13 @@ export function BrigadeiroGrid({
   }
 
   return (
-    <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+    <div className={`
+      grid grid-cols-2 gap-4
+      sm:grid-cols-3 sm:gap-6
+      md:grid-cols-4
+      lg:grid-cols-5
+      xl:grid-cols-6
+    `}>
       {filteredBrigadeiros.map((dessert) => {
         const selected = brigadeiros.find((d) => d.id === dessert.id);
         const quantity = selected?.quantity || 0;
