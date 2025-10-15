@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { BoxSelector } from "@/components/build-a-box/box-selector";
 import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
 import { ProgressHeader } from "@/components/build-a-box/progress-header";
-import { BrigadeiroFilters } from "@/components/build-a-box";
+import { BrigadeiroTabs, CategoryFilter } from "@/components/build-a-box/brigadeiro-filters";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
@@ -12,7 +12,6 @@ import type { Brigadeiro } from "@/lib/types/brigadeiro";
 export default function BuildABoxPage() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
   const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("regular");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { addToCart } = useCart();
@@ -164,12 +163,28 @@ export default function BuildABoxPage() {
             py-6
             sm:py-8
           `}>
-            <BrigadeiroFilters
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-            />
+            <div className={`
+              flex flex-col gap-4
+              sm:flex-row sm:items-end sm:justify-between
+            `}>
+              {/* Tabs on the left */}
+              <div className="flex-shrink-0">
+                <BrigadeiroTabs
+                  activeTab={activeTab}
+                  onTabChange={setActiveTab}
+                />
+              </div>
+              
+              {/* Category filter on the right - Only show for regular brigadeiros */}
+              {activeTab === "regular" && (
+                <div className="flex-shrink-0">
+                  <CategoryFilter
+                    selectedCategory={selectedCategory}
+                    onCategoryChange={setSelectedCategory}
+                  />
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Brigadeiro Grid */}
@@ -183,7 +198,6 @@ export default function BuildABoxPage() {
               brigadeiros={brigadeiros}
               totalSelected={totalSelected}
               onUpdateQuantity={updateDessertQuantity}
-              searchTerm={searchTerm}
               activeTab={activeTab}
               selectedCategory={selectedCategory}
             />

@@ -35,8 +35,8 @@ export function ProgressHeader({
         {/* Progress Section */}
         <div className="min-w-0 flex-1">
           <div className={`
-            mb-3 flex flex-col gap-3
-            sm:flex-row sm:items-center
+            mb-3 flex flex-row items-center justify-between gap-3
+            sm:justify-start
           `}>
             <h3 className={`
               truncate text-lg font-semibold text-gray-900

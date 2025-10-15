@@ -22,7 +22,7 @@ export function BrigadeiroGrid({
   activeTab,
   selectedCategory,
 }: BrigadeiroGridProps) {
-  // Filter brigadeiros by season, search, and category
+  // Filter brigadeiros by season, and category
   const filteredBrigadeiros = BRIGADEIROS.filter((b) => {
     const matchesTab = activeTab === "regular" ? !b.isSeasonal : b.isSeasonal;
     const matchesCategory = 
