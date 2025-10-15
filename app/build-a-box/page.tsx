@@ -79,7 +79,7 @@ export default function BuildABoxPage() {
           // Calculate sticky header height: navbar (64px mobile, 80px desktop) + progress header (py-4 = 32px mobile, py-6 = 48px desktop)
           const isMobile = window.innerWidth < 640;
           const navbarHeight = isMobile ? 64 : 80; // top-16 = 64px, top-20 = 80px
-          const progressHeader = isMobile ? 130 : 150;
+          const progressHeader = 130
           const stickyHeaderHeight = navbarHeight + progressHeader;
           
           window.scrollTo({

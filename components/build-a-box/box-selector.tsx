@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -62,12 +63,14 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                 </div>
               )}
 
-              <div className="aspect-square overflow-hidden">
-                <img
+              <div className="relative aspect-square overflow-hidden">
+                <Image
                   src={box.image}
                   alt={box.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className={`
-                    h-full w-full object-cover transition-transform duration-300
+                    object-cover transition-transform duration-300
                     group-hover:scale-105
                   `}
                 />

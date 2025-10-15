@@ -23,16 +23,17 @@ export function BrigadeiroCard({ brigadeiro }: BrigadeiroCardProps) {
         `}
       >
         <div className={`relative aspect-square bg-gradient-to-br from-orange-50 to-amber-50`}>
-          <Image
-            src={brigadeiro.image}
-            alt={brigadeiro.name}
-            fill
-            sizes="(max-width: 640px) 45vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-            className={`
-              object-contain transition-transform duration-200
-              group-hover:scale-110
-            `}
-          />
+        <Image
+          src={brigadeiro.image}
+          alt={brigadeiro.name}
+          fill
+          sizes="(max-width: 640px) 45vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+          className={`
+            object-contain p-4 transition-transform duration-200
+            group-hover:scale-105
+          `}
+          loading="lazy"
+        />
         </div>
         <CardContent
           className={`
