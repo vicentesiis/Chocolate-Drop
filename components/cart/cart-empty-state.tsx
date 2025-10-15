@@ -6,7 +6,7 @@ export function CartEmptyState() {
       <ShoppingBag className="h-12 w-12 text-muted-foreground" />
       <p className="mt-4 text-xl font-medium">Tu carrito está vacío</p>
       <p className=" text-lg text-muted-foreground">
-        Agrega algunas cajas de brigadeiros para comenzar
+        Agrega algunas empaques de brigadeiros para comenzar
       </p>
     </div>
   );

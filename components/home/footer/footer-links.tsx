@@ -9,7 +9,7 @@ const footerSections = [
         href: "#packages",
       },
       {
-        title: "Cajas Personalizadas",
+        title: "Empaques Personalizados",
         href: "#packages",
       },
       {

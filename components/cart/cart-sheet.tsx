@@ -59,7 +59,7 @@ export function CartSheet() {
           <SheetDescription>
             {cart.length === 0
               ? ""
-              : `${cart.length} caja${cart.length > 1 ? "s" : ""} en tu carrito`}
+              : `${cart.length} empaque${cart.length > 1 ? "s" : ""} en tu carrito`}
           </SheetDescription>
         </SheetHeader>
 

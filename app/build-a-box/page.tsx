@@ -97,7 +97,7 @@ export default function BuildABoxPage() {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 select-none">
       {/* Main Content Container */}
       <div className={`
         mx-auto max-w-7xl px-4
@@ -124,7 +124,7 @@ export default function BuildABoxPage() {
             `}>
               {selectedBox
                 ? `Completa tu ${selectedBox.name} con los sabores que más te gusten`
-                : "Primero selecciona el tamaño de caja que prefieras"}
+                : "Primero selecciona el tamaño de empaque que prefieras"}
             </p>
           </div>
         </div>

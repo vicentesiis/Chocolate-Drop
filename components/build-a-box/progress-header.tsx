@@ -65,7 +65,7 @@ export function ProgressHeader({
               sm:inline
             `}>
               {isBoxFull
-                ? "¡Caja completa! Lista para agregar al carrito"
+                ? "Empaque completa! Lista para agregar al carrito"
                 : `Selecciona ${selectedBox.capacity - totalSelected} brigadeiro${selectedBox.capacity - totalSelected !== 1 ? "s" : ""} más`}
             </p>
           </div>
@@ -83,7 +83,7 @@ export function ProgressHeader({
               onClick={onClearSelection} 
               size="sm"
               className={`
-                h-10 w-auto border-gray-300 bg-white p-0 px-4 text-gray-700
+                h-10 w-auto border-gray-300 bg-white p-0 px-4 font-medium text-gray-700
                 hover:bg-gray-50
                 sm:h-11
               `}
@@ -94,7 +94,6 @@ export function ProgressHeader({
                 sm:mr-2
               `} />
               <span className={`
-
               `}>Limpiar</span>
             </Button>
           )}
