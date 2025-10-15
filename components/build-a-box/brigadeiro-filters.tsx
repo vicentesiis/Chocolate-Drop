@@ -4,6 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BRIGADEIROS } from "@/lib/data/products";
+import { 
+  Layers3, 
+  Nut, 
+  Cherry, 
+  Cake, 
+  Sparkles,
+  Grid3X3
+} from "lucide-react";
 
 interface BrigadeiroTabsProps {
   activeTab: string;
@@ -49,20 +57,42 @@ export function CategoryFilter({ selectedCategory, onCategoryChange }: CategoryF
     )
   ).sort();
 
+  // Icon mapping for categories
+  const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+    "Clásicos de Chocolate": Layers3,
+    "Nueces & Cacahuates": Nut,
+    "Frutales & Refrescantes": Cherry,
+    "Inspirados en Postres": Cake,
+    "Blancos & Suaves": Sparkles,
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const IconComponent = categoryIcons[category];
+    return IconComponent ? <IconComponent className="h-5 w-5" /> : null;
+  };
+
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-gray-700">
-        Filtrar por categoría
-      </label>
       <Select value={selectedCategory} onValueChange={onCategoryChange}>
-        <SelectTrigger className="w-full max-w-xs">
+        <SelectTrigger className={`
+          h-12 w-full text-base
+          sm:max-w-sm
+        `}>
           <SelectValue placeholder="Todas las categorías" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Todas las categorías</SelectItem>
+          <SelectItem value="all" className="py-3">
+            <div className="flex items-center gap-3">
+              <Grid3X3 className="h-5 w-5" />
+              <span className="text-base">Todas las categorías</span>
+            </div>
+          </SelectItem>
           {categories.map((category) => (
-            <SelectItem key={category} value={category}>
-              {category}
+            <SelectItem key={category} value={category} className="py-3">
+              <div className="flex items-center gap-3">
+                {getCategoryIcon(category)}
+                <span className="text-base">{category}</span>
+              </div>
             </SelectItem>
           ))}
         </SelectContent>
@@ -86,7 +116,10 @@ export function BrigadeiroFilters({
   onCategoryChange,
 }: BrigadeiroFiltersProps) {
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className={`
+      space-y-4
+      sm:space-y-6
+    `}>
       <BrigadeiroTabs activeTab={activeTab} onTabChange={onTabChange} />
       {activeTab === "regular" && (
         <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />

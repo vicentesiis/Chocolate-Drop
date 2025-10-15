@@ -164,26 +164,31 @@ export default function BuildABoxPage() {
             sm:py-8
           `}>
             <div className={`
-              flex flex-col gap-4
-              sm:flex-row sm:items-end sm:justify-between
+              rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm backdrop-blur-sm
+              sm:p-6
             `}>
-              {/* Tabs on the left */}
-              <div className="flex-shrink-0">
-                <BrigadeiroTabs
-                  activeTab={activeTab}
-                  onTabChange={setActiveTab}
-                />
-              </div>
-              
-              {/* Category filter on the right - Only show for regular brigadeiros */}
-              {activeTab === "regular" && (
+              <div className={`
+                flex flex-col gap-4
+                sm:flex-row sm:items-center sm:justify-between
+              `}>
+                {/* Tabs on the left */}
                 <div className="flex-shrink-0">
-                  <CategoryFilter
-                    selectedCategory={selectedCategory}
-                    onCategoryChange={setSelectedCategory}
+                  <BrigadeiroTabs
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
                   />
                 </div>
-              )}
+                
+                {/* Category filter on the right - Only show for regular brigadeiros */}
+                {activeTab === "regular" && (
+                  <div className="flex-shrink-0">
+                    <CategoryFilter
+                      selectedCategory={selectedCategory}
+                      onCategoryChange={setSelectedCategory}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
