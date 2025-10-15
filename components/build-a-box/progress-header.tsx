@@ -52,7 +52,7 @@ export function ProgressHeader({
             </Badge>
           </div>
 
-          <div className="space-y-2">
+          <div className="sm:space-y-2">
             <Progress 
               value={progressPercentage} 
               className={`
@@ -60,7 +60,10 @@ export function ProgressHeader({
                 sm:h-3
               `} 
             />
-            <p className="text-sm text-gray-600">
+            <p className={`
+              hidden text-sm text-gray-600
+              sm:inline
+            `}>
               {isBoxFull
                 ? "¡Caja completa! Lista para agregar al carrito"
                 : `Selecciona ${selectedBox.capacity - totalSelected} brigadeiro${selectedBox.capacity - totalSelected !== 1 ? "s" : ""} más`}
@@ -70,26 +73,29 @@ export function ProgressHeader({
 
         {/* Action Buttons */}
         <div className={`
-          flex flex-col gap-2
-          sm:flex-row sm:gap-3
+          flex flex-row gap-2
+          sm:gap-3
           lg:flex-shrink-0
         `}>
           {totalSelected > 0 && (
             <Button 
               variant="outline" 
               onClick={onClearSelection} 
+              size="sm"
               className={`
-                h-10 border-gray-300 bg-white text-gray-700
+                h-10 w-auto border-gray-300 bg-white p-0 px-4 text-gray-700
                 hover:bg-gray-50
                 sm:h-11
               `}
+              title="Limpiar selección"
             >
-              <RotateCcw className="mr-2 h-4 w-4" />
+              <RotateCcw className={`
+                h-4 w-4
+                sm:mr-2
+              `} />
               <span className={`
-                hidden
-                sm:inline
+
               `}>Limpiar</span>
-              <span className="sm:hidden">Limpiar Selección</span>
             </Button>
           )}
 
@@ -97,19 +103,15 @@ export function ProgressHeader({
             onClick={onAddToCart} 
             disabled={!isBoxFull} 
             className={`
-              h-10 min-w-0 font-medium
-              sm:h-11 sm:min-w-[200px]
+              h-10 flex-1 font-medium
+              sm:h-11 sm:min-w-[200px] sm:flex-initial
             `}
           >
-            <ShoppingCart className="mr-2 h-4 w-4 flex-shrink-0" />
-            <span className="truncate">
-              <span className={`
-                hidden
-                sm:inline
-              `}>Agregar al Carrito - </span>
-              <span className="sm:hidden">Agregar - </span>
-              ${selectedBox.price}
-            </span>
+            <ShoppingCart className={`
+              h-4 w-4
+              sm:mr-2
+            `} />
+              <span>Agregar al Carrito - ${selectedBox.price}</span>
           </Button>
         </div>
       </div>

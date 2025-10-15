@@ -115,8 +115,8 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                     </Badge>
                   </div>
                   <span className={`
-                    text-xs text-muted-foreground
-                    sm:text-sm
+                    hidden text-xs text-muted-foreground
+                    sm:inline sm:text-sm
                   `}>
                     ${Math.round(box.price / box.capacity)} por pieza
                   </span>
