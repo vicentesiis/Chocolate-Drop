@@ -65,7 +65,7 @@ export function ProgressHeader({
               sm:inline
             `}>
               {isBoxFull
-                ? "Empaque completa! Lista para agregar al carrito"
+                ? "Empaque completo! Lista para agregar al carrito"
                 : `Selecciona ${selectedBox.capacity - totalSelected} brigadeiro${selectedBox.capacity - totalSelected !== 1 ? "s" : ""} más`}
             </p>
           </div>

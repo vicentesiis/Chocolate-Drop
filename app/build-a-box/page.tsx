@@ -96,6 +96,13 @@ export default function BuildABoxPage() {
     setSelectedCategory("all");
   }, [activeTab]);
 
+  // Clear brigadeiros when a new box is selected
+  useEffect(() => {
+    if (selectedBox) {
+      setBrigadeiros([]);
+    }
+  }, [selectedBox]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 select-none">
       {/* Main Content Container */}
