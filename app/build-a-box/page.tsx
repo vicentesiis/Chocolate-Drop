@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BoxSelector } from "@/components/build-a-box/box-selector";
 import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
 import { ProgressHeader } from "@/components/build-a-box/progress-header";
@@ -14,7 +14,9 @@ export default function BuildABoxPage() {
   const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("regular");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { addToCart } = useCart();
+  const brigadeirosRef = useRef<HTMLDivElement>(null);
 
   const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
   const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
@@ -66,6 +68,24 @@ export default function BuildABoxPage() {
   const clearSelection = () => {
     setBrigadeiros([]);
   };
+
+  // Scroll to brigadeiros section when a box is selected
+  useEffect(() => {
+    if (selectedBox && brigadeirosRef.current) {
+      // Use a longer timeout to ensure DOM has fully rendered
+      setTimeout(() => {
+        brigadeirosRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 200);
+    }
+  }, [selectedBox]);
+
+  // Reset category filter when switching tabs
+  useEffect(() => {
+    setSelectedCategory("all");
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
@@ -140,15 +160,15 @@ export default function BuildABoxPage() {
           lg:px-8
         `}>
           {/* Filters Section */}
-          <div className={`
+          <div ref={brigadeirosRef} className={`
             py-6
             sm:py-8
           `}>
             <BrigadeiroFilters
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
               activeTab={activeTab}
               onTabChange={setActiveTab}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
             />
           </div>
 
@@ -165,6 +185,7 @@ export default function BuildABoxPage() {
               onUpdateQuantity={updateDessertQuantity}
               searchTerm={searchTerm}
               activeTab={activeTab}
+              selectedCategory={selectedCategory}
             />
           </div>
         </div>

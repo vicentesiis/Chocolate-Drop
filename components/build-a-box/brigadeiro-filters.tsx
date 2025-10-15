@@ -1,67 +1,40 @@
 "use client";
 
-import { Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BRIGADEIROS } from "@/lib/data/products";
 
 interface BrigadeiroFiltersProps {
-  searchTerm: string;
-  onSearchChange: (value: string) => void;
   activeTab: string;
   onTabChange: (value: string) => void;
+  selectedCategory: string;
+  onCategoryChange: (value: string) => void;
 }
 
 export function BrigadeiroFilters({
-  searchTerm,
-  onSearchChange,
   activeTab,
   onTabChange,
+  selectedCategory,
+  onCategoryChange,
 }: BrigadeiroFiltersProps) {
   // Count brigadeiros by category
   const regularCount = BRIGADEIROS.filter((b) => !b.isSeasonal).length;
   const seasonalCount = BRIGADEIROS.filter((b) => b.isSeasonal).length;
+
+  // Get unique categories from regular brigadeiros
+  const categories = Array.from(
+    new Set(
+      BRIGADEIROS.filter((b) => !b.isSeasonal && b.category)
+        .map((b) => b.category!)
+    )
+  ).sort();
 
   return (
     <div className={`
       space-y-4
       sm:space-y-6
     `}>
-      {/* Search Bar */}
-      <div className={`
-        flex flex-col gap-3
-        sm:flex-row sm:items-center sm:justify-between
-      `}>
-        <div className="relative max-w-md flex-1">
-          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          <Input
-            placeholder="Buscar brigadeiros..."
-            value={searchTerm}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="h-11 pr-10 pl-10 text-base"
-          />
-          {searchTerm && (
-            <button
-              onClick={() => onSearchChange("")}
-              className={`
-                absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 transition-colors
-                hover:text-gray-600
-              `}
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-
-        {/* Search Results Badge */}
-        {searchTerm && (
-          <Badge variant="secondary" className="px-3 py-1 text-sm">
-            Buscando: "{searchTerm}"
-          </Badge>
-        )}
-      </div>
-
       {/* Category Tabs */}
       <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
         <TabsList className="grid h-11 w-full max-w-md grid-cols-2">
@@ -79,6 +52,28 @@ export function BrigadeiroFilters({
           </TabsTrigger>
         </TabsList>
       </Tabs>
+
+      {/* Category Filter - Only show for regular brigadeiros */}
+      {activeTab === "regular" && (
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium text-gray-700">
+            Filtrar por categoría
+          </label>
+          <Select value={selectedCategory} onValueChange={onCategoryChange}>
+            <SelectTrigger className="w-full max-w-xs">
+              <SelectValue placeholder="Todas las categorías" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas las categorías</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category} value={category}>
+                  {category}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
     </div>
   );
 }

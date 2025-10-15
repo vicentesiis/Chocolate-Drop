@@ -10,8 +10,8 @@ interface BrigadeiroGridProps {
   brigadeiros: Brigadeiro[];
   totalSelected: number;
   onUpdateQuantity: (dessertId: string, change: number) => void;
-  searchTerm: string;
   activeTab: string;
+  selectedCategory: string;
 }
 
 export function BrigadeiroGrid({
@@ -19,14 +19,19 @@ export function BrigadeiroGrid({
   brigadeiros,
   totalSelected,
   onUpdateQuantity,
-  searchTerm,
   activeTab,
+  selectedCategory,
 }: BrigadeiroGridProps) {
-  // Filter brigadeiros by season and search
+  // Filter brigadeiros by season, search, and category
   const filteredBrigadeiros = BRIGADEIROS.filter((b) => {
-    const matchesSearch = b.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTab = activeTab === "regular" ? !b.isSeasonal : b.isSeasonal;
-    return matchesSearch && matchesTab;
+    const matchesCategory = 
+      selectedCategory === "all" || 
+      !b.category || 
+      b.category === selectedCategory ||
+      activeTab === "seasonal"; // Don't filter by category for seasonal items
+    
+    return matchesTab && matchesCategory;
   });
 
   if (filteredBrigadeiros.length === 0) {
@@ -42,11 +47,6 @@ export function BrigadeiroGrid({
           `}>
             No se encontraron brigadeiros
           </p>
-          {searchTerm && (
-            <p className="text-sm text-gray-400">
-              Intenta con otro término de búsqueda o cambia de categoría
-            </p>
-          )}
         </div>
       </div>
     );
