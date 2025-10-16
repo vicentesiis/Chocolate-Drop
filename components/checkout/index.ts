@@ -2,6 +2,10 @@ export { CheckoutForm } from "./checkout-form";
 export { CheckoutHeader } from "./checkout-header";
 export { EmptyCartState } from "./empty-cart-state";
 export { OrderSummary } from "./order-summary";
+export { TrustIndicators } from "./trust-indicators";
+export { DeliveryInfo } from "./delivery-info";
+export { ConfirmButton } from "./confirm-button";
+export { MobileActionButton } from "./mobile-action-button";
 
 // Confirmation page components
 export { ConfirmationActions } from "./confirmation/confirmation-actions";
