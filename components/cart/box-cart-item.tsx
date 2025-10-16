@@ -8,9 +8,15 @@ interface BoxCartItemProps {
   item: CartItem;
   index: number;
   onRemove: (index: number) => void;
+  className?: string;
 }
 
-export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
+export function BoxCartItem({
+  item,
+  index,
+  onRemove,
+  className,
+}: BoxCartItemProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-MX", {
       style: "currency",
@@ -29,6 +35,7 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
         group relative rounded-xl border border-border/50 bg-card p-4 shadow-sm transition-all
         hover:border-border hover:shadow-md
         sm:p-5
+        ${className || ""}
       `}
     >
       <Button
