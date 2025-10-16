@@ -5,13 +5,14 @@ import type { CustomerData } from "@/lib/checkout-utils";
 
 export const useCheckoutSubmit = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, getTotalPrice } = useCart();
 
   const handleConfirmPurchase = async (
     customerData: CustomerData,
     isValid: boolean,
   ) => {
     if (!isValid) {
+      toast.error("Por favor completa todos los campos correctamente");
       return;
     }
 
@@ -22,12 +23,31 @@ export const useCheckoutSubmit = () => {
 
     setIsSubmitting(true);
 
+    // Show loading toast
+    const loadingToast = toast.loading("Procesando tu pedido...", {
+      description: "Esto puede tomar unos segundos",
+    });
+
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Simulate API call with order data
+      const orderData = {
+        customer: customerData,
+        items: cart,
+        total: getTotalPrice(),
+        timestamp: new Date().toISOString(),
+      };
+
+      // Simulate processing time
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
 
       // Show success message
-      toast.success("¡Compra confirmada! Redirigiendo...");
+      toast.success("¡Pedido confirmado exitosamente!", {
+        description: `Hola ${customerData.name}, te contactaremos pronto para coordinar la entrega.`,
+        duration: 4000,
+      });
 
       // Clear cart after successful purchase
       clearCart();
@@ -35,9 +55,18 @@ export const useCheckoutSubmit = () => {
       // Redirect to confirmation page after a short delay
       setTimeout(() => {
         window.location.href = "/checkout/confirmation";
-      }, 1500);
+      }, 2000);
     } catch (error) {
-      toast.error("Error al procesar la compra. Inténtalo de nuevo.");
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
+
+      toast.error("Error al procesar tu pedido", {
+        description: "Por favor verifica tu información e inténtalo de nuevo.",
+        action: {
+          label: "Reintentar",
+          onClick: () => handleConfirmPurchase(customerData, isValid),
+        },
+      });
       setIsSubmitting(false);
     }
   };

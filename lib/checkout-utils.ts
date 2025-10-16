@@ -21,12 +21,24 @@ export const validateCustomerData = (data: CustomerData): ValidationErrors => {
     phone: "",
   };
 
+  // Name validation
   if (!data.name.trim()) {
     errors.name = "El nombre completo es necesario";
+  } else if (data.name.trim().length < 2) {
+    errors.name = "El nombre debe tener al menos 2 caracteres";
+  } else if (data.name.trim().length > 50) {
+    errors.name = "El nombre no puede exceder 50 caracteres";
+  } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(data.name.trim())) {
+    errors.name = "El nombre solo puede contener letras y espacios";
   }
 
+  // Phone validation
   if (!data.phone.trim()) {
     errors.phone = "El teléfono es necesario";
+  } else if (data.phone.trim().length < 10) {
+    errors.phone = "El teléfono debe tener al menos 10 dígitos";
+  } else if (!/^[\+]?[\d\s\-\(\)]+$/.test(data.phone.trim())) {
+    errors.phone = "Formato de teléfono inválido";
   }
 
   return errors;
