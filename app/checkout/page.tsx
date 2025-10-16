@@ -34,19 +34,19 @@ export default function CheckoutPage() {
       <CheckoutHeader />
 
       {/* Header Section */}
-      <section className="container px-3 sm:px-4 pt-4">
+      <section className="px-4">
         <div className="text-center mb-6 sm:mb-8 px-2">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
             Finalizar Pedido
           </h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-muted-foreground">
             Completa tu información para recibir tus deliciosos brigadeiros
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="container px-3 sm:px-4 pb-20 sm:pb-8">
+      <section className=" px-4 pb-24 sm:pb-8">
         {cart.length === 0 ? (
           <EmptyCartState />
         ) : (
@@ -54,6 +54,7 @@ export default function CheckoutPage() {
             {/* Mobile Layout */}
             <div className="lg:hidden space-y-4">
               <OrderSummary />
+              <DeliveryInfo />
               <CheckoutForm
                 customerData={customerData}
                 errors={errors}
