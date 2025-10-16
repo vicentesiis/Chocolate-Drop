@@ -4,22 +4,34 @@ import { useState, useRef, useEffect } from "react";
 import { BoxSelector } from "@/components/build-a-box/box-selector";
 import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
 import { ProgressHeader } from "@/components/build-a-box/progress-header";
-import { BrigadeiroTabs, CategoryFilter } from "@/components/build-a-box/brigadeiro-filters";
+import {
+  BrigadeiroTabs,
+  CategoryFilter,
+} from "@/components/build-a-box/brigadeiro-filters";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BOXES, BRIGADEIROS } from "@/lib/data/products";
 import type { Brigadeiro } from "@/lib/types/brigadeiro";
 
 export default function BuildABoxPage() {
-  const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(null);
+  const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(
+    null,
+  );
   const [brigadeiros, setBrigadeiros] = useState<Brigadeiro[]>([]);
   const [activeTab, setActiveTab] = useState("regular");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { addToCart } = useCart();
   const filtersRef = useRef<HTMLDivElement>(null);
 
-  const totalSelected = brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0);
-  const progressPercentage = selectedBox ? (totalSelected / selectedBox.capacity) * 100 : 0;
-  const isBoxFull = selectedBox ? totalSelected === selectedBox.capacity : false;
+  const totalSelected = brigadeiros.reduce(
+    (sum, dessert) => sum + dessert.quantity,
+    0,
+  );
+  const progressPercentage = selectedBox
+    ? (totalSelected / selectedBox.capacity) * 100
+    : 0;
+  const isBoxFull = selectedBox
+    ? totalSelected === selectedBox.capacity
+    : false;
 
   const updateDessertQuantity = (dessertId: string, change: number) => {
     if (!selectedBox) return;
@@ -38,8 +50,11 @@ export default function BuildABoxPage() {
           return prev.filter((d) => d.id !== dessertId);
         }
 
-        return prev.map((d) => (d.id === dessertId ? { ...d, quantity: newQuantity } : d));
-      } else if (change > 0 && currentTotal < selectedBox.capacity) {
+        return prev.map((d) =>
+          d.id === dessertId ? { ...d, quantity: newQuantity } : d,
+        );
+      }
+      if (change > 0 && currentTotal < selectedBox.capacity) {
         const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
         if (dessert) {
           return [...prev, { id: dessertId, name: dessert.name, quantity: 1 }];
@@ -79,12 +94,12 @@ export default function BuildABoxPage() {
           // Calculate sticky header height: navbar (64px mobile, 80px desktop) + progress header (py-4 = 32px mobile, py-6 = 48px desktop)
           const isMobile = window.innerWidth < 640;
           const navbarHeight = isMobile ? 64 : 80; // top-16 = 64px, top-20 = 80px
-          const progressHeader = 130
+          const progressHeader = 130;
           const stickyHeaderHeight = navbarHeight + progressHeader;
-          
+
           window.scrollTo({
             top: elementTop - stickyHeaderHeight,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }, 200);
@@ -106,29 +121,37 @@ export default function BuildABoxPage() {
   return (
     <div className="h-full bg-gradient-to-br from-orange-50 to-amber-50 select-none">
       {/* Main Content Container */}
-      <div className={`
+      <div
+        className={`
         mx-auto max-w-7xl px-4
         sm:px-6
         lg:px-8
-      `}>
+      `}
+      >
         {/* Header Section */}
-        <div className={`
+        <div
+          className={`
           py-6
           sm:py-8
           lg:py-12
-        `}>
+        `}
+        >
           <div className="text-center">
-            <h1 className={`
+            <h1
+              className={`
               mb-3 text-2xl font-bold text-gray-900
               sm:mb-4 sm:text-3xl
               lg:text-4xl
-            `}>
+            `}
+            >
               {selectedBox ? "Selecciona tus Brigadeiros" : "Elige tu Empaque"}
             </h1>
-            <p className={`
+            <p
+              className={`
               mx-auto max-w-2xl px-4 text-base text-gray-600
               sm:text-lg
-            `}>
+            `}
+            >
               {selectedBox
                 ? `Completa tu ${selectedBox.name} con los sabores que más te gusten`
                 : "Primero selecciona el tamaño de empaque que prefieras"}
@@ -137,25 +160,35 @@ export default function BuildABoxPage() {
         </div>
 
         {/* Box Selector Grid */}
-        <div className={`
+        <div
+          className={`
           mb-8
           sm:mb-12
-        `}>
-          <BoxSelector boxes={BOXES} selectedBox={selectedBox} onSelectBox={setSelectedBox} />
+        `}
+        >
+          <BoxSelector
+            boxes={BOXES}
+            selectedBox={selectedBox}
+            onSelectBox={setSelectedBox}
+          />
         </div>
       </div>
 
       {/* Sticky Progress Header - Only shown when box is selected */}
       {selectedBox && (
-        <div className={`
+        <div
+          className={`
           sticky top-16 z-40 border-b border-gray-200 bg-white/85 shadow-sm backdrop-blur-sm
           sm:top-20
-        `}>
-          <div className={`
+        `}
+        >
+          <div
+            className={`
             mx-auto max-w-7xl px-4
             sm:px-6
             lg:px-8
-          `}>
+          `}
+          >
             <ProgressHeader
               selectedBox={selectedBox}
               totalSelected={totalSelected}
@@ -170,21 +203,27 @@ export default function BuildABoxPage() {
 
       {/* Filters and Brigadeiro Grid - Only shown when box is selected */}
       {selectedBox && (
-        <div className={`
+        <div
+          className={`
           mx-auto max-w-7xl px-4
           sm:px-6
           lg:px-8
-        `}>
+        `}
+        >
           {/* Filters Section */}
           <div ref={filtersRef} className={`py-4`}>
-            <div className={`
+            <div
+              className={`
               rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm backdrop-blur-sm
               sm:p-6
-            `}>
-              <div className={`
+            `}
+            >
+              <div
+                className={`
                 flex flex-col gap-4
                 sm:flex-row sm:items-center sm:justify-between
-              `}>
+              `}
+              >
                 {/* Tabs on the left */}
                 <div className="flex-shrink-0">
                   <BrigadeiroTabs
@@ -192,7 +231,7 @@ export default function BuildABoxPage() {
                     onTabChange={setActiveTab}
                   />
                 </div>
-                
+
                 {/* Category filter on the right - Only show for regular brigadeiros */}
                 {activeTab === "regular" && (
                   <div className="flex-shrink-0">
@@ -207,11 +246,13 @@ export default function BuildABoxPage() {
           </div>
 
           {/* Brigadeiro Grid */}
-          <div className={`
+          <div
+            className={`
             pb-8
             sm:pb-12
             lg:pb-16
-          `}>
+          `}
+          >
             <BrigadeiroGrid
               selectedBox={selectedBox}
               brigadeiros={brigadeiros}

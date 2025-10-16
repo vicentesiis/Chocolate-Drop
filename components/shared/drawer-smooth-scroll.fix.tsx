@@ -11,13 +11,12 @@ export default function DrawerSmoothScrollFix({ open }: { open: boolean }) {
       return () => {
         root.style.scrollBehavior = prev || "";
       };
-    } else {
-      const timeoutId = setTimeout(() => {
-        root.style.scrollBehavior = "smooth";
-      }, 1000);
-      
-      return () => clearTimeout(timeoutId);
     }
+    const timeoutId = setTimeout(() => {
+      root.style.scrollBehavior = "smooth";
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
   }, [open]);
 
   return null;

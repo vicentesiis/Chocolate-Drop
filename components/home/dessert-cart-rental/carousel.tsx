@@ -45,7 +45,9 @@ export function Carousel({
   }, [images.length, resetAutoPlay]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length,
+    );
     resetAutoPlay();
   }, [images.length, resetAutoPlay]);
 

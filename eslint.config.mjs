@@ -1,39 +1,47 @@
-// eslint.config.mjs
-import { FlatCompat } from "@eslint/eslintrc";
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintParserTypeScript from "@typescript-eslint/parser";
+import perfectionist from "eslint-plugin-perfectionist";
 import betterTailwind from "eslint-plugin-better-tailwindcss";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import tseslint from "typescript-eslint";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({ baseDirectory: __dirname });
-
-// Pull in Next’s configs
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-
-  // Your Tailwind readability rules
+export default tseslint.config(
+  eslintJs.configs.recommended,
+  tseslint.configs.recommended,
+  tseslint.configs.stylistic,
+  // fatima.eslint.plugin, // import { linter as fatima } from "fatima";
+  { ignores: ["node_modules", ".next"] },
   {
+    files: ["**/*.{ts,tsx}"],
+    ...eslintReact.configs["recommended-typescript"],
+    languageOptions: {
+      parser: eslintParserTypeScript,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+        project: true,
+      },
+    },
+  },
+  perfectionist.configs["recommended-natural"],
+  {
+    files: ["**/*.{ts,tsx}"],
     plugins: {
       "better-tailwindcss": betterTailwind,
     },
     rules: {
-      // Split long class lists into multiple lines (the backticked multiline style)
-      "better-tailwindcss/multiline": ["warn", { printWidth: 100 }],
-
-      // Optional: Tailwind-aware sorting (you can keep Biome’s sorting too)
+      "@eslint-react/hooks-extra/no-direct-set-state-in-use-effect": "off",
+      "@eslint-react/no-array-index-key": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-unused-vars": "off",
+      "no-useless-escape": "off",
+      "better-tailwindcss/multiline": ["warn", { printWidth: 80 }],
       "better-tailwindcss/sort-classes": "warn",
     },
     settings: {
-      // Tailwind v4: point to the CSS entry that includes Tailwind (adjust path!)
-      // For App Router:
-      // "better-tailwindcss": { entryPoint: "app/globals.css" }
-      // For Pages Router:
-      // "better-tailwindcss": { entryPoint: "src/styles/globals.css" }
-      "better-tailwindcss": { entryPoint: "app/globals.css" },
+      "better-tailwindcss": {
+        entryPoint: "app/globals.css",
+      },
     },
   },
-];
-
-export default eslintConfig;
+  // fatima.eslint.noEnvRule("**/*.tsx"),
+);

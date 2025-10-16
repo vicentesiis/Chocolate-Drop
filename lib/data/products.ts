@@ -6,14 +6,14 @@ export const BOXES = [
     price: 280,
     image: "/boxes/empaque-4.jpg",
   },
-{
+  {
     id: "box-6",
     name: "Empaque Selecto",
     capacity: 6,
     price: 370,
     image: "/boxes/empaque-6.jpg",
   },
-{
+  {
     id: "box-9",
     name: "Empaque Regalo",
     capacity: 9,
@@ -84,7 +84,8 @@ export const BRIGADEIROS = [
   {
     id: "mazapan",
     name: "Mazapán",
-    description: "Mazapán artesanal con centro de chocolate y cobertura de cacahuate.",
+    description:
+      "Mazapán artesanal con centro de chocolate y cobertura de cacahuate.",
     image: "/brigadeiros/mazapan.png",
     isActive: true,
     isSeasonal: false,

@@ -83,7 +83,10 @@ export function CartSheet() {
         </div>
 
         {cart.length > 0 && (
-          <CartSummary totalPrice={getTotalPrice()} onClose={() => setOpen(false)} />
+          <CartSummary
+            totalPrice={getTotalPrice()}
+            onClose={() => setOpen(false)}
+          />
         )}
       </SheetContent>
     </Sheet>

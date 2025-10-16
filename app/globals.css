@@ -129,7 +129,7 @@
     @apply scroll-smooth;
     scroll-behavior: smooth;
   }
-  
+
   /* Auto scroll to top on route changes */
   body {
     scroll-behavior: smooth;
@@ -151,15 +151,12 @@
   }
 
   .chocolate-shadow {
-    box-shadow:
-      0 10px 25px -5px hsl(25 95% 35% / 0.1),
-      0 8px 10px -6px hsl(25 95% 35% / 0.1);
+    box-shadow: 0 10px 25px -5px hsl(25 95% 35% / 0.1), 0 8px 10px -6px
+      hsl(25 95% 35% / 0.1);
   }
 
   .warm-glow {
-    box-shadow:
-      0 0 20px hsl(39 80% 70% / 0.3),
-      0 0 40px hsl(33 70% 75% / 0.2);
+    box-shadow: 0 0 20px hsl(39 80% 70% / 0.3), 0 0 40px hsl(33 70% 75% / 0.2);
   }
 
   /* Screen height minus navbar */

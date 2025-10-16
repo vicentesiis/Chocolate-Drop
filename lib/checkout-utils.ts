@@ -43,8 +43,8 @@ export const getMissingFields = (errors: ValidationErrors): string[] => {
 
 export const getValidationMessage = (missingFields: string[]): string => {
   if (missingFields.length === 0) return "";
-  
-  return missingFields.length === 1 
+
+  return missingFields.length === 1
     ? `Por favor completa el campo: ${missingFields[0]}`
     : `Por favor completa los campos: ${missingFields.join(", ")}`;
 };

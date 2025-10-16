@@ -4,7 +4,12 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 
@@ -38,7 +43,10 @@ export const NavigationSheet = () => {
         <Logo />
 
         <div className="mt-4">
-          <NavMenu orientation="vertical" onItemClick={() => setIsOpen(false)} />
+          <NavMenu
+            orientation="vertical"
+            onItemClick={() => setIsOpen(false)}
+          />
         </div>
       </SheetContent>
     </Sheet>

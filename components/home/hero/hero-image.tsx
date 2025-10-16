@@ -13,19 +13,19 @@ export function HeroImage() {
         xl:max-w-xl
       `}
     >
-      <Image 
-        src="/hero.jpg" 
-        fill 
-        alt="Delicious Brazilian brigadeiros" 
-        className="rounded-2xl object-cover" 
-        priority 
+      <Image
+        src="/hero.jpg"
+        fill
+        alt="Delicious Brazilian brigadeiros"
+        className="rounded-2xl object-cover"
+        priority
       />
       <div
         className={`
           absolute inset-0 rounded-2xl bg-gradient-to-t from-orange-900/20 via-transparent
           to-transparent
         `}
-      ></div>
+      />
       {/* Floating badge */}
       <div
         className={`

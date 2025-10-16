@@ -16,9 +16,11 @@ export function CartSummary({ totalPrice, onClose }: CartSummaryProps) {
 
   return (
     <div>
-      <div className={`
+      <div
+        className={`
         -mt-2 flex items-center justify-between border-t-1 text-xl font-semibold text-primary
-      `}>
+      `}
+      >
         <span className="pt-2">Total:</span>
         <span>{formatPrice(totalPrice)}</span>
       </div>

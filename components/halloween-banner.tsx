@@ -28,19 +28,19 @@ export function HalloweenBanner() {
               absolute top-2 left-10 h-16 w-16 rounded-full bg-gradient-to-br from-orange-500/30
               to-amber-500/30 blur-lg
             `}
-          ></div>
+          />
           <div
             className={`
               absolute top-1 right-10 h-20 w-20 rounded-full bg-gradient-to-br from-purple-500/20
               to-orange-500/20 blur-xl
             `}
-          ></div>
+          />
           <div
             className={`
               absolute top-3 left-1/3 h-12 w-12 rounded-full bg-gradient-to-br from-amber-400/25
               to-orange-400/25 blur-md
             `}
-          ></div>
+          />
         </div>
 
         {/* Close button */}
@@ -121,7 +121,7 @@ export function HalloweenBanner() {
             absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/80
             to-transparent
           `}
-        ></div>
+        />
       </Card>
     </div>
   );

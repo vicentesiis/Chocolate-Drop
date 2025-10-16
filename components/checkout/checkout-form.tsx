@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CustomerData, ValidationErrors } from "@/lib/checkout-utils";
+import type { CustomerData, ValidationErrors } from "@/lib/checkout-utils";
 
 interface CheckoutFormProps {
   customerData: CustomerData;
@@ -9,7 +9,11 @@ interface CheckoutFormProps {
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function CheckoutForm({ customerData, errors, onInputChange }: CheckoutFormProps) {
+export function CheckoutForm({
+  customerData,
+  errors,
+  onInputChange,
+}: CheckoutFormProps) {
   return (
     <Card className="mb-4">
       <CardHeader>
@@ -25,10 +29,14 @@ export function CheckoutForm({ customerData, errors, onInputChange }: CheckoutFo
             value={customerData.name}
             onChange={onInputChange}
             placeholder="Ingresa tu nombre completo"
-            className={errors.name ? `
+            className={
+              errors.name
+                ? `
               border-red-500
               focus-visible:ring-red-500
-            ` : ""}
+            `
+                : ""
+            }
             required
           />
           {errors.name && (
@@ -44,10 +52,14 @@ export function CheckoutForm({ customerData, errors, onInputChange }: CheckoutFo
             value={customerData.phone}
             onChange={onInputChange}
             placeholder="Ingresa tu número de teléfono"
-            className={errors.phone ? `
+            className={
+              errors.phone
+                ? `
               border-red-500
               focus-visible:ring-red-500
-            ` : ""}
+            `
+                : ""
+            }
             required
           />
           {errors.phone && (

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCart } from "@/lib/contexts/cart-context";
-import { CustomerData } from "@/lib/checkout-utils";
+import type { CustomerData } from "@/lib/checkout-utils";
 
 export const useCheckoutSubmit = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cart, clearCart } = useCart();
 
-  const handleConfirmPurchase = async (customerData: CustomerData, isValid: boolean) => {
+  const handleConfirmPurchase = async (
+    customerData: CustomerData,
+    isValid: boolean,
+  ) => {
     if (!isValid) {
       return;
     }

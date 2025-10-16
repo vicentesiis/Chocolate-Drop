@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import type { CartItem } from "@/lib/types/cart";
 
 interface CartContextType {
@@ -59,7 +65,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalItems = () => {
     return cart.reduce(
-      (total, item) => total + item.brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0),
+      (total, item) =>
+        total +
+        item.brigadeiros.reduce((sum, dessert) => sum + dessert.quantity, 0),
       0,
     );
   };

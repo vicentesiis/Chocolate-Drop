@@ -25,26 +25,30 @@ export function BrigadeiroGrid({
   // Filter brigadeiros by season, and category
   const filteredBrigadeiros = BRIGADEIROS.filter((b) => {
     const matchesTab = activeTab === "regular" ? !b.isSeasonal : b.isSeasonal;
-    const matchesCategory = 
-      selectedCategory === "all" || 
-      !b.category || 
+    const matchesCategory =
+      selectedCategory === "all" ||
+      !b.category ||
       b.category === selectedCategory ||
       activeTab === "seasonal"; // Don't filter by category for seasonal items
-    
+
     return matchesTab && matchesCategory;
   });
 
   if (filteredBrigadeiros.length === 0) {
     return (
-      <div className={`
+      <div
+        className={`
         py-12 text-center
         sm:py-16
-      `}>
+      `}
+      >
         <div className="mx-auto max-w-md">
-          <p className={`
+          <p
+            className={`
             mb-2 text-base text-gray-500
             sm:text-lg
-          `}>
+          `}
+          >
             No se encontraron brigadeiros
           </p>
         </div>
@@ -53,12 +57,14 @@ export function BrigadeiroGrid({
   }
 
   return (
-    <div className={`
+    <div
+      className={`
       grid grid-cols-2 gap-4
       sm:grid-cols-3 sm:gap-6
       md:grid-cols-4
       lg:grid-cols-5
-    `}>
+    `}
+    >
       {filteredBrigadeiros.map((dessert) => {
         const selected = brigadeiros.find((d) => d.id === dessert.id);
         const quantity = selected?.quantity || 0;

@@ -20,24 +20,30 @@ export function BrigadeiroCard({
   isAddDisabled,
 }: BrigadeiroCardProps) {
   return (
-    <Card className={`
+    <Card
+      className={`
       group relative flex flex-col overflow-hidden bg-card transition-all duration-200
       hover:scale-[1.02] hover:shadow-lg
-    `}>
+    `}
+    >
       {/* Quantity Badge */}
       {quantity > 0 && (
-        <div className={`
+        <div
+          className={`
           absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full
           bg-primary font-bold text-primary-foreground shadow-lg
-        `}>
+        `}
+        >
           {quantity}
         </div>
       )}
 
-      <div className={`
+      <div
+        className={`
         relative aspect-square overflow-hidden bg-gradient-to-br from-orange-100 via-amber-100
         to-yellow-50
-      `}>
+      `}
+      >
         <Image
           src={dessert.image}
           alt={dessert.name}
@@ -51,26 +57,34 @@ export function BrigadeiroCard({
         />
 
         {/* Overlay gradient */}
-        <div className={`
+        <div
+          className={`
           absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0
           transition-opacity duration-200
           group-hover:opacity-100
-        `} />
+        `}
+        />
       </div>
 
-      <CardContent className={`
+      <CardContent
+        className={`
         flex flex-1 flex-col p-3
         sm:p-4
-      `}>
+      `}
+      >
         <div className="flex-1">
           <h4 className="leading-tight font-semibold">{dessert.name}</h4>
-          <p className="mt-1 text-xs text-muted-foreground">{dessert.description}</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {dessert.description}
+          </p>
         </div>
 
         {/* Quantity Controls */}
-        <div className={`
+        <div
+          className={`
           mt-3 flex items-center justify-between rounded-full border p-1 shadow-sm backdrop-blur-sm
-        `}>
+        `}
+        >
           <Button
             size="lg"
             variant="ghost"
@@ -85,7 +99,9 @@ export function BrigadeiroCard({
             <Minus className="!size-5" />
           </Button>
 
-          <span className="min-w-[32px] text-center font-semibold">{quantity}</span>
+          <span className="min-w-[32px] text-center font-semibold">
+            {quantity}
+          </span>
 
           <Button
             size="lg"

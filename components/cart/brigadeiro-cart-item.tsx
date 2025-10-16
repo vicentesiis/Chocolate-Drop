@@ -6,7 +6,10 @@ interface BrigadeiroCartItemProps {
   quantity: number;
 }
 
-export function BrigadeiroCartItem({ dessertId, quantity }: BrigadeiroCartItemProps) {
+export function BrigadeiroCartItem({
+  dessertId,
+  quantity,
+}: BrigadeiroCartItemProps) {
   const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
 
   if (!dessert) return null;

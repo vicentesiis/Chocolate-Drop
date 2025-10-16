@@ -22,9 +22,10 @@ export function DessertCartHeader() {
           sm:text-lg
         `}
       >
-        Haz de tu celebración un momento inolvidable con nuestras opciones de renta: el encantador{" "}
-        <strong>Carrito de Postres</strong> para eventos especiales o la elegante{" "}
-        <strong>Barra de Postres</strong> ideal para bodas, fiestas grandes y eventos corporativos.
+        Haz de tu celebración un momento inolvidable con nuestras opciones de
+        renta: el encantador <strong>Carrito de Postres</strong> para eventos
+        especiales o la elegante <strong>Barra de Postres</strong> ideal para
+        bodas, fiestas grandes y eventos corporativos.
       </CardDescription>
     </CardHeader>
   );

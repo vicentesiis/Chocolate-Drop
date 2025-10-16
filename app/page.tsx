@@ -1,5 +1,11 @@
 import { HalloweenBanner } from "@/components/halloween-banner";
-import { About, BrigadeirosCarousel, DessertCartRental, Footer, Hero } from "@/components/home";
+import {
+  About,
+  BrigadeirosCarousel,
+  DessertCartRental,
+  Footer,
+  Hero,
+} from "@/components/home";
 
 export default function Home() {
   return (

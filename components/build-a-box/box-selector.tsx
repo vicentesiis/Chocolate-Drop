@@ -12,18 +12,26 @@ interface BoxSelectorProps {
   onSelectBox: (box: (typeof BOXES)[0]) => void;
 }
 
-export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProps) {
+export function BoxSelector({
+  boxes,
+  selectedBox,
+  onSelectBox,
+}: BoxSelectorProps) {
   return (
-    <div className={`
+    <div
+      className={`
       mb-8
       sm:mb-12
-    `}>
-      <div className={`
+    `}
+    >
+      <div
+        className={`
         grid grid-cols-2 gap-2
         sm:gap-4
         md:gap-6
         lg:grid-cols-4
-      `}>
+      `}
+      >
         {boxes.map((box) => {
           const isSelected = selectedBox?.id === box.id;
 
@@ -35,12 +43,13 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                 ease-out
                 active:scale-95
                 sm:hover:scale-[1.02] sm:hover:shadow-lg
-                ${isSelected
-                  ? `
+                ${
+                  isSelected
+                    ? `
                     border-primary bg-primary/5 shadow-md ring-2 ring-primary/20
                     sm:shadow-lg
                   `
-                  : `
+                    : `
                     border-border
                     hover:border-primary/50
                     active:border-primary/70
@@ -50,15 +59,19 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
               onClick={() => onSelectBox(box)}
             >
               {isSelected && (
-                <div className={`
+                <div
+                  className={`
                   absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full
                   bg-primary text-primary-foreground shadow-sm
                   sm:top-4 sm:right-4 sm:h-8 sm:w-8
-                `}>
-                  <Check className={`
+                `}
+                >
+                  <Check
+                    className={`
                     h-3 w-3
                     sm:h-4 sm:w-4
-                  `} />
+                  `}
+                  />
                 </div>
               )}
 
@@ -75,51 +88,75 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                 />
               </div>
 
-              <CardContent className={`
+              <CardContent
+                className={`
                 p-3
                 sm:p-4
                 lg:p-6
-              `}>
-                <div className={`
+              `}
+              >
+                <div
+                  className={`
                   mb-2 flex flex-col gap-2
                   sm:flex-row sm:items-center sm:justify-between
-                `}>
-                  <h3 className={`
+                `}
+                >
+                  <h3
+                    className={`
                     text-base font-semibold
                     sm:text-lg
                     lg:text-xl
-                  `}>{box.name}</h3>
-                  <Badge variant="secondary" className={`
+                  `}
+                  >
+                    {box.name}
+                  </h3>
+                  <Badge
+                    variant="secondary"
+                    className={`
                     hidden text-xs whitespace-nowrap
                     sm:block sm:text-sm
-                  `}>
+                  `}
+                  >
                     {box.capacity} piezas
                   </Badge>
                 </div>
 
-                <div className={`
+                <div
+                  className={`
                   flex flex-col gap-1
                   sm:flex-row sm:items-center sm:justify-between
-                `}>
-                  <div className={`
+                `}
+                >
+                  <div
+                    className={`
                     flex items-center justify-between
                     sm:justify-start
-                  `}>
-                    <span className={`
+                  `}
+                  >
+                    <span
+                      className={`
                       text-xl font-bold text-primary
                       sm:text-2xl
-                    `}>${box.price}</span>
-                    <Badge variant="secondary" className={`
+                    `}
+                    >
+                      ${box.price}
+                    </span>
+                    <Badge
+                      variant="secondary"
+                      className={`
                       text-sm whitespace-nowrap
                       sm:hidden
-                    `}>
+                    `}
+                    >
                       {box.capacity} piezas
                     </Badge>
                   </div>
-                  <span className={`
+                  <span
+                    className={`
                     hidden text-xs text-muted-foreground
                     sm:inline sm:text-sm
-                  `}>
+                  `}
+                  >
                     ${Math.round(box.price / box.capacity)} por pieza
                   </span>
                 </div>

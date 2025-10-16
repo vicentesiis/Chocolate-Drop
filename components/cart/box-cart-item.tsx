@@ -18,7 +18,10 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
     }).format(price);
   };
 
-  const totalBrigadeiros = (item.brigadeiros || []).reduce((sum, b) => sum + b.quantity, 0);
+  const totalBrigadeiros = (item.brigadeiros || []).reduce(
+    (sum, b) => sum + b.quantity,
+    0,
+  );
 
   return (
     <div
@@ -42,39 +45,49 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
       </Button>
 
       <div className="mb-4">
-        <h3 className={`
+        <h3
+          className={`
           mb-2 truncate text-base font-semibold
           sm:text-lg
           lg:text-xl
-        `}>
+        `}
+        >
           {item.boxType.name}
         </h3>
         <div className="flex items-center justify-between">
-          <span className={`
+          <span
+            className={`
             text-xl font-bold text-primary
             sm:text-2xl
-          `}>{formatPrice(item.totalPrice)}</span>
-            <Badge variant="secondary" className={`text-sm whitespace-nowrap`}>
-              {totalBrigadeiros} piezas
-            </Badge>
+          `}
+          >
+            {formatPrice(item.totalPrice)}
+          </span>
+          <Badge variant="secondary" className={`text-sm whitespace-nowrap`}>
+            {totalBrigadeiros} piezas
+          </Badge>
         </div>
       </div>
 
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <div className="h-px flex-1 bg-border"></div>
-          <span className={`
+          <div className="h-px flex-1 bg-border" />
+          <span
+            className={`
             px-2 text-xs font-medium whitespace-nowrap text-muted-foreground
             sm:text-sm
-          `}>
+          `}
+          >
             Brigadeiros seleccionados
           </span>
-          <div className="h-px flex-1 bg-border"></div>
+          <div className="h-px flex-1 bg-border" />
         </div>
-        <div className={`
+        <div
+          className={`
           flex flex-col gap-2
           sm:gap-3
-        `}>
+        `}
+        >
           {(item.brigadeiros || []).map((brigadeiro, brigadeiroIndex) => (
             <div key={brigadeiro.id}>
               <BrigadeiroCartItem
@@ -82,10 +95,12 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
                 quantity={brigadeiro.quantity}
               />
               {brigadeiroIndex < (item.brigadeiros || []).length - 1 && (
-                <div className={`
+                <div
+                  className={`
                   mt-1 h-px bg-border/50
                   sm:mt-3
-                `} />
+                `}
+                />
               )}
             </div>
           ))}

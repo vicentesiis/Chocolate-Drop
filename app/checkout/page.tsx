@@ -3,12 +3,18 @@
 import { useCart } from "@/lib/contexts/cart-context";
 import { useCheckoutForm } from "@/hooks/use-checkout-form";
 import { useCheckoutSubmit } from "@/hooks/use-checkout-submit";
-import { CheckoutForm, CheckoutHeader, EmptyCartState, OrderSummary } from "@/components/checkout";
+import {
+  CheckoutForm,
+  CheckoutHeader,
+  EmptyCartState,
+  OrderSummary,
+} from "@/components/checkout";
 import { Button } from "@/components/ui/button";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { customerData, errors, handleInputChange, validateFields } = useCheckoutForm();
+  const { customerData, errors, handleInputChange, validateFields } =
+    useCheckoutForm();
   const { isSubmitting, handleConfirmPurchase } = useCheckoutSubmit();
 
   const onConfirmPurchase = () => {
@@ -32,7 +38,12 @@ export default function CheckoutPage() {
             errors={errors}
             onInputChange={handleInputChange}
           />
-          <Button onClick={onConfirmPurchase} disabled={isSubmitting} className="w-full" size="lg">
+          <Button
+            onClick={onConfirmPurchase}
+            disabled={isSubmitting}
+            className="w-full"
+            size="lg"
+          >
             {isSubmitting ? "Procesando..." : "Confirmar Compra"}
           </Button>
         </>

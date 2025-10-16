@@ -6,7 +6,13 @@ export interface Order {
   items: CartItem[];
   customerInfo: CustomerInfo;
   totalPrice: number;
-  status: "pending" | "confirmed" | "preparing" | "ready" | "delivered" | "cancelled";
+  status:
+    | "pending"
+    | "confirmed"
+    | "preparing"
+    | "ready"
+    | "delivered"
+    | "cancelled";
   createdAt: Date;
   updatedAt: Date;
   notes?: string;

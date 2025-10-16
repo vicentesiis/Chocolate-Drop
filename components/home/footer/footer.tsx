@@ -30,8 +30,8 @@ export function Footer() {
       <div className="mx-auto max-w-(--breakpoint-xl) px-6 py-6">
         <div className="text-center text-muted-foreground">
           &copy; {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-foreground">Chocolate Drop</span>. Todos los derechos
-          reservados.
+          <span className="font-semibold text-foreground">Chocolate Drop</span>.
+          Todos los derechos reservados.
         </div>
       </div>
     </footer>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { 
-  CustomerData, 
-  ValidationErrors, 
-  validateCustomerData, 
-  getMissingFields, 
-  getValidationMessage 
+import {
+  type CustomerData,
+  type ValidationErrors,
+  validateCustomerData,
+  getMissingFields,
+  getValidationMessage,
 } from "@/lib/checkout-utils";
 
 export const useCheckoutForm = () => {
@@ -25,7 +25,7 @@ export const useCheckoutForm = () => {
       ...prev,
       [name]: value,
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name as keyof ValidationErrors]) {
       setErrors((prev) => ({
@@ -40,7 +40,7 @@ export const useCheckoutForm = () => {
     setErrors(newErrors);
 
     const missingFields = getMissingFields(newErrors);
-    
+
     if (missingFields.length > 0) {
       const message = getValidationMessage(missingFields);
       toast.error(message);

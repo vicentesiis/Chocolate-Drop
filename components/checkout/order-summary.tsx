@@ -22,10 +22,12 @@ export function OrderSummary() {
               onRemove={removeFromCart}
             />
           ))}
-          <div className={`
+          <div
+            className={`
             flex items-center justify-between border-t pt-2 text-xl font-semibold text-primary
-          `}>
-            <span>Total:</span> 
+          `}
+          >
+            <span>Total:</span>
             <span>{formatPrice(totalPrice)}</span>
           </div>
         </div>
