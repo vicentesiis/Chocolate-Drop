@@ -2,6 +2,7 @@ import { CartSheet } from "@/components/cart";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -17,7 +18,9 @@ const Navbar = () => {
         className={`mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-6`}
       >
         <div className="flex items-center">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
         </div>
 
         {/* Desktop Menu */}

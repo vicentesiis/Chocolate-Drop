@@ -22,7 +22,7 @@ export function BrigadeiroCard({
 }: BrigadeiroCardProps) {
   return (
     <Card className={`
-      group relative flex flex-col overflow-hidden bg-white transition-all duration-200
+      group relative flex flex-col overflow-hidden bg-card transition-all duration-200
       hover:scale-[1.02] hover:shadow-lg
     `}>
       {/* Quantity Badge */}
@@ -65,7 +65,7 @@ export function BrigadeiroCard({
       `}>
         <div className="flex-1">
           <h4 className="leading-tight font-semibold">{dessert.name}</h4>
-          <p className="mt-1 text-sm text-muted-foreground">{dessert.description}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{dessert.description}</p>
         </div>
 
         {/* Quantity Controls */}

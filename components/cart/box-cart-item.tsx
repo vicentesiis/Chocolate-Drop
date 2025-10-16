@@ -2,6 +2,7 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { CartItem } from "@/lib/types/cart";
 import { CartDessertItem } from "./cart-dessert-item";
+import { Badge } from "../ui/badge";
 
 interface BoxCartItemProps {
   item: CartItem;
@@ -52,14 +53,12 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
             text-lg font-bold text-primary
             sm:text-xl
           `}>{formatPrice(item.totalPrice)}</p>
-          <span
-            className={`
-              inline-flex w-fit items-center rounded-full bg-primary/10 px-2 py-1 text-xs
-              font-medium text-primary
-            `}
-          >
-            {totalBrigadeiros} piezas
-          </span>
+            <Badge variant="secondary" className={`
+              hidden text-xs whitespace-nowrap
+              sm:block sm:text-sm
+            `}>
+              {totalBrigadeiros} piezas
+            </Badge>
         </div>
       </div>
 
@@ -72,15 +71,22 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
           <div className="h-px flex-1 bg-border"></div>
         </div>
         <div className={`
-          grid gap-2
+          flex flex-col gap-2
           sm:gap-3
         `}>
-          {(item.brigadeiros || []).map((brigadeiro) => (
-            <CartDessertItem
-              key={brigadeiro.id}
-              dessertId={brigadeiro.id}
-              quantity={brigadeiro.quantity}
-            />
+          {(item.brigadeiros || []).map((brigadeiro, brigadeiroIndex) => (
+            <div key={brigadeiro.id}>
+              <CartDessertItem
+                dessertId={brigadeiro.id}
+                quantity={brigadeiro.quantity}
+              />
+              {brigadeiroIndex < (item.brigadeiros || []).length - 1 && (
+                <div className={`
+                  mt-1 h-px bg-border/50
+                  sm:mt-3
+                `} />
+              )}
+            </div>
           ))}
         </div>
       </div>

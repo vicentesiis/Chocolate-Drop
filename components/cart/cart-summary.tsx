@@ -15,8 +15,10 @@ export function CartSummary({ totalPrice }: CartSummaryProps) {
 
   return (
     <div>
-      <div className="-mt-2 flex items-center justify-between text-xl font-semibold text-primary">
-        <span>Total:</span>
+      <div className={`
+        -mt-2 flex items-center justify-between border-t-1 text-xl font-semibold text-primary
+      `}>
+        <span className="pt-2">Total:</span>
         <span>{formatPrice(totalPrice)}</span>
       </div>
       <Link href="/checkout" className="block">

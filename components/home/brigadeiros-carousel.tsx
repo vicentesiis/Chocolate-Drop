@@ -13,7 +13,7 @@ export function BrigadeirosCarousel() {
     <section
       className={`
         py-6
-        sm:py-16
+        sm:py-8
       `}
     >
       <div
