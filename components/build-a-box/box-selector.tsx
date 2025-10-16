@@ -19,8 +19,7 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
       sm:mb-12
     `}>
       <div className={`
-        grid grid-cols-1 gap-3
-        xs:grid-cols-2
+        grid grid-cols-2 gap-2
         sm:gap-4
         md:gap-6
         lg:grid-cols-4
