@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Minus, Plus, Sparkles } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { BRIGADEIROS } from "@/lib/data/products";

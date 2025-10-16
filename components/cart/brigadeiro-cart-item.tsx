@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { BRIGADEIROS } from "@/lib/data/products";
 
-interface CartDessertItemProps {
+interface BrigadeiroCartItemProps {
   dessertId: string;
   quantity: number;
 }
 
-export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {
+export function BrigadeiroCartItem({ dessertId, quantity }: BrigadeiroCartItemProps) {
   const dessert = BRIGADEIROS.find((d) => d.id === dessertId);
 
   if (!dessert) return null;
@@ -19,14 +19,13 @@ export function CartDessertItem({ dessertId, quantity }: CartDessertItemProps) {
         <Image
           src={dessert.image}
           alt={dessert.name}
-          width={80}
-          height={80}
-          className="rounded-full object-cover shadow-md ring-2 ring-background"
+          width={100}
+          height={100}
         />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="font-medium text-foreground">{dessert.name}</p>
-        <p className="text-sm text-muted-foreground">
+        <h4 className={`leading-tight font-semibold`}>{dessert.name}</h4>
+        <p className={`mt-2 text-base text-muted-foreground`}>
           {quantity} {quantity === 1 ? "pieza" : "piezas"}
         </p>
       </div>

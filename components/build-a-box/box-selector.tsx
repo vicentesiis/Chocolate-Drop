@@ -110,7 +110,7 @@ export function BoxSelector({ boxes, selectedBox, onSelectBox }: BoxSelectorProp
                       sm:text-2xl
                     `}>${box.price}</span>
                     <Badge variant="secondary" className={`
-                      text-xs whitespace-nowrap
+                      text-sm whitespace-nowrap
                       sm:hidden
                     `}>
                       {box.capacity} piezas

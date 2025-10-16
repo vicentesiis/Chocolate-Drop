@@ -1,7 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { CartItem } from "@/lib/types/cart";
-import { CartDessertItem } from "./cart-dessert-item";
+import { BrigadeiroCartItem } from "./brigadeiro-cart-item";
 import { Badge } from "../ui/badge";
 
 interface BoxCartItemProps {
@@ -43,20 +43,18 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
 
       <div className="mb-4">
         <h3 className={`
-          mb-2 truncate text-base font-semibold text-foreground
+          mb-2 truncate text-base font-semibold
           sm:text-lg
+          lg:text-xl
         `}>
           {item.boxType.name}
         </h3>
         <div className="flex items-center justify-between">
-          <p className={`
-            text-lg font-bold text-primary
-            sm:text-xl
-          `}>{formatPrice(item.totalPrice)}</p>
-            <Badge variant="secondary" className={`
-              hidden text-xs whitespace-nowrap
-              sm:block sm:text-sm
-            `}>
+          <span className={`
+            text-xl font-bold text-primary
+            sm:text-2xl
+          `}>{formatPrice(item.totalPrice)}</span>
+            <Badge variant="secondary" className={`text-sm whitespace-nowrap`}>
               {totalBrigadeiros} piezas
             </Badge>
         </div>
@@ -65,9 +63,12 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <div className="h-px flex-1 bg-border"></div>
-          <p className={`px-2 text-sm font-medium whitespace-nowrap text-muted-foreground`}>
+          <span className={`
+            px-2 text-xs font-medium whitespace-nowrap text-muted-foreground
+            sm:text-sm
+          `}>
             Brigadeiros seleccionados
-          </p>
+          </span>
           <div className="h-px flex-1 bg-border"></div>
         </div>
         <div className={`
@@ -76,7 +77,7 @@ export function BoxCartItem({ item, index, onRemove }: BoxCartItemProps) {
         `}>
           {(item.brigadeiros || []).map((brigadeiro, brigadeiroIndex) => (
             <div key={brigadeiro.id}>
-              <CartDessertItem
+              <BrigadeiroCartItem
                 dessertId={brigadeiro.id}
                 quantity={brigadeiro.quantity}
               />
