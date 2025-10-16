@@ -5,8 +5,8 @@ export function Hero() {
   return (
     <div
       className={`
-        relative flex h-full w-full items-center justify-center overflow-hidden border-b
-        border-orange-200/50 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 py-6
+        h-screen-minus-navbar relative flex w-full items-center justify-center overflow-hidden
+        border-b border-orange-200/50 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 py-6
         sm:py-12
         lg:py-16
       `}

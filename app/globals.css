@@ -162,6 +162,17 @@
       0 0 40px hsl(33 70% 75% / 0.2);
   }
 
+  /* Screen height minus navbar */
+  .h-screen-minus-navbar {
+    height: calc(100vh - 4rem); /* 64px navbar on mobile */
+  }
+
+  @media (min-width: 1024px) {
+    .h-screen-minus-navbar {
+      height: calc(100vh - 5rem); /* 80px navbar on lg+ screens */
+    }
+  }
+
   /* Mobile carousel improvements */
   .mobile-carousel-smooth {
     -webkit-overflow-scrolling: touch;
