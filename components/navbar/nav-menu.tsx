@@ -92,7 +92,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
-            href="#events"
+            href="/#events"
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2
@@ -125,7 +125,7 @@ export const NavMenu = ({ onItemClick, ...props }: NavMenuProps) => (
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
           <Link
-            href="#about-us"
+            href="/#about-us"
             onClick={onItemClick}
             className={`
               group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-md px-2 py-2

@@ -104,7 +104,7 @@ export default function BuildABoxPage() {
   }, [selectedBox]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 select-none">
+    <div className="h-full bg-gradient-to-br from-orange-50 to-amber-50 select-none">
       {/* Main Content Container */}
       <div className={`
         mx-auto max-w-7xl px-4

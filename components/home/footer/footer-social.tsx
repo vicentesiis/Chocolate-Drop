@@ -25,7 +25,7 @@ export function FooterSocial() {
           </svg>
         </Link>
         <Link
-          href="https://facebook.com/chocolatedrop"
+          href="https://www.facebook.com/ChocolateDropMx"
           target="_blank"
           className={`
             rounded-full bg-blue-600 p-2 text-white transition-transform

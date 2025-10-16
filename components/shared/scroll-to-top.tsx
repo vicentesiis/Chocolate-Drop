@@ -7,6 +7,11 @@ export function ScrollToTop() {
   const pathname = usePathname()
 
   useEffect(() => {
+    // Don't scroll to top if there's a hash in the URL (for anchor links)
+    if (window.location.hash) {
+      return
+    }
+
     // Small delay to ensure the page has rendered
     const timer = setTimeout(() => {
       window.scrollTo({
