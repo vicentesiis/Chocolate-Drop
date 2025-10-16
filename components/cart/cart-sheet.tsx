@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,9 +18,10 @@ import { CartSummary } from "./cart-summary";
 
 export function CartSheet() {
   const { cart, removeFromCart, getTotalPrice } = useCart();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -81,7 +83,7 @@ export function CartSheet() {
         </div>
 
         {cart.length > 0 && (
-          <CartSummary totalPrice={getTotalPrice()} />
+          <CartSummary totalPrice={getTotalPrice()} onClose={() => setOpen(false)} />
         )}
       </SheetContent>
     </Sheet>

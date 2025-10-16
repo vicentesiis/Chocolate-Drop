@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 
 interface CartSummaryProps {
   totalPrice: number;
+  onClose: () => void;
 }
 
-export function CartSummary({ totalPrice }: CartSummaryProps) {
+export function CartSummary({ totalPrice, onClose }: CartSummaryProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-MX", {
       style: "currency",
@@ -22,7 +23,7 @@ export function CartSummary({ totalPrice }: CartSummaryProps) {
         <span>{formatPrice(totalPrice)}</span>
       </div>
       <Link href="/checkout" className="block">
-        <Button className="mt-2 w-full" size="lg">
+        <Button className="mt-2 w-full" size="lg" onClick={onClose}>
           Proceder al Pago
         </Button>
       </Link>
