@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/lib/contexts/cart-context";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
+import { ConditionalNavbar } from "@/components/shared";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -75,7 +76,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <CartProvider>
             <ScrollToTop />
-            <Navbar />
+            <ConditionalNavbar />
             {children}
             <Toaster />
           </CartProvider>

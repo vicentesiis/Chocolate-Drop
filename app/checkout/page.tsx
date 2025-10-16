@@ -23,7 +23,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 pt-2 pb-8">
+    <div className="container mx-auto max-w-2xl p-4 pb-8">
       <CheckoutHeader />
 
       <h1 className="mb-4 text-2xl font-bold">Finalizar Pedido</h1>
