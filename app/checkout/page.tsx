@@ -99,7 +99,7 @@ export default function CheckoutPage() {
 
       {/* Mobile Action Button */}
       {cart.length > 0 && (
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border p-4 safe-area-pb">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border py-2 px-6">
           <SubmitButton
             onClick={handleConfirmOrder}
             disabled={isSubmitting || !isFormValid}

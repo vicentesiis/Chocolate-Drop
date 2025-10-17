@@ -8,7 +8,7 @@ export function CheckoutHeader() {
   const { cart } = useCart();
 
   return (
-    <div className="mb-4 sm:mb-6 flex items-center justify-between py-2 px-4 sm:px-0 sm:py-4">
+    <div className="mb-2 flex items-center justify-between pt-2 px-4 sm:px-0">
       <Link href="/">
         <Button
           variant="ghost"

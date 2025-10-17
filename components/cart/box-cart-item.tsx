@@ -44,8 +44,7 @@ export function BoxCartItem({
         onClick={() => onRemove(index)}
         className={`
           absolute top-2 right-4 h-8 w-8 p-0 text-muted-foreground opacity-60 transition-all
-          hover:bg-destructive/10 hover:text-destructive hover:opacity-100
-          sm:opacity-0 sm:group-hover:opacity-100
+          hover:bg-destructive/10 hover:text-destructive
         `}
       >
         <Trash2 className="!size-6" />
