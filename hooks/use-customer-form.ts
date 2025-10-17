@@ -27,9 +27,6 @@ export function useCustomerForm({
   const isPhoneValid =
     !errors.phone && dirtyFields.phone && form.getValues("phone").trim() !== "";
 
-  // Count completed fields
-  const completedFields = [isNameValid, isPhoneValid].filter(Boolean).length;
-
   const handleSubmit = form.handleSubmit((data) => {
     onSubmit?.(data);
   });
@@ -40,8 +37,6 @@ export function useCustomerForm({
     isValid,
     isNameValid,
     isPhoneValid,
-    completedFields,
-    totalFields: 2,
     handleSubmit,
     register: form.register,
     watch: form.watch,

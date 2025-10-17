@@ -17,27 +17,24 @@ export function CheckoutForm({
   onFormChange,
   onSubmit,
 }: CheckoutFormProps) {
-  const {
-    register,
-    errors,
-    isNameValid,
-    isPhoneValid,
-    completedFields,
-    totalFields,
-    watch,
-    handleSubmit,
-  } = useCustomerForm({
-    defaultValues,
-    onSubmit,
-  });
+  const { register, errors, isNameValid, isPhoneValid, watch, handleSubmit } =
+    useCustomerForm({
+      defaultValues,
+      onSubmit,
+    });
 
-  // Watch form changes and notify parent
-  const watchedData = watch();
+  // Watch individual fields to avoid object reference issues
+  const nameValue = watch("name");
+  const phoneValue = watch("phone");
   const isFormValid = Boolean(isNameValid && isPhoneValid);
 
   React.useEffect(() => {
-    onFormChange?.(watchedData, isFormValid);
-  }, [watchedData, isFormValid, onFormChange]);
+    const currentData: CustomerData = {
+      name: nameValue || "",
+      phone: phoneValue || "",
+    };
+    onFormChange?.(currentData, isFormValid);
+  }, [nameValue, phoneValue, isFormValid, onFormChange]);
 
   return (
     <Card className="shadow-sm border-0 bg-card/50 backdrop-blur-sm">
@@ -78,32 +75,11 @@ export function CheckoutForm({
             icon={Phone}
             error={errors.phone?.message}
             isValid={isPhoneValid}
-            helperText="Te contactaremos para coordinar la entrega"
             required
             autoComplete="tel"
             inputMode="tel"
             {...register("phone")}
           />
-
-          {/* Form Progress */}
-          <div className="pt-3 sm:pt-4 border-t">
-            <div className="flex items-center justify-between text-sm mb-2">
-              <span className="text-muted-foreground text-xs sm:text-sm">
-                Progreso del formulario
-              </span>
-              <span className="font-medium text-xs sm:text-sm">
-                {completedFields} de {totalFields} completados
-              </span>
-            </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-300 ease-out"
-                style={{
-                  width: `${(completedFields / totalFields) * 100}%`,
-                }}
-              />
-            </div>
-          </div>
         </form>
       </CardContent>
     </Card>

@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { useCart } from "@/lib/contexts/cart-context";
-import { useCheckoutForm } from "@/hooks/use-checkout-form";
 import { useCheckoutSubmit } from "@/hooks/use-checkout-submit";
+import type { CustomerData } from "@/lib/schemas/customer";
 import {
   CheckoutForm,
   CheckoutHeader,
@@ -15,18 +16,24 @@ import { SubmitButton } from "@/components/shared/ui/submit-button";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { customerData, errors, handleInputChange, validateFields } =
-    useCheckoutForm();
+  const [customerData, setCustomerData] = useState<CustomerData>({
+    name: "",
+    phone: "",
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
   const { isSubmitting, handleConfirmPurchase } = useCheckoutSubmit();
 
-  const handleConfirmOrder = () => {
-    const isValid = validateFields();
-    handleConfirmPurchase(customerData, isValid);
-  };
-
-  const isFormValid = Boolean(
-    customerData.name.trim() && customerData.phone.trim(),
+  const handleFormChange = useCallback(
+    (data: CustomerData, isValid: boolean) => {
+      setCustomerData(data);
+      setIsFormValid(isValid);
+    },
+    [],
   );
+
+  const handleConfirmOrder = () => {
+    handleConfirmPurchase(customerData, isFormValid);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 mx-auto max-w-4xl">
@@ -55,9 +62,8 @@ export default function CheckoutPage() {
               <OrderSummary />
               <DeliveryInfo />
               <CheckoutForm
-                customerData={customerData}
-                errors={errors}
-                onInputChange={handleInputChange}
+                defaultValues={customerData}
+                onFormChange={handleFormChange}
               />
             </div>
 
@@ -66,9 +72,8 @@ export default function CheckoutPage() {
               <div className="lg:col-span-2 space-y-6">
                 <OrderSummary />
                 <CheckoutForm
-                  customerData={customerData}
-                  errors={errors}
-                  onInputChange={handleInputChange}
+                  defaultValues={customerData}
+                  onFormChange={handleFormChange}
                 />
               </div>
 
