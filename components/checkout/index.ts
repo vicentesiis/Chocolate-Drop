@@ -6,6 +6,7 @@ export { TrustIndicators } from "./trust-indicators";
 export { DeliveryInfo } from "./delivery-info";
 export { ConfirmButton } from "./confirm-button";
 export { MobileActionButton } from "./mobile-action-button";
+export { CustomerFormFields } from "./customer-form-fields";
 
 // Confirmation page components
 export { ConfirmationActions } from "./confirmation/confirmation-actions";

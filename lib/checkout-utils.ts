@@ -1,3 +1,5 @@
+import { customerSchema } from "./schemas/customer";
+
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat("es-MX", {
     style: "currency",
@@ -5,40 +7,34 @@ export const formatPrice = (price: number) => {
   }).format(price);
 };
 
-export interface CustomerData {
-  name: string;
-  phone: string;
-}
+// Re-export types from schema for backward compatibility
+export type { CustomerData } from "./schemas/customer";
 
+// Legacy interface for backward compatibility
 export interface ValidationErrors {
   name: string;
   phone: string;
 }
 
-export const validateCustomerData = (data: CustomerData): ValidationErrors => {
+// Legacy validation function - now uses Zod schema
+export const validateCustomerData = (data: {
+  name: string;
+  phone: string;
+}): ValidationErrors => {
+  const result = customerSchema.safeParse(data);
+
   const errors: ValidationErrors = {
     name: "",
     phone: "",
   };
 
-  // Name validation
-  if (!data.name.trim()) {
-    errors.name = "El nombre completo es necesario";
-  } else if (data.name.trim().length < 2) {
-    errors.name = "El nombre debe tener al menos 2 caracteres";
-  } else if (data.name.trim().length > 50) {
-    errors.name = "El nombre no puede exceder 50 caracteres";
-  } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(data.name.trim())) {
-    errors.name = "El nombre solo puede contener letras y espacios";
-  }
-
-  // Phone validation
-  if (!data.phone.trim()) {
-    errors.phone = "El teléfono es necesario";
-  } else if (data.phone.trim().length < 10) {
-    errors.phone = "El teléfono debe tener al menos 10 dígitos";
-  } else if (!/^[\+]?[\d\s\-\(\)]+$/.test(data.phone.trim())) {
-    errors.phone = "Formato de teléfono inválido";
+  if (!result.success) {
+    for (const issue of result.error.issues) {
+      const field = issue.path[0] as keyof ValidationErrors;
+      if (field in errors) {
+        errors[field] = issue.message;
+      }
+    }
   }
 
   return errors;
