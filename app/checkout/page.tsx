@@ -10,9 +10,8 @@ import {
   OrderSummary,
   TrustIndicators,
   DeliveryInfo,
-  ConfirmButton,
-  MobileActionButton,
 } from "@/components/checkout";
+import { SubmitButton } from "@/components/shared/ui/submit-button";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
@@ -76,12 +75,16 @@ export default function CheckoutPage() {
               <aside className="space-y-6">
                 <TrustIndicators />
                 <DeliveryInfo />
-                <ConfirmButton
-                  onClick={handleConfirmOrder}
-                  disabled={isSubmitting || !isFormValid}
-                  isSubmitting={isSubmitting}
-                  isFormValid={isFormValid}
-                />
+                <div className="sticky top-4">
+                  <SubmitButton
+                    onClick={handleConfirmOrder}
+                    disabled={isSubmitting || !isFormValid}
+                    isSubmitting={isSubmitting}
+                    showValidationMessage={!isFormValid}
+                    className="h-12 hover:shadow-xl"
+                    size="lg"
+                  />
+                </div>
               </aside>
             </div>
           </>
@@ -90,11 +93,15 @@ export default function CheckoutPage() {
 
       {/* Mobile Action Button */}
       {cart.length > 0 && (
-        <MobileActionButton
-          onClick={handleConfirmOrder}
-          disabled={isSubmitting || !isFormValid}
-          isSubmitting={isSubmitting}
-        />
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border p-4 safe-area-pb">
+          <SubmitButton
+            onClick={handleConfirmOrder}
+            disabled={isSubmitting || !isFormValid}
+            isSubmitting={isSubmitting}
+            className="h-14 active:scale-95"
+            size="lg"
+          />
+        </div>
       )}
     </div>
   );
