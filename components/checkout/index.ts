@@ -2,7 +2,6 @@ export { CheckoutForm } from "./checkout-form";
 export { CheckoutHeader } from "./checkout-header";
 export { EmptyCartState } from "./empty-cart-state";
 export { OrderSummary } from "./order-summary";
-export { TrustIndicators } from "./trust-indicators";
 export { DeliveryInfo } from "./delivery-info";
 
 export { CustomerFormFields } from "./customer-form-fields";

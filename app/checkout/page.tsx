@@ -9,7 +9,6 @@ import {
   CheckoutHeader,
   EmptyCartState,
   OrderSummary,
-  TrustIndicators,
   DeliveryInfo,
 } from "@/components/checkout";
 import { SubmitButton } from "@/components/shared/ui/submit-button";
@@ -57,9 +56,13 @@ export default function CheckoutPage() {
           <EmptyCartState />
         ) : (
           <>
+            {/* Order Summary - Full Width Horizontal */}
+            <div className="mb-6 sm:mb-8">
+              <OrderSummary />
+            </div>
+
             {/* Mobile Layout */}
             <div className="lg:hidden space-y-4">
-              <OrderSummary />
               <DeliveryInfo />
               <CheckoutForm
                 defaultValues={customerData}
@@ -69,8 +72,7 @@ export default function CheckoutPage() {
 
             {/* Desktop Layout */}
             <div className="hidden lg:grid gap-8 lg:grid-cols-3">
-              <div className="lg:col-span-2 space-y-6">
-                <OrderSummary />
+              <div className="lg:col-span-2">
                 <CheckoutForm
                   defaultValues={customerData}
                   onFormChange={handleFormChange}
@@ -78,7 +80,6 @@ export default function CheckoutPage() {
               </div>
 
               <aside className="space-y-6">
-                <TrustIndicators />
                 <DeliveryInfo />
                 <div className="sticky top-4">
                   <SubmitButton

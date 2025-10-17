@@ -45,9 +45,6 @@ export function CheckoutForm({
             <span className="hidden sm:inline">Información de Contacto</span>
             <span className="sm:hidden">Datos de Contacto</span>
           </CardTitle>
-          <Badge variant="outline" className="text-xs px-2 py-1">
-            2/3
-          </Badge>
         </div>
         <p className="text-xs sm:text-sm text-muted-foreground">
           Necesitamos estos datos para coordinar la entrega
