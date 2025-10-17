@@ -32,9 +32,8 @@ export function BoxCartItem({
   return (
     <div
       className={`
-        group relative rounded-xl border border-border/50 bg-card p-4 shadow-sm transition-all
+        group relative rounded-xl border border-border/50 bg-card px-4 pt-4 shadow-sm transition-all
         hover:border-border hover:shadow-md
-        sm:p-5
         ${className || ""}
       `}
     >
@@ -50,10 +49,10 @@ export function BoxCartItem({
         <Trash2 className="!size-6" />
       </Button>
 
-      <div className="mb-4">
+      <div className="mb-2">
         <h3
           className={`
-          mb-2 truncate text-base font-semibold
+          mb-4 truncate text-base font-semibold
           sm:text-lg
           lg:text-xl
         `}
@@ -75,7 +74,7 @@ export function BoxCartItem({
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
           <div className="h-px flex-1 bg-border" />
           <span
@@ -90,7 +89,7 @@ export function BoxCartItem({
         </div>
         <div
           className={`
-          flex flex-col gap-2
+          flex flex-col
           sm:gap-3
         `}
         >

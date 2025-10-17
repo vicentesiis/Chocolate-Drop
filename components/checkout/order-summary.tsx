@@ -64,7 +64,7 @@ export function OrderSummary() {
           {cart.map((item, index) => (
             <div
               key={`${item.boxType.id}-${item.totalPrice}-${index}`}
-              className="p-3 sm:p-4 lg:p-6 hover:bg-muted/20 transition-colors duration-200"
+              className="sm:px-4 lg:px-6 hover:bg-muted/20 transition-colors duration-200"
             >
               <BoxCartItem
                 item={item}

@@ -28,7 +28,7 @@ export function SubmitButton({
       <Button
         disabled={disabled || isSubmitting}
         className={cn(
-          "w-full text-base font-semibold shadow-lg transition-all duration-200",
+          "w-full text-sm sm:text-base font-semibold shadow-lg transition-all duration-200",
           className,
         )}
         {...props}

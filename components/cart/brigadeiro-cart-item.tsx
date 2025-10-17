@@ -19,12 +19,7 @@ export function BrigadeiroCartItem({
       className={`flex items-center gap-4 rounded-lg bg-card py-2 transition-colors`}
     >
       <div className="relative">
-        <Image
-          src={dessert.image}
-          alt={dessert.name}
-          width={100}
-          height={100}
-        />
+        <Image src={dessert.image} alt={dessert.name} width={80} height={80} />
       </div>
       <div className="min-w-0 flex-1">
         <h4 className={`leading-tight font-semibold`}>{dessert.name}</h4>

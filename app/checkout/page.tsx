@@ -51,13 +51,13 @@ export default function CheckoutPage() {
       </section>
 
       {/* Main Content */}
-      <section className=" px-4 pb-24 sm:pb-8">
+      <section className=" px-4 pb-20 sm:pb-8">
         {cart.length === 0 ? (
           <EmptyCartState />
         ) : (
           <>
             {/* Order Summary - Full Width Horizontal */}
-            <div className="mb-6 sm:mb-8">
+            <div className="mb-4 ">
               <OrderSummary />
             </div>
 
@@ -104,7 +104,7 @@ export default function CheckoutPage() {
             onClick={handleConfirmOrder}
             disabled={isSubmitting || !isFormValid}
             isSubmitting={isSubmitting}
-            className="h-14 active:scale-95"
+            className="h-12 active:scale-95"
             size="lg"
           />
         </div>
