@@ -1,6 +1,7 @@
 import type { CustomerData } from "@/lib/checkout-utils";
 
 import { useCart } from "@/lib/contexts/cart-context";
+import { createOrder } from "@/lib/firebase";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -25,20 +26,16 @@ export const useCheckoutSubmit = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call with order data
-      const orderData = {
-        customer: customerData,
-        items: cart,
-        timestamp: new Date().toISOString(),
-        total: getTotalPrice(),
-      };
+      // Create order in Firestore
+      const orderNumber = await createOrder(
+        customerData,
+        cart,
+        getTotalPrice(),
+      );
 
-      // Simulate processing time
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-
-      // Show success message
+      // Show success message with order number
       toast.success("¡Pedido confirmado exitosamente!", {
-        description: `Hola ${customerData.name}, te contactaremos pronto para coordinar la entrega.`,
+        description: `Hola ${customerData.name}, tu número de pedido es ${orderNumber}. Te contactaremos pronto para coordinar la entrega.`,
         duration: 4000,
       });
 
@@ -46,9 +43,11 @@ export const useCheckoutSubmit = () => {
       clearCart();
 
       // Redirect to confirmation page after a short delay
-      window.location.href = "/checkout/confirmation";
+      setTimeout(() => {
+        window.location.href = `/checkout/confirmation?order=${orderNumber}`;
+      }, 1000);
     } catch (error) {
-      // Dismiss loading toast
+      console.error("Order creation failed:", error);
 
       toast.error("Error al procesar tu pedido", {
         action: {
