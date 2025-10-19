@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useCart } from "@/lib/contexts/cart-context";
-import { useCheckoutSubmit } from "@/hooks/use-checkout-submit";
 import type { CustomerData } from "@/lib/schemas/customer";
+
 import {
   CheckoutForm,
   CheckoutHeader,
+  DeliveryInfo,
   EmptyCartState,
   OrderSummary,
-  DeliveryInfo,
 } from "@/components/checkout";
 import { SubmitButton } from "@/components/shared/ui/submit-button";
+import { useCheckoutSubmit } from "@/hooks/use-checkout-submit";
+import { useCart } from "@/lib/contexts/cart-context";
+import { useCallback, useState } from "react";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
@@ -20,7 +21,7 @@ export default function CheckoutPage() {
     phone: "",
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const { isSubmitting, handleConfirmPurchase } = useCheckoutSubmit();
+  const { handleConfirmPurchase, isSubmitting } = useCheckoutSubmit();
 
   const handleFormChange = useCallback(
     (data: CustomerData, isValid: boolean) => {
@@ -35,13 +36,28 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 mx-auto max-w-4xl">
+    <div
+      className={`
+        mx-auto min-h-screen max-w-4xl bg-gradient-to-br from-background
+        via-background to-muted/20
+      `}
+    >
       <CheckoutHeader />
 
       {/* Header Section */}
       <section className="px-4">
-        <div className="text-center mb-6 sm:mb-8 px-2">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+        <div
+          className={`
+            mb-6 px-2 text-center
+            sm:mb-8
+          `}
+        >
+          <h1
+            className={`
+              mb-2 text-2xl font-bold tracking-tight
+              sm:text-3xl
+            `}
+          >
             Finalizar Pedido
           </h1>
           <p className="text-muted-foreground">
@@ -51,7 +67,12 @@ export default function CheckoutPage() {
       </section>
 
       {/* Main Content */}
-      <section className=" px-4 pb-20 sm:pb-8">
+      <section
+        className={`
+          px-4 pb-20
+          sm:pb-8
+        `}
+      >
         {cart.length === 0 ? (
           <EmptyCartState />
         ) : (
@@ -62,7 +83,12 @@ export default function CheckoutPage() {
             </div>
 
             {/* Mobile Layout */}
-            <div className="lg:hidden space-y-4">
+            <div
+              className={`
+                space-y-4
+                lg:hidden
+              `}
+            >
               <DeliveryInfo />
               <CheckoutForm
                 defaultValues={customerData}
@@ -71,7 +97,12 @@ export default function CheckoutPage() {
             </div>
 
             {/* Desktop Layout */}
-            <div className="hidden lg:grid gap-8 lg:grid-cols-3">
+            <div
+              className={`
+                hidden gap-8
+                lg:grid lg:grid-cols-3
+              `}
+            >
               <div className="lg:col-span-2">
                 <CheckoutForm
                   defaultValues={customerData}
@@ -83,11 +114,14 @@ export default function CheckoutPage() {
                 <DeliveryInfo />
                 <div className="sticky top-4">
                   <SubmitButton
-                    onClick={handleConfirmOrder}
+                    className={`
+                      h-12
+                      hover:shadow-xl
+                    `}
                     disabled={isSubmitting || !isFormValid}
                     isSubmitting={isSubmitting}
+                    onClick={handleConfirmOrder}
                     showValidationMessage={!isFormValid}
-                    className="h-12 hover:shadow-xl"
                     size="lg"
                   />
                 </div>
@@ -99,12 +133,21 @@ export default function CheckoutPage() {
 
       {/* Mobile Action Button */}
       {cart.length > 0 && (
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border py-2 px-6">
+        <div
+          className={`
+            fixed right-0 bottom-0 left-0 border-t border-border
+            bg-background/95 px-6 py-2 backdrop-blur-sm
+            lg:hidden
+          `}
+        >
           <SubmitButton
-            onClick={handleConfirmOrder}
+            className={`
+              h-12
+              active:scale-95
+            `}
             disabled={isSubmitting || !isFormValid}
             isSubmitting={isSubmitting}
-            className="h-12 active:scale-95"
+            onClick={handleConfirmOrder}
             size="lg"
           />
         </div>

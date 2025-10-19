@@ -15,8 +15,7 @@ export const customerSchema = z.object({
   phone: z
     .string()
     .min(1, "El teléfono es necesario")
-    .min(10, "El teléfono debe tener al menos 10 dígitos")
-    .regex(/^[\+]?[\d\s\-\(\)]+$/, "Formato de teléfono inválido")
+    .regex(/^\d{10}$/, "El teléfono debe tener exactamente 10 dígitos")
     .transform((val) => val.trim()),
 });
 
