@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,24 +10,27 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCart } from "@/lib/contexts/cart-context";
+import { ShoppingCart } from "lucide-react";
+import { useState } from "react";
+
 import { BoxCartItem } from "./box-cart-item";
 import { CartEmptyState } from "./cart-empty-state";
 import { CartSummary } from "./cart-summary";
 
 export function CartSheet() {
-  const { cart, removeFromCart, getTotalPrice } = useCart();
+  const { cart, getTotalPrice, removeFromCart } = useCart();
   const [open, setOpen] = useState(false);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
         <Button
-          variant="ghost"
-          size="icon"
           className={`
             group relative rounded-full transition-all duration-200 ease-in-out
             hover:scale-105 hover:bg-accent/50
           `}
+          size="icon"
+          variant="ghost"
         >
           <ShoppingCart
             className={`
@@ -40,9 +41,11 @@ export function CartSheet() {
           {cart.length > 0 && (
             <span
               className={`
-                absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full
-                border-1 border-background bg-gradient-to-r from-primary to-primary/80 text-xs
-                font-semibold text-primary-foreground shadow-lg duration-200 animate-in zoom-in-50
+                absolute -top-1 -right-1 flex h-5 w-5 items-center
+                justify-center rounded-full border-1 border-background
+                bg-gradient-to-r from-primary to-primary/80 text-xs
+                font-semibold text-primary-foreground shadow-lg duration-200
+                animate-in zoom-in-50
               `}
             >
               {cart.length}
@@ -72,9 +75,9 @@ export function CartSheet() {
             <div className="space-y-4">
               {cart.map((item, index) => (
                 <BoxCartItem
-                  key={`cart-item-${index}`}
-                  item={item}
                   index={index}
+                  item={item}
+                  key={`cart-item-${index}`}
                   onRemove={removeFromCart}
                 />
               ))}
@@ -84,8 +87,8 @@ export function CartSheet() {
 
         {cart.length > 0 && (
           <CartSummary
-            totalPrice={getTotalPrice()}
             onClose={() => setOpen(false)}
+            totalPrice={getTotalPrice()}
           />
         )}
       </SheetContent>

@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function DeliveryInfo() {
   return (
     <Card>
       <CardContent className="p-6">
-        <h3 className="font-semibold mb-3">Información de Entrega</h3>
+        <h3 className="mb-3 font-semibold">Información de Entrega</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Método:</span>
@@ -33,7 +33,7 @@ export function DeliveryInfo() {
           </div>
           <div className="flex justify-between">
             <span className="text-muted-foreground">Área de entrega:</span>
-            <span className="font-medium text-right">
+            <span className="text-right font-medium">
               Solo área metropolitana
             </span>
           </div>

@@ -1,41 +1,50 @@
-import { Button } from "../../ui/button";
-import type { ButtonProps } from "../../ui/button";
 import { ShieldCheck } from "lucide-react";
+
+import type { ButtonProps } from "../../ui/button";
+
 import { cn } from "../../../lib/utils";
+import { Button } from "../../ui/button";
 
 interface SubmitButtonProps extends Omit<ButtonProps, "children"> {
-  isSubmitting?: boolean;
-  loadingText?: string;
   children?: React.ReactNode;
   icon?: React.ReactNode;
+  isSubmitting?: boolean;
+  loadingText?: string;
   showValidationMessage?: boolean;
   validationMessage?: string;
 }
 
 export function SubmitButton({
-  isSubmitting = false,
-  loadingText = "Procesando...",
   children = "Confirmar Compra",
-  icon = <ShieldCheck className="!size-6" />,
-  showValidationMessage = false,
-  validationMessage = "Completa todos los campos para continuar",
   className,
   disabled,
+  icon = <ShieldCheck className="!size-6" />,
+  isSubmitting = false,
+  loadingText = "Procesando...",
+  showValidationMessage = false,
+  validationMessage = "Completa todos los campos para continuar",
   ...props
 }: SubmitButtonProps) {
   return (
     <div className="w-full">
       <Button
-        disabled={disabled || isSubmitting}
         className={cn(
-          "w-full text-sm sm:text-base font-semibold shadow-lg transition-all duration-200",
+          `
+            w-full text-sm font-semibold shadow-lg transition-all duration-200
+            sm:text-base
+          `,
           className,
         )}
+        disabled={disabled || isSubmitting}
         {...props}
       >
         {isSubmitting ? (
           <div className="flex items-center">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+            <div
+              className={`
+                mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white
+              `}
+            />
             {loadingText}
           </div>
         ) : (
@@ -47,7 +56,7 @@ export function SubmitButton({
       </Button>
 
       {showValidationMessage && (
-        <p className="text-xs text-muted-foreground text-center mt-2">
+        <p className="mt-2 text-center text-xs text-muted-foreground">
           {validationMessage}
         </p>
       )}

@@ -42,20 +42,20 @@ export const FormInput = ({
         <Input
           className={cn(
             `
-                h-12 text-base transition-all duration-200
-                sm:h-10 sm:text-sm
-              `,
+              h-10 text-base transition-all duration-200
+              sm:h-10 sm:text-sm
+            `,
             Icon && "pl-10",
             error &&
               `
-                  border-red-500 bg-red-50/50
-                  focus-visible:ring-red-500
-                `,
+                border-red-500 bg-red-50/50
+                focus-visible:ring-red-500
+              `,
             isValid &&
               `
-                  border-green-500 bg-green-50/50
-                  focus-visible:ring-green-500
-                `,
+                border-green-500 bg-green-50/50
+                focus-visible:ring-green-500
+              `,
             !error && !isValid && "focus-visible:ring-primary",
             className,
           )}
@@ -78,8 +78,8 @@ export const FormInput = ({
         {error && (
           <AlertCircle
             className={`
-                absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-red-500
-              `}
+              absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-red-500
+            `}
           />
         )}
       </div>

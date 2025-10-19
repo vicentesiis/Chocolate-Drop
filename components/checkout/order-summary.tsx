@@ -1,9 +1,9 @@
 import { BoxCartItem } from "@/components/cart/box-cart-item";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useCart } from "@/lib/contexts/cart-context";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPrice } from "@/lib/checkout-utils";
-import { ShoppingCart, Package, Gift } from "lucide-react";
+import { useCart } from "@/lib/contexts/cart-context";
+import { Gift, Package, ShoppingCart } from "lucide-react";
 
 export function OrderSummary() {
   const { cart, getTotalPrice, removeFromCart } = useCart();
@@ -11,15 +11,21 @@ export function OrderSummary() {
 
   if (cart.length === 0) {
     return (
-      <Card className="shadow-sm border-0 bg-card/50 backdrop-blur-sm">
+      <Card className="border-0 bg-card/50 shadow-sm backdrop-blur-sm">
         <CardHeader className="pb-4">
-          <CardTitle className="text-sm font-semibold text-foreground flex items-center">
-            <ShoppingCart className="h-4 w-4 mr-2" />
+          <CardTitle
+            className={`flex items-center text-sm font-semibold text-foreground`}
+          >
+            <ShoppingCart className="mr-2 h-4 w-4" />
             Resumen del Pedido
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div
+            className={`
+              flex flex-col items-center justify-center py-8 text-center
+            `}
+          >
             <div className="mb-3 rounded-full bg-muted p-3">
               <ShoppingCart className="h-6 w-6 text-muted-foreground" />
             </div>
@@ -35,23 +41,50 @@ export function OrderSummary() {
   const subtotal = totalPrice;
 
   return (
-    <Card className="shadow-sm border-0 bg-card/50 backdrop-blur-sm overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border/50 pb-4 sm:pb-6 px-4 sm:px-6">
+    <Card
+      className={`
+        overflow-hidden border-0 bg-card/50 shadow-sm backdrop-blur-sm
+      `}
+    >
+      <CardHeader
+        className={`
+          border-b border-border/50 bg-gradient-to-r from-primary/5
+          via-primary/10 to-primary/5 px-4 pb-4
+          sm:px-6 sm:pb-6
+        `}
+      >
         <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div
+            className={`
+              flex items-center gap-2
+              sm:gap-3
+            `}
+          >
             <div>
-              <span className="text-lg sm:text-xl font-bold text-foreground">
+              <span
+                className={`
+                  text-lg font-bold text-foreground
+                  sm:text-xl
+                `}
+              >
                 Resumen del Pedido
               </span>
-              <p className="text-xs sm:text-sm text-muted-foreground font-normal hidden sm:block">
+              <p
+                className={`
+                  hidden text-xs font-normal text-muted-foreground
+                  sm:block sm:text-sm
+                `}
+              >
                 Revisa tu selección antes de continuar
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Badge
+              className={`
+                border-primary/20 bg-primary/15 px-2 py-1 text-sm text-primary
+              `}
               variant="secondary"
-              className="bg-primary/15 text-primary border-primary/20 text-sm px-2 py-1"
             >
               {cart.length} {cart.length === 1 ? "empaque" : "empaques"}
             </Badge>
@@ -63,27 +96,48 @@ export function OrderSummary() {
         <div className="divide-y divide-border/30">
           {cart.map((item, index) => (
             <div
+              className={`
+                transition-colors duration-200
+                hover:bg-muted/20
+                sm:px-4
+                lg:px-6
+              `}
               key={`${item.boxType.id}-${item.totalPrice}-${index}`}
-              className="sm:px-4 lg:px-6 hover:bg-muted/20 transition-colors duration-200"
             >
               <BoxCartItem
-                item={item}
+                className="!rounded-none !border-0 !bg-transparent !shadow-none"
                 index={index}
+                item={item}
                 onRemove={removeFromCart}
-                className="!border-0 !shadow-none !bg-transparent !rounded-none"
               />
             </div>
           ))}
         </div>
 
         {/* Order Breakdown */}
-        <div className="border-t border-border/50 bg-gradient-to-r from-muted/10 to-muted/20 p-4 sm:p-6 space-y-3">
+        <div
+          className={`
+            space-y-3 border-t border-border/50 bg-gradient-to-r from-muted/10
+            to-muted/20 p-4
+            sm:p-6
+          `}
+        >
           <div className="flex items-center justify-between">
-            <span className="text-base sm:text-lg font-semibold text-foreground">
+            <span
+              className={`
+                text-base font-semibold text-foreground
+                sm:text-lg
+              `}
+            >
               Total del Pedido:
             </span>
             <div className="text-right">
-              <span className="text-xl sm:text-2xl font-bold text-primary">
+              <span
+                className={`
+                  text-xl font-bold text-primary
+                  sm:text-2xl
+                `}
+              >
                 {formatPrice(totalPrice)}
               </span>
               <p className="text-xs text-muted-foreground">IVA incluido</p>

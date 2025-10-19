@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { generateOrderNumber } from "./order-utils";
 import type { CustomerData } from "./checkout-utils";
 
@@ -57,5 +57,27 @@ export const createOrder = async (
   } catch (error) {
     console.error("Error creating order:", error);
     throw new Error("Failed to create order");
+  }
+};
+
+/**
+ * Searches for an order by order number
+ * @param orderNumber The order number to search for
+ * @returns Promise with order data or null if not found
+ */
+export const searchOrder = async (
+  orderNumber: string,
+): Promise<OrderData | null> => {
+  try {
+    const orderDoc = await getDoc(doc(db, "orders", orderNumber.toUpperCase()));
+
+    if (orderDoc.exists()) {
+      return orderDoc.data() as OrderData;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error searching order:", error);
+    throw new Error("Failed to search order");
   }
 };
