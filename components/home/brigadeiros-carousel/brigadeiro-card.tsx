@@ -1,40 +1,43 @@
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface BrigadeiroCardProps {
   brigadeiro: {
-    id: string;
-    name: string;
     description: string;
+    id: string;
     image: string;
+    name: string;
   };
 }
 
 export function BrigadeiroCard({ brigadeiro }: BrigadeiroCardProps) {
   return (
-    <Link href="/build-a-box" className="block h-full touch-manipulation">
+    <Link className="block h-full touch-manipulation" href="/build-a-box">
       <Card
         className={`
-          group h-full cursor-pointer overflow-hidden border-orange-100 transition-all duration-200
+          group h-full cursor-pointer overflow-hidden border-orange-100
+          transition-all duration-200
           hover:shadow-lg
           active:scale-[0.98]
           sm:hover:scale-105 sm:active:scale-95
         `}
       >
         <div
-          className={`relative aspect-square bg-gradient-to-br from-orange-50 to-amber-50`}
+          className={`
+            relative aspect-square bg-gradient-to-br from-orange-50 to-amber-50
+          `}
         >
           <Image
-            src={brigadeiro.image}
             alt={brigadeiro.name}
-            fill
-            sizes="(max-width: 640px) 45vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
             className={`
-            object-contain p-4 transition-transform duration-200
-            group-hover:scale-105
-          `}
+              object-contain p-4 transition-transform duration-200
+              group-hover:scale-105
+            `}
+            fill
             loading="lazy"
+            sizes="(max-width: 640px) 45vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+            src={brigadeiro.image}
           />
         </div>
         <CardContent

@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPrice } from "@/lib/checkout-utils";
 import { useCart } from "@/lib/contexts/cart-context";
-import { Gift, Package, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 export function OrderSummary() {
   const { cart, getTotalPrice, removeFromCart } = useCart();
@@ -37,8 +37,6 @@ export function OrderSummary() {
       </Card>
     );
   }
-
-  const subtotal = totalPrice;
 
   return (
     <Card
