@@ -33,12 +33,6 @@ export const useCheckoutSubmit = () => {
         getTotalPrice(),
       );
 
-      // Show success message with order number
-      toast.success("¡Pedido confirmado exitosamente!", {
-        description: `Hola ${customerData.name}, tu número de pedido es ${orderNumber}. Te contactaremos pronto para coordinar la entrega.`,
-        duration: 4000,
-      });
-
       // Clear cart after successful purchase
       clearCart();
 

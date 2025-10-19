@@ -1,10 +1,10 @@
-import { searchOrder, type OrderData } from "@/lib/firebase";
+import { type OrderData, searchOrder } from "@/lib/firebase";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export const useOrderSearch = () => {
   const [isSearching, setIsSearching] = useState(false);
-  const [searchResult, setSearchResult] = useState<OrderData | null>(null);
+  const [searchResult, setSearchResult] = useState<null | OrderData>(null);
 
   const handleSearchOrder = async (orderNumber: string) => {
     if (!orderNumber.trim()) {
@@ -20,7 +20,6 @@ export const useOrderSearch = () => {
 
       if (order) {
         setSearchResult(order);
-        toast.success("¡Pedido encontrado!");
       } else {
         toast.error("Pedido no encontrado", {
           description: "Verifica que el número de pedido sea correcto",
@@ -41,9 +40,9 @@ export const useOrderSearch = () => {
   };
 
   return {
+    clearSearch,
     handleSearchOrder,
     isSearching,
     searchResult,
-    clearSearch,
   };
 };
