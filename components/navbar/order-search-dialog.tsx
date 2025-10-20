@@ -16,7 +16,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useOrderSearch } from "@/hooks/use-order-search";
-import { Calendar, Hash, Package, Search, User } from "lucide-react";
+import {
+  Calendar,
+  Gift,
+  Hash,
+  Package,
+  ReceiptText,
+  Search,
+  User,
+} from "lucide-react";
 import { useState } from "react";
 
 export const OrderSearchDialog = () => {
@@ -191,7 +199,10 @@ export const OrderSearchDialog = () => {
             >
               {/* Customer Information */}
               <div className="sm:space-y-3">
-                <SectionHeader icon={User} title="Información del Pedido" />
+                <SectionHeader
+                  icon={ReceiptText}
+                  title="Información del Pedido"
+                />
                 <InfoCard
                   items={[
                     {
@@ -216,7 +227,7 @@ export const OrderSearchDialog = () => {
                 `}
               >
                 <SectionHeader
-                  icon={Package}
+                  icon={Gift}
                   title={`Empaques (${searchResult.items.length})`}
                 />
                 <div className="min-h-0 flex-1 overflow-hidden">

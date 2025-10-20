@@ -4,7 +4,13 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { ChevronDown, ChevronRight, CreditCard, Package } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  CreditCard,
+  Dessert,
+  Package,
+} from "lucide-react";
 import { useState } from "react";
 
 interface Brigadeiro {
@@ -81,7 +87,7 @@ export const CollapsibleProductList = ({
                         sm:h-8 sm:w-8
                       `}
                     >
-                      <Package
+                      <Dessert
                         className={`
                           h-3 w-3 text-primary
                           sm:h-4 sm:w-4
