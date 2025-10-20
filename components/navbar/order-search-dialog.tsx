@@ -1,6 +1,9 @@
 "use client";
 
 import { FormInput } from "@/components/shared/forms/form-input";
+import { CollapsibleProductList } from "@/components/shared/ui/collapsible-product-list";
+import { InfoCard } from "@/components/shared/ui/info-card";
+import { SectionHeader } from "@/components/shared/ui/section-header";
 import { SubmitButton } from "@/components/shared/ui/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,17 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
 import { useOrderSearch } from "@/hooks/use-order-search";
-import {
-  Calendar,
-  CreditCard,
-  Hash,
-  Package,
-  Phone,
-  Search,
-  User,
-} from "lucide-react";
+import { Calendar, Hash, Package, Search, User } from "lucide-react";
 import { useState } from "react";
 
 export const OrderSearchDialog = () => {
@@ -110,32 +104,48 @@ export const OrderSearchDialog = () => {
           />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
+      <DialogContent
+        className={`
+          flex max-h-[90dvh] w-full max-w-4xl flex-col overflow-y-auto p-4
+          sm:p-6
+        `}
+      >
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5" />
+          <DialogTitle
+            className={`
+              flex flex-wrap items-center justify-between gap-2 pt-2 text-lg
+              sm:text-xl
+            `}
+          >
             {searchResult
               ? `Pedido #${searchResult.orderNumber}`
               : "Buscar Pedido"}
             {searchResult && (
               <Badge
-                className="text-sm font-medium"
+                className={`
+                  text-xs font-medium
+                  sm:text-sm
+                `}
                 variant={getStatusVariant(searchResult.status)}
               >
                 {getStatusText(searchResult.status)}
               </Badge>
             )}
           </DialogTitle>
-          {!searchResult && (
-            <DialogDescription>
-              Ingresa tu número de pedido para ver los detalles
-            </DialogDescription>
-          )}
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div
+          className={`
+            flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden py-2
+          `}
+        >
           {!searchResult && (
-            <div className="flex gap-2">
+            <div
+              className={`
+                flex flex-col gap-3 px-2
+                sm:flex-row sm:gap-2
+              `}
+            >
               <div className="flex-1">
                 <FormInput
                   icon={Hash}
@@ -147,8 +157,17 @@ export const OrderSearchDialog = () => {
                   value={orderNumber}
                 />
               </div>
-              <div className="flex items-end">
+              <div
+                className={`
+                  flex
+                  sm:items-end
+                `}
+              >
                 <SubmitButton
+                  className={`
+                    w-full
+                    sm:w-auto
+                  `}
                   disabled={!orderNumber.trim()}
                   icon={<Search className="h-4 w-4" />}
                   isSubmitting={isSearching}
@@ -165,174 +184,47 @@ export const OrderSearchDialog = () => {
           {searchResult && (
             <div
               className={`
-                space-y-2 rounded-xl border bg-gradient-to-br from-card/80
-                to-card/40 p-6 shadow-lg backdrop-blur-sm
+                flex min-h-0 flex-1 flex-col space-y-3 rounded-lg border
+                bg-gradient-to-br from-card/80 to-card/40 p-3 backdrop-blur-sm
+                sm:p-4
               `}
             >
               {/* Customer Information */}
-              <div className="space-y-2">
-                <h4
-                  className={`
-                    flex items-center gap-2 text-lg font-semibold
-                    text-foreground
-                  `}
-                >
-                  <User className="h-5 w-5 text-primary" />
-                  Información del Cliente
-                </h4>
-                <div
-                  className={`
-                    grid gap-3 rounded-lg bg-muted/30 p-4
-                    md:grid-cols-2
-                  `}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`
-                        flex h-8 w-8 items-center justify-center rounded-full
-                        bg-primary/10
-                      `}
-                    >
-                      <User className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">
-                        Nombre
-                      </p>
-                      <p className="font-semibold">
-                        {searchResult.customer.name}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`
-                        flex h-8 w-8 items-center justify-center rounded-full
-                        bg-primary/10
-                      `}
-                    >
-                      <Phone className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">
-                        Teléfono
-                      </p>
-                      <p className="font-semibold">
-                        {searchResult.customer.phone}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Details */}
-              <div className="space-y-4">
-                <h4
-                  className={`
-                    flex items-center gap-2 text-lg font-semibold
-                    text-foreground
-                  `}
-                >
-                  <Calendar className="h-5 w-5 text-primary" />
-                  Detalles del Pedido
-                </h4>
-                <div className="rounded-lg bg-muted/30 p-4">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div
-                      className={`
-                        flex h-8 w-8 items-center justify-center rounded-full
-                        bg-primary/10
-                      `}
-                    >
-                      <Calendar className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">
-                        Fecha de Pedido
-                      </p>
-                      <p className="font-semibold">
-                        {formatDate(searchResult.timestamp)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="sm:space-y-3">
+                <SectionHeader icon={User} title="Información del Pedido" />
+                <InfoCard
+                  items={[
+                    {
+                      icon: User,
+                      label: "Nombre",
+                      value: searchResult.customer.name,
+                    },
+                    {
+                      icon: Calendar,
+                      label: "Fecha de Pedido",
+                      value: formatDate(searchResult.timestamp),
+                    },
+                  ]}
+                />
               </div>
 
               {/* Products */}
-              <div className="space-y-4">
-                <h4
-                  className={`
-                    flex items-center gap-2 text-lg font-semibold
-                    text-foreground
-                  `}
-                >
-                  <Package className="h-5 w-5 text-primary" />
-                  Productos ({searchResult.items.length})
-                </h4>
-                <div className="space-y-3 rounded-lg bg-muted/30 p-4">
-                  <div className="max-h-40 space-y-3 overflow-y-auto">
-                    {searchResult.items.map((item, index) => (
-                      <div
-                        className={`
-                          flex items-center justify-between rounded-lg
-                          bg-background/60 p-3 shadow-sm
-                        `}
-                        key={index}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div
-                            className={`
-                              flex h-10 w-10 items-center justify-center
-                              rounded-full bg-primary/10
-                            `}
-                          >
-                            <Package className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <p className="font-medium">
-                              {item.boxType?.name || item.name}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              Cantidad: {item.quantity || 1}
-                              {item.brigadeiros && (
-                                <span className="ml-2">
-                                  • {item.brigadeiros.length} brigadeiros
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-bold text-primary">
-                            $
-                            {(
-                              item.totalPrice ||
-                              item.price * (item.quantity || 1)
-                            ).toFixed(2)}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Separator />
-
-                  <div
-                    className={`
-                      flex items-center justify-between rounded-lg bg-primary/5
-                      p-3
-                    `}
-                  >
-                    <div className="flex items-center gap-2">
-                      <CreditCard className="h-5 w-5 text-primary" />
-                      <span className="text-lg font-semibold">
-                        Total del Pedido
-                      </span>
-                    </div>
-                    <span className="text-2xl font-bold text-primary">
-                      ${searchResult.total.toFixed(2)}
-                    </span>
-                  </div>
+              <div
+                className={`
+                  flex min-h-0 flex-1 flex-col overflow-hidden
+                  sm:space-y-3
+                `}
+              >
+                <SectionHeader
+                  icon={Package}
+                  title={`Empaques (${searchResult.items.length})`}
+                />
+                <div className="min-h-0 flex-1 overflow-hidden">
+                  <CollapsibleProductList
+                    className="h-full overflow-auto"
+                    items={searchResult.items}
+                    total={searchResult.total}
+                  />
                 </div>
               </div>
             </div>
