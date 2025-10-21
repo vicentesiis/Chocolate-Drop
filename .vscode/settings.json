@@ -10,5 +10,6 @@
     { "rule": "readable-tailwind/*", "severity": "off" },
     { "rule": "perfectionist/*", "severity": "off" }
   ],
-  "typescript.autoClosingTags": false
+  "typescript.autoClosingTags": false,
+   "biome.requireConfiguration": false,
 }
