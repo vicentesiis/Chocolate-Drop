@@ -1,7 +1,7 @@
 import type { CustomerData } from "@/lib/checkout-utils";
 
 import { useCart } from "@/lib/contexts/cart-context";
-import { createOrder } from "@/lib/firebase";
+import { createOrder } from "@/lib/services";
 import { useState } from "react";
 import { toast } from "sonner";
 

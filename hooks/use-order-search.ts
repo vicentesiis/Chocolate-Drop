@@ -1,10 +1,12 @@
-import { type OrderData, searchOrder } from "@/lib/firebase";
+import type { Order } from "@/lib/types/order";
+
+import { searchOrder } from "@/lib/services";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export const useOrderSearch = () => {
   const [isSearching, setIsSearching] = useState(false);
-  const [searchResult, setSearchResult] = useState<null | OrderData>(null);
+  const [searchResult, setSearchResult] = useState<null | Order>(null);
 
   const handleSearchOrder = async (orderNumber: string) => {
     if (!orderNumber.trim()) {

@@ -43,8 +43,8 @@ export const OrderSearchDialog = () => {
     clearSearch();
   };
 
-  const formatDate = (timestamp: string) => {
-    return new Date(timestamp).toLocaleDateString("es-ES", {
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("es-ES", {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
@@ -126,7 +126,7 @@ export const OrderSearchDialog = () => {
             `}
           >
             {searchResult
-              ? `Pedido #${searchResult.orderNumber}`
+              ? `Pedido #${searchResult.id}`
               : "Buscar Pedido"}
             {searchResult && (
               <Badge
@@ -208,12 +208,12 @@ export const OrderSearchDialog = () => {
                     {
                       icon: User,
                       label: "Nombre",
-                      value: searchResult.customer.name,
+                      value: searchResult.customerInfo.name,
                     },
                     {
                       icon: Calendar,
                       label: "Fecha de Pedido",
-                      value: formatDate(searchResult.timestamp),
+                      value: formatDate(searchResult.createdAt),
                     },
                   ]}
                 />
@@ -234,7 +234,7 @@ export const OrderSearchDialog = () => {
                   <CollapsibleProductList
                     className="h-full overflow-auto"
                     items={searchResult.items}
-                    total={searchResult.total}
+                    total={searchResult.totalPrice}
                   />
                 </div>
               </div>

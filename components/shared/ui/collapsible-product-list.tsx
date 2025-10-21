@@ -13,23 +13,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-interface Brigadeiro {
-  name: string;
-  quantity: number;
-}
-
-interface ProductItem {
-  boxType?: { name: string };
-  brigadeiros?: Brigadeiro[];
-  name: string;
-  price: number;
-  quantity?: number;
-  totalPrice?: number;
-}
+import type { CartItem } from "@/lib/types/cart";
 
 interface CollapsibleProductListProps {
   className?: string;
-  items: ProductItem[];
+  items: CartItem[];
   total: number;
 }
 
@@ -101,7 +89,7 @@ export const CollapsibleProductList = ({
                           sm:text-base
                         `}
                       >
-                        {item.boxType?.name || item.name}
+                        {item.boxType.name}
                       </p>
                     </div>
                   </div>
@@ -114,12 +102,10 @@ export const CollapsibleProductList = ({
                         `}
                       >
                         $
-                        {(
-                          item.totalPrice || item.price * (item.quantity || 1)
-                        ).toFixed(2)}
+                        {item.totalPrice.toFixed(2)}
                       </p>
                     </div>
-                    {item.brigadeiros && item.brigadeiros.length > 0 && (
+                    {item.brigadeiros.length > 0 && (
                       <div className="flex-shrink-0">
                         {expandedItems.has(index) ? (
                           <ChevronDown
@@ -136,7 +122,7 @@ export const CollapsibleProductList = ({
                 </div>
               </CollapsibleTrigger>
 
-              {item.brigadeiros && item.brigadeiros.length > 0 && (
+              {item.brigadeiros.length > 0 && (
                 <CollapsibleContent>
                   <div
                     className={`
