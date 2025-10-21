@@ -1,17 +1,18 @@
 "use client";
 
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/lib/contexts/auth-context";
 import { LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
+
+import { Separator } from "../ui/separator";
 
 export function DashboardHeader() {
   const pathname = usePathname();
   const { logout } = useAuth();
   
   const getPageTitle = () => {
-    console.log("Current pathname:", pathname); // Debug log
     
     if (pathname === "/dashboard") {
       return "Dashboard Home";
@@ -19,8 +20,6 @@ export function DashboardHeader() {
       return "Pedidos";
     } else if (pathname.startsWith("/dashboard/eventos")) {
       return "Eventos";
-    } else if (pathname.startsWith("/dashboard")) {
-      return "Dashboard";
     }
     
     return "Dashboard";
@@ -32,25 +31,23 @@ export function DashboardHeader() {
       supports-[backdrop-filter]:bg-white/60
     `}>
       <div className="flex h-14 items-center px-4">
-        <SidebarTrigger className="mr-4" />
+        <SidebarTrigger className="mr-2 " />
         <div className="flex flex-1 items-center justify-between">
           <h1 className="text-lg font-semibold text-gray-900">
             {getPageTitle()}
           </h1>
           <div className="flex items-center space-x-4">
-            <div className="font-mono text-xs text-gray-500">
-              {pathname}
-            </div>
-            <div className="text-sm text-gray-600">
-              ChocolateDrop Admin
-            </div>
             <Button
-              variant="ghost"
-              size="sm"
+              className={`
+                hidden text-gray-600
+                hover:text-gray-900
+                sm:flex
+              `}
               onClick={logout}
-              className="text-gray-600 hover:text-gray-900"
+              size="sm"
+              variant="ghost"
             >
-              <LogOut className="h-4 w-4 mr-2" />
+              <LogOut className="mr-2 h-4 w-4" />
               Salir
             </Button>
           </div>

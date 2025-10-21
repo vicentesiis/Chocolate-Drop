@@ -119,10 +119,6 @@
   --sidebar-accent-foreground: hsl(25 40% 25%);
   --sidebar-border: hsl(39 20% 88%);
   --sidebar-ring: hsl(25 95% 35%);
-
-  --sidebar-width: 16rem;           /* 256px when expanded on desktop */
-  --sidebar-width-icon: 3.5rem;     /* 56px when collapsed rail on desktop */
-  --sidebar-width-mobile: 18rem;    /* 288px slide-over on mobile */
 }
 
 @layer base {
