@@ -1,10 +1,14 @@
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/contexts/auth-context";
+import { LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export function DashboardHeader() {
   const pathname = usePathname();
+  const { logout } = useAuth();
   
   const getPageTitle = () => {
     console.log("Current pathname:", pathname); // Debug log
@@ -40,6 +44,15 @@ export function DashboardHeader() {
             <div className="text-sm text-gray-600">
               ChocolateDrop Admin
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Salir
+            </Button>
           </div>
         </div>
       </div>
