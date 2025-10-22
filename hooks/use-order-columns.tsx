@@ -27,7 +27,7 @@ export function useOrderColumns({
         render: (order: Order) => (
           <OrderNumberCell id={order.id} orderNumber={order.orderNumber} />
         ),
-        width: "130px",
+        width: "100px",
       },
       {
         align: "left",
@@ -39,21 +39,21 @@ export function useOrderColumns({
             phone={order.customer.phone}
           />
         ),
-        width: "200px",
+        width: "150px",
       },
       {
         align: "left",
+        collapsible: true,
         header: "Productos",
         key: "products",
         render: (order: Order, isExpanded?: boolean, onToggle?: () => void) => (
           <ProductsCell
-            items={order.items}
             isExpanded={isExpanded}
+            items={order.items}
             onToggle={onToggle}
           />
         ),
-        width: "250px",
-        collapsible: true,
+        width: "0px",
       },
       {
         align: "center",
@@ -75,7 +75,7 @@ export function useOrderColumns({
             status={order.status}
           />
         ),
-        width: "120px",
+        width: "0px",
       },
       {
         align: "center",

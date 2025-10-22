@@ -15,7 +15,6 @@ export interface Order {
     | "pending"
     | "preparing"
     | "ready";
-  timestamp?: string;
   total: number;
   updatedAt: Date;
 }

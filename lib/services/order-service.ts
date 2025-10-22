@@ -34,7 +34,6 @@ export const createOrder = async (
     items,
     orderNumber,
     status: "pending",
-    timestamp: now.toISOString(),
     total,
     updatedAt: now,
   };
