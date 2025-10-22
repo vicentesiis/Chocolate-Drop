@@ -1,6 +1,7 @@
 import { CartSheet } from "@/components/cart";
 import Link from "next/link";
 
+import { Button } from "../ui/button";
 import { Logo } from "./logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
@@ -18,8 +19,7 @@ const Navbar = () => {
     >
       <div
         className={`
-          mx-auto flex h-full max-w-(--breakpoint-xl) items-center
-          justify-between px-6
+          relative mx-auto flex h-full max-w-(--breakpoint-xl) items-center px-6
         `}
       >
         <div className="flex items-center">
@@ -28,10 +28,10 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Menu */}
+        {/* Desktop Menu - Centered */}
         <div
           className={`
-            hidden
+            absolute left-1/2 hidden -translate-x-1/2 transform
             md:flex
           `}
         >
@@ -40,10 +40,20 @@ const Navbar = () => {
 
         <div
           className={`
-            flex items-center gap-2
+            ml-auto flex items-center gap-3
             sm:gap-6
           `}
         >
+          <Link href="/quote-event">
+            <Button
+              className={`
+                hidden
+                md:inline-flex
+              `}
+            >
+              Cotiza tu Evento!
+            </Button>
+          </Link>
           <OrderSearchDialog />
           <CartSheet />
 
