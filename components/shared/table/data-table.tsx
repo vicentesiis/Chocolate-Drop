@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import type { ReactNode } from "react";
+
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -10,45 +11,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { RefreshCw, Search } from "lucide-react";
-import type { ReactNode } from "react";
+import { Search } from "lucide-react";
 
 interface Column<T> {
-  key: string;
   header: string;
+  key: string;
   render: (item: T) => ReactNode;
 }
 
 interface DataTableProps<T> {
-  data: T[];
   columns: Column<T>[];
-  searchTerm?: string;
-  onSearchChange?: (value: string) => void;
-  searchPlaceholder?: string;
-  onRefresh?: () => void;
-  loading?: boolean;
+  data: T[];
   emptyMessage?: string;
   getRowKey: (item: T) => string;
+  loading?: boolean;
+  onSearchChange?: (value: string) => void;
+  searchPlaceholder?: string;
+  searchTerm?: string;
 }
 
 export function DataTable<T>({
-  data,
   columns,
-  searchTerm = "",
-  onSearchChange,
-  searchPlaceholder = "Buscar...",
-  onRefresh,
-  loading = false,
+  data,
   emptyMessage = "No hay datos disponibles",
   getRowKey,
+  loading = false,
+  onSearchChange,
+  searchPlaceholder = "Buscar...",
+  searchTerm = "",
 }: DataTableProps<T>) {
   return (
     <div className="space-y-4">
       {/* Search and Actions Bar */}
       <div className="flex items-center justify-between gap-4">
         {onSearchChange && (
-          <div className="relative flex-1 max-w-sm">
-            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
+          <div className="relative max-w-md flex-1">
+            <Search
+              className={`
+                absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform
+                text-muted-foreground
+              `}
+            />
             <Input
               className="pl-10"
               onChange={(e) => onSearchChange(e.target.value)}
@@ -56,20 +59,6 @@ export function DataTable<T>({
               value={searchTerm}
             />
           </div>
-        )}
-
-        {onRefresh && (
-          <Button
-            onClick={onRefresh}
-            size="sm"
-            variant="outline"
-            disabled={loading}
-          >
-            <RefreshCw
-              className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`}
-            />
-            Actualizar
-          </Button>
         )}
       </div>
 

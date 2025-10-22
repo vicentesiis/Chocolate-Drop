@@ -99,9 +99,8 @@ export function OrderSection() {
               }
               getRowKey={(order: Order) => order.id || order.orderNumber || ""}
               loading={loading}
-              onRefresh={loadOrders}
               onSearchChange={setSearchTerm}
-              searchPlaceholder="Buscar por número de pedido o nombre del cliente..."
+              searchPlaceholder="Buscar por # de pedido o nombre del cliente..."
               searchTerm={searchTerm}
             />
           </CardContent>
