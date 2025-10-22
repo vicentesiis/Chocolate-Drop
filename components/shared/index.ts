@@ -4,3 +4,14 @@ export { ConditionalNavbar } from "./conditional-navbar";
 
 // Form components
 export { FormInput } from "./forms/form-input";
+
+// Table components
+export { DataTable, TableSkeleton } from "./table";
+export {
+  OrderNumberCell,
+  CustomerCell,
+  ProductsCell,
+  PriceCell,
+  StatusCell,
+  DateCell,
+} from "./table/cells";

@@ -2,34 +2,22 @@
 
 import type { Order } from "@/lib/types/order";
 
+import {
+  CustomerCell,
+  DataTable,
+  DateCell,
+  OrderNumberCell,
+  PriceCell,
+  ProductsCell,
+  StatusCell,
+} from "@/components/shared";
 import { FilterTabs } from "@/components/shared/filter-tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { useOrders } from "@/hooks/use-orders";
-import {
-  generateOrderFilterTabs,
-  statusLabels,
-  statusVariants,
-} from "@/lib/constants/order-constants";
-import { formatDate, formatPrice } from "@/lib/utils/format-utils";
-import { RefreshCw, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { generateOrderFilterTabs } from "@/lib/constants/order-constants";
+import { RefreshCw } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 export function OrderSection() {
   const { loading, loadOrders, orders, updateStatus, updatingOrder } =
@@ -63,6 +51,58 @@ export function OrderSection() {
 
   const filterTabs = generateOrderFilterTabs(orders);
 
+  // Define table columns
+  const columns = useMemo(
+    () => [
+      {
+        header: "Pedido",
+        key: "orderNumber",
+        render: (order: Order) => (
+          <OrderNumberCell id={order.id} orderNumber={order.orderNumber} />
+        ),
+      },
+      {
+        header: "Cliente",
+        key: "customer",
+        render: (order: Order) => (
+          <CustomerCell
+            name={order.customer.name}
+            phone={order.customer.phone}
+          />
+        ),
+      },
+      {
+        header: "Productos",
+        key: "products",
+        render: (order: Order) => <ProductsCell items={order.items} />,
+      },
+      {
+        header: "Total",
+        key: "total",
+        render: (order: Order) => <PriceCell amount={order.total} />,
+      },
+      {
+        header: "Estado",
+        key: "status",
+        render: (order: Order) => (
+          <StatusCell
+            disabled={updatingOrder === (order.orderNumber || order.id)}
+            onStatusChange={(status: Order["status"]) =>
+              updateStatus(order.orderNumber || order.id!, status)
+            }
+            status={order.status}
+          />
+        ),
+      },
+      {
+        header: "Fecha",
+        key: "date",
+        render: (order: Order) => <DateCell date={order.createdAt} />,
+      },
+    ],
+    [updateStatus, updatingOrder],
+  );
+
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -94,22 +134,6 @@ export function OrderSection() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search
-                className={`
-                  absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform
-                  text-muted-foreground
-                `}
-              />
-              <Input
-                className="pl-10"
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar por número de pedido o nombre del cliente..."
-                value={searchTerm}
-              />
-            </div>
-
             {/* Filter Tabs */}
             <FilterTabs
               onValueChange={setSelectedStatus}
@@ -118,105 +142,21 @@ export function OrderSection() {
             />
 
             {/* Orders Table */}
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Pedido</TableHead>
-                    <TableHead>Cliente</TableHead>
-                    <TableHead>Productos</TableHead>
-                    <TableHead>Total</TableHead>
-                    <TableHead>Estado</TableHead>
-                    <TableHead>Fecha</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredOrders.length === 0 ? (
-                    <TableRow>
-                      <TableCell
-                        className="py-8 text-center text-muted-foreground"
-                        colSpan={6}
-                      >
-                        {searchTerm || selectedStatus !== "all"
-                          ? "No se encontraron pedidos con los filtros aplicados"
-                          : "No hay pedidos disponibles"}
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    filteredOrders.map((order) => (
-                      <TableRow key={order.id}>
-                        <TableCell className="font-medium">
-                          #{order.orderNumber || order.id}
-                        </TableCell>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">
-                              {order.customer.name}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {order.customer.phone}
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="space-y-1">
-                            {order.items.map((item, index) => (
-                              <div className="text-sm" key={index}>
-                                {item.boxType.name} - {item.brigadeiros.length}{" "}
-                                brigadeiros
-                              </div>
-                            ))}
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {formatPrice(order.total)}
-                        </TableCell>
-                        <TableCell>
-                          <Select
-                            disabled={
-                              updatingOrder === (order.orderNumber || order.id)
-                            }
-                            onValueChange={(value) =>
-                              updateStatus(
-                                order.orderNumber || order.id!,
-                                value as Order["status"],
-                              )
-                            }
-                            value={order.status}
-                          >
-                            <SelectTrigger className="w-32">
-                              <Badge variant={statusVariants[order.status]}>
-                                {statusLabels[order.status]}
-                              </Badge>
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Object.entries(statusLabels).map(
-                                ([status, label]) => (
-                                  <SelectItem key={status} value={status}>
-                                    <Badge
-                                      variant={
-                                        statusVariants[
-                                          status as keyof typeof statusVariants
-                                        ]
-                                      }
-                                    >
-                                      {label}
-                                    </Badge>
-                                  </SelectItem>
-                                ),
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </TableCell>
-                        <TableCell className="text-sm">
-                          {formatDate(order.createdAt)}
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </div>
+            <DataTable
+              columns={columns}
+              data={filteredOrders}
+              emptyMessage={
+                searchTerm || selectedStatus !== "all"
+                  ? "No se encontraron pedidos con los filtros aplicados"
+                  : "No hay pedidos disponibles"
+              }
+              getRowKey={(order: Order) => order.id || order.orderNumber || ""}
+              loading={loading}
+              onRefresh={loadOrders}
+              onSearchChange={setSearchTerm}
+              searchPlaceholder="Buscar por número de pedido o nombre del cliente..."
+              searchTerm={searchTerm}
+            />
           </CardContent>
         </Card>
       </div>
