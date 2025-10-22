@@ -39,57 +39,41 @@ export function ExpandedProducts({ items }: ExpandedProductsProps) {
             <Separator className="mb-4" />
 
             {/* Brigadeiros Grid */}
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-muted-foreground">
-                Brigadeiros ({item.brigadeiros.length})
-              </p>
-              <div
-                className={`
-                  grid grid-cols-1 gap-3
-                  sm:grid-cols-2
-                  lg:grid-cols-3
-                  xl:grid-cols-4
-                `}
-              >
-                {item.brigadeiros.map((brigadeiro, brigIndex) => (
-                  <div
-                    className={`
-                      group relative overflow-hidden rounded-lg border bg-card
-                      p-3 transition-all duration-200
-                      hover:border-primary/20 hover:shadow-md
-                    `}
-                    key={brigIndex}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0 flex-1">
-                        <p
-                          className={`
-                            truncate text-sm font-medium text-card-foreground
-                          `}
-                        >
-                          {brigadeiro.name}
-                        </p>
-                      </div>
-                      <Badge
-                        className="shrink-0 text-xs font-semibold"
-                        variant="outline"
+            <div
+              className={`
+                grid grid-cols-1 gap-3
+                sm:grid-cols-2
+                lg:grid-cols-3
+                xl:grid-cols-4
+              `}
+            >
+              {item.brigadeiros.map((brigadeiro, brigIndex) => (
+                <div
+                  className={`
+                    group relative overflow-hidden rounded-lg border bg-card p-3
+                    transition-all duration-200
+                  `}
+                  key={brigIndex}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className={`
+                          truncate text-sm font-medium text-card-foreground
+                        `}
                       >
-                        ×{brigadeiro.quantity}
-                      </Badge>
+                        {brigadeiro.name}
+                      </p>
                     </div>
-
-                    {/* Subtle accent line */}
-                    <div
-                      className={`
-                        absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r
-                        from-primary/20 to-transparent opacity-0
-                        transition-opacity duration-200
-                        group-hover:opacity-100
-                      `}
-                    />
+                    <Badge
+                      className="shrink-0 text-xs font-semibold"
+                      variant="outline"
+                    >
+                      ×{brigadeiro.quantity}
+                    </Badge>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

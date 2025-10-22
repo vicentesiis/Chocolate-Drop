@@ -69,11 +69,11 @@ export function ProductsCell({
         size="sm"
         variant="ghost"
       >
-        <div className="flex w-full items-start">
+        <div className="flex w-full items-center">
           {isExpanded ? (
-            <ChevronDown className="mt-0.5 mr-2 h-4 w-4 flex-shrink-0" />
+            <ChevronDown className="mr-2 h-4 w-4 flex-shrink-0" />
           ) : (
-            <ChevronRight className="mt-0.5 mr-2 h-4 w-4 flex-shrink-0" />
+            <ChevronRight className="mr-2 h-4 w-4 flex-shrink-0" />
           )}
           <div className="flex-1 space-y-1.5">
             {Object.entries(
