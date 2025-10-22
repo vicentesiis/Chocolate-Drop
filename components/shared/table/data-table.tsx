@@ -17,6 +17,8 @@ interface Column<T> {
   header: string;
   key: string;
   render: (item: T) => ReactNode;
+  width?: string;
+  align?: "left" | "center" | "right";
 }
 
 interface DataTableProps<T> {
@@ -68,7 +70,15 @@ export function DataTable<T>({
           <TableHeader>
             <TableRow>
               {columns.map((column) => (
-                <TableHead key={column.key}>{column.header}</TableHead>
+                <TableHead
+                  key={column.key}
+                  style={{
+                    width: column.width,
+                    textAlign: column.align,
+                  }}
+                >
+                  {column.header}
+                </TableHead>
               ))}
             </TableRow>
           </TableHeader>
@@ -86,7 +96,13 @@ export function DataTable<T>({
               data.map((item) => (
                 <TableRow key={getRowKey(item)}>
                   {columns.map((column) => (
-                    <TableCell key={column.key}>
+                    <TableCell
+                      key={column.key}
+                      style={{
+                        width: column.width,
+                        textAlign: column.align,
+                      }}
+                    >
                       {column.render(item)}
                     </TableCell>
                   ))}

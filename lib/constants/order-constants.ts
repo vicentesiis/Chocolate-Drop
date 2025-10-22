@@ -1,12 +1,12 @@
 import type { Order } from "@/lib/types/order";
 
 export const statusVariants = {
+  pending: "pending",
+  confirmed: "processing",
+  preparing: "info",
+  ready: "ready",
+  delivered: "completed",
   cancelled: "destructive",
-  confirmed: "default",
-  delivered: "default",
-  pending: "secondary",
-  preparing: "outline",
-  ready: "secondary",
 } as const;
 
 export const statusLabels = {
