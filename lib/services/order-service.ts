@@ -5,7 +5,7 @@
  * It provides a clean API for order management operations.
  */
 
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
 import type { Order } from "../types/order";
 
@@ -20,20 +20,22 @@ import { generateOrderNumber } from "../order-utils";
  * @returns Promise with order number
  */
 export const createOrder = async (
-  customerInfo: { name: string; phone: string },
+  customer: { name: string; phone: string },
   items: any[],
-  totalPrice: number,
+  total: number,
 ): Promise<string> => {
   const orderNumber = generateOrderNumber();
   const now = new Date();
 
   const orderData: Order = {
     createdAt: now,
-    customerInfo,
+    customer,
     id: orderNumber,
     items,
+    orderNumber,
     status: "pending",
-    totalPrice,
+    timestamp: now.toISOString(),
+    total,
     updatedAt: now,
   };
 
@@ -80,18 +82,55 @@ export const searchOrder = async (
 };
 
 /**
+ * Gets all orders from Firestore
+ * @returns Promise with array of orders
+ */
+export const getAllOrders = async (): Promise<Order[]> => {
+  try {
+    const ordersCollection = collection(db, "orders");
+    const querySnapshot = await getDocs(ordersCollection);
+
+    if (querySnapshot.empty) {
+      return [];
+    }
+
+    const orders: Order[] = [];
+    for (const docSnapshot of querySnapshot.docs) {
+      const data = docSnapshot.data();
+
+      const order = {
+        ...data,
+        createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
+        id: data.id || docSnapshot.id,
+        updatedAt: data.updatedAt ? new Date(data.updatedAt) : new Date(),
+      } as Order;
+
+      orders.push(order);
+    }
+
+    // Sort by createdAt descending (newest first)
+    orders.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+    return orders;
+  } catch (error) {
+    console.error("Error getting orders:", error);
+    throw new Error("Failed to get orders");
+  }
+};
+
+/**
  * Updates an existing order status
  * @param orderNumber The order number to update
  * @param status New status
  * @returns Promise<void>
  */
-
 export const updateOrderStatus = async (
   orderNumber: string,
   status: Order["status"],
 ): Promise<void> => {
   try {
-    const orderRef = doc(db, "orders", orderNumber.toUpperCase());
+    // Use the orderNumber as the document ID (your Firestore documents use orderNumber as the key)
+    const orderRef = doc(db, "orders", orderNumber);
     const now = new Date();
 
     await setDoc(

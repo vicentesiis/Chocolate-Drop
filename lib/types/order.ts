@@ -3,10 +3,11 @@ import type { CustomerInfo } from "@/lib/types/customer";
 
 export interface Order {
   createdAt: Date;
-  customerInfo: CustomerInfo;
+  customer: CustomerInfo;
   id?: string;
   items: CartItem[];
   notes?: string;
+  orderNumber?: string;
   status:
     | "cancelled"
     | "confirmed"
@@ -14,6 +15,7 @@ export interface Order {
     | "pending"
     | "preparing"
     | "ready";
-  totalPrice: number;
+  timestamp?: string;
+  total: number;
   updatedAt: Date;
 }
