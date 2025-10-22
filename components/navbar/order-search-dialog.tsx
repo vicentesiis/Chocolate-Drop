@@ -76,8 +76,9 @@ export const OrderSearchDialog = () => {
       </DialogTrigger>
       <DialogContent
         className={`
-          flex max-h-[90dvh] w-full max-w-4xl flex-col overflow-y-auto p-4
-          sm:p-6
+          flex max-h-[90dvh] max-w-[calc(100vw-2rem)] flex-col overflow-y-auto
+          p-4
+          sm:w-full sm:max-w-xl sm:p-6
         `}
       >
         <DialogHeader>
