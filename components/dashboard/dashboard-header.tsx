@@ -15,11 +15,11 @@ export function DashboardHeader() {
       return "Dashboard Home";
     }
 
-    if (pathname.startsWith("/dashboard/pedidos")) {
+    if (pathname.startsWith("/dashboard/orders")) {
       return "Pedidos";
     }
 
-    if (pathname.startsWith("/dashboard/eventos")) {
+    if (pathname.startsWith("/dashboard/events")) {
       return "Eventos";
     }
 

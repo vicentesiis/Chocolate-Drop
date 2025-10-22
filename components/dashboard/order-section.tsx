@@ -6,6 +6,7 @@ import { DataTable } from "@/components/shared";
 import { FilterTabs } from "@/components/shared/filter-tabs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useOrderColumns } from "@/hooks/use-order-columns";
 import { useOrders } from "@/hooks/use-orders";
 import { generateOrderFilterTabs } from "@/lib/constants/order-constants";
@@ -13,6 +14,7 @@ import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function OrderSection() {
+  const isMobile = useIsMobile();
   const { loading, loadOrders, orders, updateStatus, updatingOrder } =
     useOrders();
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
@@ -66,46 +68,63 @@ export function OrderSection() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mx-auto max-w-7xl space-y-6">
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-2xl font-bold">
-                Gestión de Pedidos
-              </CardTitle>
-              <Button onClick={loadOrders} size="sm" variant="outline">
-                <RefreshCw className="mr-2 h-4 w-4" />
-                Actualizar
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Filter Tabs */}
-            <FilterTabs
-              onValueChange={setSelectedStatus}
-              tabs={filterTabs}
-              value={selectedStatus}
-            />
+    <div
+      className={`
+        container mx-auto py-4
+        sm:px-4 sm:py-8
+      `}
+    >
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle
+              className={`
+                text-xl font-bold
+                sm:text-2xl
+              `}
+            >
+              Gestión de Pedidos
+            </CardTitle>
+            <Button onClick={loadOrders} size="sm" variant="outline">
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Actualizar
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent
+          className={`
+            space-y-2 p-4 pt-0
+            sm:space-y-6 sm:p-6 sm:pt-0
+          `}
+        >
+          {/* Filter Tabs */}
+          <FilterTabs
+            onValueChange={setSelectedStatus}
+            tabs={filterTabs}
+            value={selectedStatus}
+          />
 
-            {/* Orders Table */}
-            <DataTable
-              columns={columns}
-              data={filteredOrders}
-              emptyMessage={
-                searchTerm || selectedStatus !== "all"
-                  ? "No se encontraron pedidos con los filtros aplicados"
-                  : "No hay pedidos disponibles"
-              }
-              getRowKey={(order: Order) => order.id || order.orderNumber || ""}
-              loading={loading}
-              onSearchChange={setSearchTerm}
-              searchPlaceholder="Buscar por # de pedido o nombre del cliente..."
-              searchTerm={searchTerm}
-            />
-          </CardContent>
-        </Card>
-      </div>
+          {/* Orders Table */}
+          <DataTable
+            columns={columns}
+            data={filteredOrders}
+            emptyMessage={
+              searchTerm || selectedStatus !== "all"
+                ? "No se encontraron pedidos con los filtros aplicados"
+                : "No hay pedidos disponibles"
+            }
+            getRowKey={(order: Order) => order.id || order.orderNumber || ""}
+            loading={loading}
+            onSearchChange={setSearchTerm}
+            searchPlaceholder={
+              isMobile
+                ? "Buscar pedido..."
+                : " Buscar por # de pedido o nombre del cliente..."
+            }
+            searchTerm={searchTerm}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
