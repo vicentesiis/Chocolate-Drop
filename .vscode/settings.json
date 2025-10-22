@@ -1,19 +1,15 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-
+  "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnSave": true,
-
-  // Decide who formats what:
-  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
-
-  // If you want Prettier for TSX instead, change the TSX line to:
-  // "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-
-  // Optional: keep Biome on JSON/MD too
-  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[markdown]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  }
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "eslint.rules.customizations": [
+    { "rule": "readable-tailwind/*", "severity": "off" },
+    { "rule": "perfectionist/*", "severity": "off" }
+  ],
+  "typescript.autoClosingTags": false,
+  "biome.requireConfiguration": false
 }
