@@ -10,7 +10,7 @@ import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import type { Order } from "../types/order";
 
 import { db } from "../firebase";
-import { generateOrderNumber } from "../order-utils";
+import { generateOrderNumber } from "../utils/order-utils";
 
 /**
  * Creates a new order in Firestore

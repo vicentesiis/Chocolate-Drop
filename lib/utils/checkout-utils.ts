@@ -1,4 +1,4 @@
-import { customerSchema } from "./schemas/customer";
+import { customerSchema } from "../schemas/customer";
 
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat("es-MX", {
@@ -8,7 +8,7 @@ export const formatPrice = (price: number) => {
 };
 
 // Re-export types from schema for backward compatibility
-export type { CustomerData } from "./schemas/customer";
+export type { CustomerData } from "../schemas/customer";
 
 // Legacy interface for backward compatibility
 export interface ValidationErrors {

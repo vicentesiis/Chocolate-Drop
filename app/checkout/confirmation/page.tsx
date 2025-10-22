@@ -5,7 +5,7 @@ import {
   ConfirmationHeader,
   OrderDetails,
 } from "@/components/checkout";
-import { generateOrderNumber } from "@/lib/order-utils";
+import { generateOrderNumber } from "@/lib/utils/order-utils";
 import { useSearchParams } from "next/navigation";
 
 export default function ConfirmationPage() {

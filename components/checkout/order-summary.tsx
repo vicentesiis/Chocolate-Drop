@@ -1,7 +1,7 @@
 import { BoxCartItem } from "@/components/cart/box-cart-item";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatPrice } from "@/lib/checkout-utils";
+import { formatPrice } from "@/lib/utils/checkout-utils";
 import { useCart } from "@/lib/contexts/cart-context";
 import { ShoppingCart } from "lucide-react";
 

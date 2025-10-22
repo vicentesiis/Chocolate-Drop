@@ -6,7 +6,7 @@ import {
   validateCustomerData,
   getMissingFields,
   getValidationMessage,
-} from "@/lib/checkout-utils";
+} from "@/lib/utils/checkout-utils";
 
 export const useCheckoutForm = () => {
   const [customerData, setCustomerData] = useState<CustomerData>({

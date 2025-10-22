@@ -1,4 +1,4 @@
-import type { CustomerData } from "@/lib/checkout-utils";
+import type { CustomerData } from "@/lib/utils/checkout-utils";
 
 import { useCart } from "@/lib/contexts/cart-context";
 import { createOrder } from "@/lib/services";
