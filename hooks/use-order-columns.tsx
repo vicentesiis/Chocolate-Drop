@@ -45,8 +45,15 @@ export function useOrderColumns({
         align: "left",
         header: "Productos",
         key: "products",
-        render: (order: Order) => <ProductsCell items={order.items} />,
+        render: (order: Order, isExpanded?: boolean, onToggle?: () => void) => (
+          <ProductsCell
+            items={order.items}
+            isExpanded={isExpanded}
+            onToggle={onToggle}
+          />
+        ),
         width: "250px",
+        collapsible: true,
       },
       {
         align: "center",

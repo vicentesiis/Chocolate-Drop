@@ -12,21 +12,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Search } from "lucide-react";
+import React, { useState } from "react";
 
 interface Column<T> {
+  align?: "center" | "left" | "right";
+  collapsible?: boolean;
   header: string;
   key: string;
-  render: (item: T) => ReactNode;
+  render: (item: T, isExpanded?: boolean, onToggle?: () => void) => ReactNode;
   width?: string;
-  align?: "left" | "center" | "right";
 }
 
 interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   emptyMessage?: string;
+  expandedContent?: (item: T) => ReactNode;
   getRowKey: (item: T) => string;
-  loading?: boolean;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
   searchTerm?: string;
@@ -36,12 +38,15 @@ export function DataTable<T>({
   columns,
   data,
   emptyMessage = "No hay datos disponibles",
+  expandedContent,
   getRowKey,
-  loading = false,
   onSearchChange,
   searchPlaceholder = "Buscar...",
   searchTerm = "",
 }: DataTableProps<T>) {
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(
+    () => new Set(),
+  );
   return (
     <div className="space-y-4">
       {/* Search and Actions Bar */}
@@ -73,8 +78,8 @@ export function DataTable<T>({
                 <TableHead
                   key={column.key}
                   style={{
-                    width: column.width,
                     textAlign: column.align,
+                    width: column.width,
                   }}
                 >
                   {column.header}
@@ -93,21 +98,55 @@ export function DataTable<T>({
                 </TableCell>
               </TableRow>
             ) : (
-              data.map((item) => (
-                <TableRow key={getRowKey(item)}>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.key}
-                      style={{
-                        width: column.width,
-                        textAlign: column.align,
-                      }}
-                    >
-                      {column.render(item)}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              data.map((item) => {
+                const rowKey = getRowKey(item);
+                const isExpanded = expandedRows.has(rowKey);
+                const hasExpandableContent =
+                  expandedContent && columns.some((col) => col.collapsible);
+
+                const toggleExpanded = () => {
+                  setExpandedRows((prev) => {
+                    const newSet = new Set(prev);
+                    if (newSet.has(rowKey)) {
+                      newSet.delete(rowKey);
+                    } else {
+                      newSet.add(rowKey);
+                    }
+                    return newSet;
+                  });
+                };
+
+                return (
+                  <React.Fragment key={rowKey}>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.key}
+                          style={{
+                            textAlign: column.align,
+                            width: column.width,
+                          }}
+                        >
+                          {column.render(
+                            item,
+                            column.collapsible ? isExpanded : undefined,
+                            column.collapsible ? toggleExpanded : undefined,
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    {hasExpandableContent && isExpanded && expandedContent && (
+                      <TableRow>
+                        <TableCell className="p-0" colSpan={columns.length}>
+                          <div className="border-t bg-muted/30 p-4">
+                            {expandedContent(item)}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                );
+              })
             )}
           </TableBody>
         </Table>

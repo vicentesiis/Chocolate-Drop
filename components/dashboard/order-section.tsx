@@ -4,6 +4,7 @@ import type { Order } from "@/lib/types/order";
 
 import { DataTable } from "@/components/shared";
 import { FilterTabs } from "@/components/shared/filter-tabs";
+import { ExpandedProducts } from "@/components/shared/table/cells/expanded-products";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -113,8 +114,10 @@ export function OrderSection() {
                 ? "No se encontraron pedidos con los filtros aplicados"
                 : "No hay pedidos disponibles"
             }
+            expandedContent={(order: Order) => (
+              <ExpandedProducts items={order.items} />
+            )}
             getRowKey={(order: Order) => order.id || order.orderNumber || ""}
-            loading={loading}
             onSearchChange={setSearchTerm}
             searchPlaceholder={
               isMobile

@@ -9,8 +9,8 @@ export const formatDate = (date: Date) => {
 };
 
 export const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("es-ES", {
-    currency: "EUR",
+  return new Intl.NumberFormat("es-MX", {
+    currency: "MXN",
     style: "currency",
   }).format(price);
 };
