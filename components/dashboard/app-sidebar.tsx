@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -9,11 +9,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { useAuth } from "@/lib/contexts/auth-context"
-import { Calendar, LayoutDashboard, LogOut, Package } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+} from "@/components/ui/sidebar";
+import { useAuth } from "@/lib/contexts/auth-context";
+import { Calendar, LayoutDashboard, LogOut, Package } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 // Menu items.
 const items = [
@@ -25,28 +25,34 @@ const items = [
   {
     icon: Package,
     title: "Pedidos",
-    url: "/dashboard/pedidos",
+    url: "/dashboard/orders",
   },
   {
     icon: Calendar,
     title: "Eventos",
-    url: "/dashboard/eventos",
+    url: "/dashboard/events",
   },
-]
+];
 
 export function AppSidebar() {
   const { logout } = useAuth();
-  
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-border/40 px-4 py-1">
-        <Link className={`
-          flex items-center gap-2
-          sm:pr-2
-        `} href="/dashboard">
-          <div className={`
-            relative flex h-20 w-20 items-center justify-center overflow-hidden
-          `}>
+        <Link
+          className={`
+            flex items-center gap-2
+            sm:pr-2
+          `}
+          href="/dashboard"
+        >
+          <div
+            className={`
+              relative flex h-20 w-20 items-center justify-center
+              overflow-hidden
+            `}
+          >
             <Image
               alt="ChocolateDrop Logo"
               className="object-contain"
@@ -56,7 +62,9 @@ export function AppSidebar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-foreground">ChocolateDrop</span>
+            <span className="text-lg font-bold text-foreground">
+              ChocolateDrop
+            </span>
             <span className="text-xs text-muted-foreground">Dashboard</span>
           </div>
         </Link>
@@ -64,19 +72,21 @@ export function AppSidebar() {
 
       <SidebarContent className="px-3 py-2">
         <SidebarGroup>
-          <SidebarGroupLabel className={`
-            mb-3 text-sm font-semibold tracking-wider text-muted-foreground
-            uppercase
-            sm:text-base
-          `}>
+          <SidebarGroupLabel
+            className={`
+              mb-3 text-sm font-semibold tracking-wider text-muted-foreground
+              uppercase
+              sm:text-base
+            `}
+          >
             Menu Principal
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild 
+                  <SidebarMenuButton
+                    asChild
                     className={`
                       w-full justify-start gap-3 rounded-lg px-3 py-2.5
                       text-base font-medium transition-colors
@@ -93,12 +103,14 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
+
         {/* Mobile-only logout button */}
-        <SidebarGroup className={`
-          mt-auto
-          sm:hidden
-        `}>
+        <SidebarGroup
+          className={`
+            mt-auto
+            sm:hidden
+          `}
+        >
           <SidebarGroupContent>
             <Button
               className={`
@@ -117,5 +129,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }

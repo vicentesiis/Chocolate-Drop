@@ -2,22 +2,15 @@
 
 import type { Order } from "@/lib/types/order";
 
-import {
-  CustomerCell,
-  DataTable,
-  DateCell,
-  OrderNumberCell,
-  PriceCell,
-  ProductsCell,
-  StatusCell,
-} from "@/components/shared";
+import { DataTable } from "@/components/shared";
 import { FilterTabs } from "@/components/shared/filter-tabs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useOrderColumns } from "@/hooks/use-order-columns";
 import { useOrders } from "@/hooks/use-orders";
 import { generateOrderFilterTabs } from "@/lib/constants/order-constants";
 import { RefreshCw } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function OrderSection() {
   const { loading, loadOrders, orders, updateStatus, updatingOrder } =
@@ -51,57 +44,11 @@ export function OrderSection() {
 
   const filterTabs = generateOrderFilterTabs(orders);
 
-  // Define table columns
-  const columns = useMemo(
-    () => [
-      {
-        header: "Pedido",
-        key: "orderNumber",
-        render: (order: Order) => (
-          <OrderNumberCell id={order.id} orderNumber={order.orderNumber} />
-        ),
-      },
-      {
-        header: "Cliente",
-        key: "customer",
-        render: (order: Order) => (
-          <CustomerCell
-            name={order.customer.name}
-            phone={order.customer.phone}
-          />
-        ),
-      },
-      {
-        header: "Productos",
-        key: "products",
-        render: (order: Order) => <ProductsCell items={order.items} />,
-      },
-      {
-        header: "Total",
-        key: "total",
-        render: (order: Order) => <PriceCell amount={order.total} />,
-      },
-      {
-        header: "Estado",
-        key: "status",
-        render: (order: Order) => (
-          <StatusCell
-            disabled={updatingOrder === (order.orderNumber || order.id)}
-            onStatusChange={(status: Order["status"]) =>
-              updateStatus(order.orderNumber || order.id!, status)
-            }
-            status={order.status}
-          />
-        ),
-      },
-      {
-        header: "Fecha",
-        key: "date",
-        render: (order: Order) => <DateCell date={order.createdAt} />,
-      },
-    ],
-    [updateStatus, updatingOrder],
-  );
+  // Get reusable table columns
+  const columns = useOrderColumns({
+    onStatusChange: updateStatus,
+    updatingOrder,
+  });
 
   if (loading) {
     return (
