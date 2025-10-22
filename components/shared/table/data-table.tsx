@@ -138,7 +138,7 @@ export function DataTable<T>({
                     {hasExpandableContent && isExpanded && expandedContent && (
                       <TableRow>
                         <TableCell className="p-0" colSpan={columns.length}>
-                          <div className="border-t bg-muted/30 p-4">
+                          <div className="border-t bg-muted p-4">
                             {expandedContent(item)}
                           </div>
                         </TableCell>

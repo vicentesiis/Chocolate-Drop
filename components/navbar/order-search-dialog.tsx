@@ -10,21 +10,13 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useOrderSearch } from "@/hooks/use-order-search";
-import {
-  Calendar,
-  Gift,
-  Hash,
-  Package,
-  ReceiptText,
-  Search,
-  User,
-} from "lucide-react";
+import { statusLabels, statusVariants } from "@/lib/constants/order-constants";
+import { Calendar, Gift, Hash, ReceiptText, Search, User } from "lucide-react";
 import { useState } from "react";
 
 export const OrderSearchDialog = () => {
@@ -51,36 +43,6 @@ export const OrderSearchDialog = () => {
       month: "long",
       year: "numeric",
     });
-  };
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case "cancelled":
-        return "destructive";
-      case "confirmed":
-        return "info";
-      case "delivered":
-        return "success";
-      case "pending":
-        return "warning";
-      default:
-        return "secondary";
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "cancelled":
-        return "Cancelado";
-      case "confirmed":
-        return "Confirmado";
-      case "delivered":
-        return "Entregado";
-      case "pending":
-        return "Pendiente";
-      default:
-        return status;
-    }
   };
 
   return (
@@ -122,11 +84,11 @@ export const OrderSearchDialog = () => {
           <DialogTitle
             className={`
               flex flex-wrap items-center justify-between gap-2 pt-2 text-lg
-              sm:text-xl
+              sm:pt-4 sm:text-xl
             `}
           >
             {searchResult
-              ? `Pedido #${searchResult.id}`
+              ? `Pedido #${searchResult.orderNumber}`
               : "Buscar Pedido"}
             {searchResult && (
               <Badge
@@ -134,9 +96,9 @@ export const OrderSearchDialog = () => {
                   text-xs font-medium
                   sm:text-sm
                 `}
-                variant={getStatusVariant(searchResult.status)}
+                variant={statusVariants[searchResult.status]}
               >
-                {getStatusText(searchResult.status)}
+                {statusLabels[searchResult.status]}
               </Badge>
             )}
           </DialogTitle>
@@ -208,7 +170,7 @@ export const OrderSearchDialog = () => {
                     {
                       icon: User,
                       label: "Nombre",
-                      value: searchResult.customerInfo.name,
+                      value: searchResult.customer.name,
                     },
                     {
                       icon: Calendar,
@@ -234,7 +196,7 @@ export const OrderSearchDialog = () => {
                   <CollapsibleProductList
                     className="h-full overflow-auto"
                     items={searchResult.items}
-                    total={searchResult.totalPrice}
+                    total={searchResult.total}
                   />
                 </div>
               </div>
