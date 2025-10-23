@@ -1,3 +1,6 @@
+import type { EventDetails } from "@/lib/types/quote-event-types";
+
+import { FormInput } from "@/components/shared/forms/form-input";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,42 +10,86 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Label } from "@/components/ui/label";
-import { Toggle } from "@/components/ui/toggle";
-import { InfoRow } from "@/components/quote-event/info-feature-rows";
-import { EVENT_TYPES, CITIES } from "@/lib/constants/quote-event-constants";
-import type { EventDetails } from "@/lib/types/quote-event-types";
-import { clamp, recommendedPieces } from "@/lib/utils/quote-event-utils";
-import { cn } from "@/lib/utils";
 import {
-  Calendar as CalendarIcon,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Toggle } from "@/components/ui/toggle";
+import { CITIES, EVENT_TYPES } from "@/lib/constants/quote-event-constants";
+import { cn } from "@/lib/utils";
+import { clamp, recommendedPieces } from "@/lib/utils/quote-event-utils";
+import { format } from "date-fns";
+import {
   ChevronLeft,
   ChevronRight,
-  Info,
   MapPin,
   Users2,
 } from "lucide-react";
+import { useState } from "react";
 
 interface EventDetailsStepProps {
   event: EventDetails;
-  setEvent: (event: EventDetails) => void;
+  isValid: boolean;
   onNext: () => void;
   onPrev: () => void;
-  isValid: boolean;
   piecesTotal: number;
+  setEvent: (event: EventDetails) => void;
 }
 
 export function EventDetailsStep({
   event,
-  setEvent,
-  onNext,
-  onPrev,
   isValid,
+  onNext,
   piecesTotal,
+  setEvent,
 }: EventDetailsStepProps) {
   const recommend = recommendedPieces(event.guests);
   const showPiecesNudge = recommend > 0 && piecesTotal < recommend;
+  
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(() =>
+    event.date ? new Date(event.date) : undefined
+  );
+  
+  const [selectedHour, setSelectedHour] = useState<string>(() => {
+    if (!event.time) return "";
+    const [hours] = event.time.split(":");
+    const hour = parseInt(hours);
+    return hour === 0 ? "12" : hour > 12 ? (hour - 12).toString() : hour.toString();
+  });
+  
+  const [selectedPeriod, setSelectedPeriod] = useState<string>(() => {
+    if (!event.time) return "AM";
+    const [hours] = event.time.split(":");
+    const hour = parseInt(hours);
+    return hour >= 12 ? "PM" : "AM";
+  });
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date);
+    if (date) {
+      setEvent({ ...event, date: format(date, "yyyy-MM-dd") });
+    } else {
+      setEvent({ ...event, date: "" });
+    }
+  };
+
+  const handleTimeChange = (hour: string, period: string) => {
+    if (hour && period) {
+      let hour24 = parseInt(hour);
+      if (period === "PM" && hour24 !== 12) {
+        hour24 += 12;
+      } else if (period === "AM" && hour24 === 12) {
+        hour24 = 0;
+      }
+      const timeString = `${hour24.toString().padStart(2, "0")}:00`;
+      setEvent({ ...event, time: timeString });
+    }
+  };
 
   return (
     <Card>
@@ -59,88 +106,90 @@ export function EventDetailsStep({
         `}
       >
         <div className="space-y-2">
-          <Label htmlFor="date">Fecha</Label>
-          <div className="relative">
-            <Input
-              id="date"
-              onChange={(e) => setEvent({ ...event, date: e.target.value })}
-              type="date"
-              value={event.date}
-            />
-            <CalendarIcon
-              className={`
-                pointer-events-none absolute top-1/2 right-3 h-4 w-4
-                -translate-y-1/2 opacity-60
-              `}
-            />
-          </div>
+          <Label>Fecha</Label>
+          <DatePicker
+            date={selectedDate}
+            disabled={(date) =>
+              date < new Date(new Date().setHours(0, 0, 0, 0))
+            }
+            onDateChange={handleDateSelect}
+            placeholder="Selecciona una fecha"
+          />
         </div>
+        
         <div className="space-y-2">
-          <Label htmlFor="time">Hora</Label>
-          <div className="relative">
-            <Input
-              id="time"
-              onChange={(e) => setEvent({ ...event, time: e.target.value })}
-              type="time"
-              value={event.time}
-            />
+          <Label>Hora</Label>
+          <div className="flex gap-2">
+            <Select
+              onValueChange={(hour) => {
+                setSelectedHour(hour);
+                handleTimeChange(hour, selectedPeriod);
+              }}
+              value={selectedHour}
+            >
+              <SelectTrigger className="flex-1">
+                <SelectValue placeholder="Hora" />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
+                  <SelectItem key={hour} value={hour.toString()}>
+                    {hour}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select
+              onValueChange={(period) => {
+                setSelectedPeriod(period);
+                handleTimeChange(selectedHour, period);
+              }}
+              value={selectedPeriod}
+            >
+              <SelectTrigger className="w-20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="AM">AM</SelectItem>
+                <SelectItem value="PM">PM</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="guests">Invitados (opcional)</Label>
-          <div className="relative">
-            <Input
-              id="guests"
-              inputMode="numeric"
-              onChange={(e) =>
-                setEvent({
-                  ...event,
-                  guests: e.target.value
-                    ? clamp(Number.parseInt(e.target.value) || 0, 0, 10000)
-                    : null,
-                })
-              }
-              placeholder="Ej. 80"
-              value={event.guests ?? ""}
-            />
-            <Users2
-              className={`
-                pointer-events-none absolute top-1/2 right-3 h-4 w-4
-                -translate-y-1/2 opacity-60
-              `}
-            />
-          </div>
-          {showPiecesNudge && (
-            <p className="text-sm text-muted-foreground">
-              Sugerencia: ~2 piezas por invitado →{" "}
-              <strong>{recommend}</strong> piezas para {event.guests}{" "}
-              invitados.
-            </p>
-          )}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="city">Ciudad / Colonia</Label>
-          <div className="relative">
-            <Input
-              id="city"
-              list="city-list"
-              onChange={(e) => setEvent({ ...event, city: e.target.value })}
-              placeholder="Ej. San Pedro"
-              value={event.city}
-            />
-            <datalist id="city-list">
-              {CITIES.map((c) => (
-                <option key={c} value={c} />
-              ))}
-            </datalist>
-            <MapPin
-              className={`
-                pointer-events-none absolute top-1/2 right-3 h-4 w-4
-                -translate-y-1/2 opacity-60
-              `}
-            />
-          </div>
-        </div>
+
+        <FormInput
+          helperText={
+            showPiecesNudge
+              ? `Sugerencia: ~2 piezas por invitado → ${recommend} piezas para ${event.guests} invitados.`
+              : undefined
+          }
+          icon={Users2}
+          inputMode="numeric"
+          label="Invitados (opcional)"
+          onChange={(e) =>
+            setEvent({
+              ...event,
+              guests: e.target.value
+                ? clamp(Number.parseInt(e.target.value) || 0, 0, 10000)
+                : null,
+            })
+          }
+          placeholder="Ej. 80"
+          value={event.guests ?? ""}
+        />
+
+        <FormInput
+          icon={MapPin}
+          label="Ciudad / Colonia"
+          list="city-list"
+          onChange={(e) => setEvent({ ...event, city: e.target.value })}
+          placeholder="Ej. San Pedro"
+          value={event.city}
+        />
+        <datalist id="city-list">
+          {CITIES.map((c) => (
+            <option key={c} value={c} />
+          ))}
+        </datalist>
         <div className="col-span-full">
           <Label>Tipo de evento</Label>
           <div className="mt-2 flex flex-wrap gap-2">
