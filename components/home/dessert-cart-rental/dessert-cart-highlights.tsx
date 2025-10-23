@@ -60,11 +60,11 @@ export function DessertCartHighlights() {
           `}
         >
           {cartFeatures.map((feature) => (
-            <div key={feature.id} className="flex items-start gap-3">
+            <div className="flex items-start gap-3" key={feature.id}>
               <div
                 className={`
-                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
-                  bg-primary/20
+                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center
+                  rounded-full bg-primary/20
                 `}
               >
                 <Check className="h-3 w-3 text-primary" />
@@ -104,11 +104,11 @@ export function DessertCartHighlights() {
           `}
         >
           {barFeatures.map((feature) => (
-            <div key={feature.id} className="flex items-start gap-3">
+            <div className="flex items-start gap-3" key={feature.id}>
               <div
                 className={`
-                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
-                  bg-primary/20
+                  mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center
+                  rounded-full bg-primary/20
                 `}
               >
                 <Check className="h-3 w-3 text-primary" />

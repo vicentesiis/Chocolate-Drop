@@ -1,41 +1,22 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "next-themes";
-import { Navbar } from "@/components/navbar";
-import { Toaster } from "@/components/ui/sonner";
-import { CartProvider } from "@/lib/contexts/cart-context";
-import { ScrollToTop } from "@/components/shared/scroll-to-top";
+
 import { ConditionalNavbar } from "@/components/shared";
 
+import "./globals.css";
+
+import { ScrollToTop } from "@/components/shared/scroll-to-top";
+import { Toaster } from "@/components/ui/sonner";
+import { CartProvider } from "@/lib/contexts/cart-context";
+import { Poppins } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+
 const poppins = Poppins({
-  variable: "--font-poppins",
   subsets: ["latin"],
+  variable: "--font-poppins",
   weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Chocolate Drop",
-  description:
-    "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
-  keywords: ["Chocolates", "Brigadeiros", "Postres"],
-  openGraph: {
-    type: "website",
-    siteName: "Chocolate Drop",
-    locale: "es_MEX",
-    url: "https://shadcn-landing-page.vercel.app",
-    title: "Chocolate Drop",
-    description:
-      "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Chocolate Drop",
-      },
-    ],
-  },
   authors: [
     {
       name: "Vicente Cantú",
@@ -43,6 +24,8 @@ export const metadata: Metadata = {
     },
   ],
   creator: "Vicente Cantú",
+  description:
+    "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
   icons: [
     {
       rel: "icon",
@@ -53,11 +36,30 @@ export const metadata: Metadata = {
       url: "/logo.png",
     },
   ],
-  robots: {
-    index: true,
-    follow: true,
-  },
+  keywords: ["Chocolates", "Brigadeiros", "Postres"],
   manifest: "/site.webmanifest",
+  openGraph: {
+    description:
+      "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
+    images: [
+      {
+        alt: "Chocolate Drop",
+        height: 630,
+        url: "/og-image.png",
+        width: 1200,
+      },
+    ],
+    locale: "es_MEX",
+    siteName: "Chocolate Drop",
+    title: "Chocolate Drop",
+    type: "website",
+    url: "https://shadcn-landing-page.vercel.app",
+  },
+  robots: {
+    follow: true,
+    index: true,
+  },
+  title: "Chocolate Drop",
 };
 
 export default function RootLayout({
