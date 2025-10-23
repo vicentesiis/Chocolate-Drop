@@ -273,3 +273,55 @@ export const BRIGADEIROS = [
     season: "halloween",
   },
 ];
+
+export const CAKES = [
+  {
+    description:
+      "Pastelito de Chocolate con Betún de Ganache Belga y un Brigadeiro Gourmet",
+    id: "cake-chocolate",
+    image: "",
+    isActive: true,
+    isSeasonal: false,
+    name: "Chocolate",
+    season: null,
+  },
+  {
+    description: "Pastelito Red Velvet con Betún de 4 Leches con Frutos Rojos",
+    id: "cake-velvet",
+    image: "",
+    isActive: true,
+    isSeasonal: false,
+    name: "Red Velvet",
+    season: null,
+  },
+  {
+    description:
+      "Pastelito de Chocolate con Betún de Ganache Belga y un Brigadeiro Gourmet",
+    id: "cake-coco",
+    image: "",
+    isActive: true,
+    isSeasonal: false,
+    name: "Coco",
+    season: null,
+  },
+  {
+    description:
+      "Pastelito de Chocolate con Betún de Ganache Belga, Frutos Rojos de Temprada y un Brigadeiro Gourmet",
+    id: "cake-chocolate-fruits",
+    image: "",
+    isActive: true,
+    isSeasonal: false,
+    name: "Chocolate Frutos rojos",
+    season: null,
+  },
+  {
+    description:
+      "Pastelito de Chocolate Milk Callebaut relleno de Betún 4 leches y frutos Rojos",
+    id: "cake-chocolate-basket",
+    image: "",
+    isActive: true,
+    isSeasonal: false,
+    name: "Canastida de Chocolate",
+    season: null,
+  },
+];

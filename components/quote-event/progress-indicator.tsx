@@ -9,7 +9,6 @@ export function Progress({ step }: ProgressProps) {
   const steps = [
     "Evento",
     "Productos",
-    "Sabores",
     "Extras",
     "Contacto",
     "Resumen",

@@ -7,7 +7,6 @@ import {
   EventDetailsStep,
   ExtrasStep,
   Faq,
-  FlavorsStep,
   HeaderSection,
   ProductsStep,
   Progress,
@@ -36,7 +35,7 @@ import { ShoppingCart } from "lucide-react";
 import { useMemo, useState } from "react";
 
 export default function QuoteEventPage() {
-  // Wizard step (0–4), 5 = summary
+  // Wizard step (0–3), 4 = summary
   const [step, setStep] = useState<number>(0);
 
   // Step 1: Event details
@@ -52,13 +51,7 @@ export default function QuoteEventPage() {
   const [qtyPastelitos, setQtyPastelitos] = useState<number>(0);
   const [qtyBrigadeiros, setQtyBrigadeiros] = useState<number>(0);
 
-  // Step 3: Flavors & presentation (simple flavor multi-select per product)
-  const [selectedFlavorsPastelitos, setSelectedFlavorsPastelitos] = useState<
-    string[]
-  >([]);
-  const [selectedFlavorsBrigadeiros, setSelectedFlavorsBrigadeiros] = useState<
-    string[]
-  >([]);
+  // Step 3: Presentation
   const [presentation, setPresentation] = useState<"mesa" | "recuerdo">("mesa");
 
   // Step 4: Extras
@@ -99,12 +92,11 @@ export default function QuoteEventPage() {
     (qtyPastelitos === 0 || qtyPastelitos >= MIN_PASTELITOS) &&
     (qtyBrigadeiros === 0 || qtyBrigadeiros >= MIN_BRIGADEIROS) &&
     piecesTotal > 0;
-  const step3Valid = true; // optional: enforce at least 1 flavor selected per chosen product
-  const step5Valid = Boolean(contact.name && contact.email && contact.phone);
+  const step4Valid = Boolean(contact.name && contact.email && contact.phone);
 
   // Navigation handlers
   function handleNext() {
-    if (step < 5) setStep((s) => s + 1);
+    if (step < 4) setStep((s) => s + 1);
   }
   function handlePrev() {
     if (step > 0) setStep((s) => s - 1);
@@ -188,35 +180,19 @@ export default function QuoteEventPage() {
 
         {step === 1 && (
           <ProductsStep
-            guests={event.guests}
             isValid={step2Valid}
             onNext={handleNext}
             onPrev={handlePrev}
-            piecesTotal={piecesTotal}
+            presentation={presentation}
             qtyBrigadeiros={qtyBrigadeiros}
             qtyPastelitos={qtyPastelitos}
+            setPresentation={setPresentation}
             setQtyBrigadeiros={setQtyBrigadeiros}
             setQtyPastelitos={setQtyPastelitos}
           />
         )}
 
         {step === 2 && (
-          <FlavorsStep
-            isValid={step3Valid}
-            onNext={handleNext}
-            onPrev={handlePrev}
-            presentation={presentation}
-            qtyBrigadeiros={qtyBrigadeiros}
-            qtyPastelitos={qtyPastelitos}
-            selectedFlavorsBrigadeiros={selectedFlavorsBrigadeiros}
-            selectedFlavorsPastelitos={selectedFlavorsPastelitos}
-            setPresentation={setPresentation}
-            setSelectedFlavorsBrigadeiros={setSelectedFlavorsBrigadeiros}
-            setSelectedFlavorsPastelitos={setSelectedFlavorsPastelitos}
-          />
-        )}
-
-        {step === 3 && (
           <ExtrasStep
             onNext={handleNext}
             onPrev={handlePrev}
@@ -225,17 +201,17 @@ export default function QuoteEventPage() {
           />
         )}
 
-        {step === 4 && (
+        {step === 3 && (
           <ContactStep
             contact={contact}
-            isValid={step5Valid}
+            isValid={step4Valid}
             onNext={handleNext}
             onPrev={handlePrev}
             setContact={setContact}
           />
         )}
 
-        {step === 5 && (
+        {step === 4 && (
           <SummaryStep
             balance={balance}
             contact={contact}
