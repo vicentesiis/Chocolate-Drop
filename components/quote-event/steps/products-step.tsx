@@ -79,7 +79,7 @@ export function ProductsStep({
           min={MIN_BRIGADEIROS}
           setValue={setQtyBrigadeiros}
           subtitle={`$${UNIT_PRICE_BRIGADEIROS} c/u · mínimo ${MIN_BRIGADEIROS}`}
-          title="Brigadeiros"
+          title="Brigadeiros gourmet"
           value={qtyBrigadeiros}
         />
 

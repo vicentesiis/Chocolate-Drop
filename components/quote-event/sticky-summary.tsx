@@ -41,7 +41,7 @@ export function StickySummary({
   withCart,
 }: StickySummaryProps) {
   return (
-    <div className="sticky top-6">
+    <div className="sticky top-22">
       <Card>
         <CardHeader>
           <CardTitle>Tu cotización</CardTitle>
@@ -91,6 +91,7 @@ export function StickySummary({
             {withCart && (
               <div className="space-y-1">
                 <Separator />
+                <div className="pt-1 font-medium">Extras</div>
                 <div className="flex items-center justify-between">
                   <span>Carrito ({SERVICE_HOURS}h)</span>
                   <span>{pesos(CART_RENTAL_PRICE)}</span>

@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
   CART_RENTAL_PRICE,
@@ -37,7 +38,8 @@ export function ExtrasStep({
       <CardHeader>
         <CardTitle>4) Extras</CardTitle>
         <CardDescription>
-          Potencia tu evento con carrito y atención por {SERVICE_HOURS} horas.
+          Potencia tu evento con el elegante carrito de postres y atención por{" "}
+          {SERVICE_HOURS} horas.
         </CardDescription>
       </CardHeader>
 
@@ -45,7 +47,8 @@ export function ExtrasStep({
         <button
           className={cn(
             `
-              w-full overflow-hidden rounded-xl border text-left transition
+              group w-full overflow-hidden rounded-xl border text-left
+              transition
               hover:bg-muted/40
               focus:outline-none
               focus-visible:ring-2 focus-visible:ring-ring
@@ -55,7 +58,6 @@ export function ExtrasStep({
           onClick={() => setWithCart(!withCart)}
           type="button"
         >
-          {/* Responsive layout: image top on mobile, left on desktop */}
           <div
             className={`
               grid gap-2
@@ -79,7 +81,7 @@ export function ExtrasStep({
                   fill
                   priority={false}
                   sizes="(min-width: 768px) 320px, 100vw"
-                  src={"/carousel/1.jpg"}
+                  src="/carousel/1.jpg"
                 />
               </div>
             </div>
@@ -92,18 +94,15 @@ export function ExtrasStep({
               `}
             >
               <div className="flex items-start gap-3">
-                <input
+                <Checkbox
                   checked={withCart}
-                  className="mt-1 h-4 w-4 shrink-0"
+                  className="mt-1 shrink-0"
                   id="withCart"
-                  onChange={(e) => setWithCart(e.target.checked)}
+                  onCheckedChange={(checked) => setWithCart(!!checked)}
                   onClick={(e) => e.stopPropagation()}
-                  type="checkbox"
                 />
                 <div className="flex-1">
-                  <Label className="text-base" htmlFor="withCart">
-                    Renta de Carrito
-                  </Label>
+                  <div className="text-base font-medium">Renta de Carrito</div>
                   <p className="text-sm text-muted-foreground">
                     Incluye montaje, desmontaje y atención personalizada por{" "}
                     {SERVICE_HOURS} horas.
