@@ -216,3 +216,27 @@
     min-height: 100dvh; /* Dynamic viewport height for mobile */
   }
 }
+
+/* globals.css */
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.5rem; /* space on the right */
+  line-height: 1.25rem;
+}
+input[type="date"]::-webkit-datetime-edit {
+  line-height: 1.25rem;
+  padding: 0;
+}
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* invisible */
+  cursor: pointer; /* but still clickable */
+}

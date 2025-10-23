@@ -42,8 +42,7 @@ export const FormInput = ({
         <Input
           className={cn(
             `
-              h-10 text-base transition-all duration-200
-              sm:h-10 sm:text-sm
+              transition-all duration-200
             `,
             Icon && "pl-10",
             error &&

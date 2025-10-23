@@ -38,23 +38,6 @@ export const metadata: Metadata = {
   ],
   keywords: ["Chocolates", "Brigadeiros", "Postres"],
   manifest: "/site.webmanifest",
-  openGraph: {
-    description:
-      "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
-    images: [
-      {
-        alt: "Chocolate Drop",
-        height: 630,
-        url: "/og-image.png",
-        width: 1200,
-      },
-    ],
-    locale: "es_MEX",
-    siteName: "Chocolate Drop",
-    title: "Chocolate Drop",
-    type: "website",
-    url: "https://shadcn-landing-page.vercel.app",
-  },
   robots: {
     follow: true,
     index: true,

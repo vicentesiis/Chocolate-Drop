@@ -10,26 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DatePicker } from "@/components/ui/date-picker";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Toggle } from "@/components/ui/toggle";
 import { CITIES, EVENT_TYPES } from "@/lib/constants/quote-event-constants";
 import { cn } from "@/lib/utils";
-import { clamp, recommendedPieces } from "@/lib/utils/quote-event-utils";
-import { format } from "date-fns";
-import {
-  ChevronLeft,
-  ChevronRight,
-  MapPin,
-  Users2,
-} from "lucide-react";
+import { toLocalISODate } from "@/lib/utils/utils";
+import { Calendar, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { useState } from "react";
 
 interface EventDetailsStepProps {
@@ -45,50 +31,25 @@ export function EventDetailsStep({
   event,
   isValid,
   onNext,
-  piecesTotal,
   setEvent,
 }: EventDetailsStepProps) {
-  const recommend = recommendedPieces(event.guests);
-  const showPiecesNudge = recommend > 0 && piecesTotal < recommend;
-  
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(() =>
-    event.date ? new Date(event.date) : undefined
-  );
-  
-  const [selectedHour, setSelectedHour] = useState<string>(() => {
-    if (!event.time) return "";
-    const [hours] = event.time.split(":");
-    const hour = parseInt(hours);
-    return hour === 0 ? "12" : hour > 12 ? (hour - 12).toString() : hour.toString();
-  });
-  
-  const [selectedPeriod, setSelectedPeriod] = useState<string>(() => {
-    if (!event.time) return "AM";
-    const [hours] = event.time.split(":");
-    const hour = parseInt(hours);
-    return hour >= 12 ? "PM" : "AM";
-  });
+  const [dateError, setDateError] = useState<string>("");
 
-  const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date);
-    if (date) {
-      setEvent({ ...event, date: format(date, "yyyy-MM-dd") });
-    } else {
-      setEvent({ ...event, date: "" });
-    }
-  };
+  const handleNext = () => {
+    // Check if date is before today
+    if (event.date) {
+      const selectedDate = new Date(event.date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
-  const handleTimeChange = (hour: string, period: string) => {
-    if (hour && period) {
-      let hour24 = parseInt(hour);
-      if (period === "PM" && hour24 !== 12) {
-        hour24 += 12;
-      } else if (period === "AM" && hour24 === 12) {
-        hour24 = 0;
+      if (selectedDate < today) {
+        setDateError("La fecha del evento no puede ser anterior a hoy");
+        return;
       }
-      const timeString = `${hour24.toString().padStart(2, "0")}:00`;
-      setEvent({ ...event, time: timeString });
     }
+
+    setDateError("");
+    onNext();
   };
 
   return (
@@ -102,84 +63,12 @@ export function EventDetailsStep({
       <CardContent
         className={`
           grid gap-4
-          md:grid-cols-2
+          sm:grid-cols-2
         `}
       >
-        <div className="space-y-2">
-          <Label>Fecha</Label>
-          <DatePicker
-            date={selectedDate}
-            disabled={(date) =>
-              date < new Date(new Date().setHours(0, 0, 0, 0))
-            }
-            onDateChange={handleDateSelect}
-            placeholder="Selecciona una fecha"
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <Label>Hora</Label>
-          <div className="flex gap-2">
-            <Select
-              onValueChange={(hour) => {
-                setSelectedHour(hour);
-                handleTimeChange(hour, selectedPeriod);
-              }}
-              value={selectedHour}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Hora" />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
-                  <SelectItem key={hour} value={hour.toString()}>
-                    {hour}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select
-              onValueChange={(period) => {
-                setSelectedPeriod(period);
-                handleTimeChange(selectedHour, period);
-              }}
-              value={selectedPeriod}
-            >
-              <SelectTrigger className="w-20">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="AM">AM</SelectItem>
-                <SelectItem value="PM">PM</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <FormInput
-          helperText={
-            showPiecesNudge
-              ? `Sugerencia: ~2 piezas por invitado → ${recommend} piezas para ${event.guests} invitados.`
-              : undefined
-          }
-          icon={Users2}
-          inputMode="numeric"
-          label="Invitados (opcional)"
-          onChange={(e) =>
-            setEvent({
-              ...event,
-              guests: e.target.value
-                ? clamp(Number.parseInt(e.target.value) || 0, 0, 10000)
-                : null,
-            })
-          }
-          placeholder="Ej. 80"
-          value={event.guests ?? ""}
-        />
-
         <FormInput
           icon={MapPin}
-          label="Ciudad / Colonia"
+          label="Ciudad"
           list="city-list"
           onChange={(e) => setEvent({ ...event, city: e.target.value })}
           placeholder="Ej. San Pedro"
@@ -190,6 +79,19 @@ export function EventDetailsStep({
             <option key={c} value={c} />
           ))}
         </datalist>
+
+        <FormInput
+          error={dateError}
+          icon={Calendar}
+          label="Fecha del evento"
+          min={toLocalISODate(new Date())}
+          onChange={(e) => {
+            setEvent({ ...event, date: e.target.value });
+            setDateError(""); // Clear error when user changes date
+          }}
+          type="date"
+          value={event.date}
+        />
         <div className="col-span-full">
           <Label>Tipo de evento</Label>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -218,7 +120,7 @@ export function EventDetailsStep({
         <Button disabled variant="ghost">
           <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
         </Button>
-        <Button disabled={!isValid} onClick={onNext}>
+        <Button disabled={!isValid} onClick={handleNext}>
           Continuar <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
       </CardFooter>

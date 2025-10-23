@@ -1,6 +1,9 @@
 "use client";
 
-import type { ContactDetails, EventDetails } from "@/lib/types/quote-event-types";
+import type {
+  ContactDetails,
+  EventDetails,
+} from "@/lib/types/quote-event-types";
 
 import {
   ContactStep,
@@ -87,12 +90,12 @@ export default function QuoteEventPage() {
   const balance = total - deposit;
 
   // Guards & validation helpers
-  const step1Valid = Boolean(event.date && event.time && event.city);
+  const step1Valid = Boolean(event.date && event.city);
   const step2Valid =
     (qtyPastelitos === 0 || qtyPastelitos >= MIN_PASTELITOS) &&
     (qtyBrigadeiros === 0 || qtyBrigadeiros >= MIN_BRIGADEIROS) &&
     piecesTotal > 0;
-  const step4Valid = Boolean(contact.name && contact.email && contact.phone);
+  const step3Valid = Boolean(contact.name && contact.email && contact.phone);
 
   // Navigation handlers
   function handleNext() {
@@ -204,7 +207,7 @@ export default function QuoteEventPage() {
         {step === 3 && (
           <ContactStep
             contact={contact}
-            isValid={step4Valid}
+            isValid={step3Valid}
             onNext={handleNext}
             onPrev={handlePrev}
             setContact={setContact}
