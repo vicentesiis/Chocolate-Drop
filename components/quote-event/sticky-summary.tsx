@@ -92,7 +92,7 @@ export function StickySummary({
               <div className="space-y-1">
                 <Separator />
                 <div className="flex items-center justify-between">
-                  <span>Carrito/Barra ({SERVICE_HOURS}h)</span>
+                  <span>Carrito ({SERVICE_HOURS}h)</span>
                   <span>{pesos(CART_RENTAL_PRICE)}</span>
                 </div>
               </div>

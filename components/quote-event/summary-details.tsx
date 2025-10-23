@@ -1,3 +1,8 @@
+import type {
+  ContactDetails,
+  EventDetails,
+} from "@/lib/types/quote-event-types";
+
 import { Separator } from "@/components/ui/separator";
 import {
   CART_RENTAL_PRICE,
@@ -6,7 +11,6 @@ import {
   UNIT_PRICE_BRIGADEIROS,
   UNIT_PRICE_PASTELITOS,
 } from "@/lib/constants/quote-event-constants";
-import type { ContactDetails, EventDetails } from "@/lib/types/quote-event-types";
 import { pesos } from "@/lib/utils/quote-event-utils";
 
 interface SummaryDetailsProps {
@@ -15,7 +19,6 @@ interface SummaryDetailsProps {
   deposit: number;
   discount: number;
   event: EventDetails;
-  presentation: "mesa" | "recuerdo";
   promoPct: number;
   qtyBrigadeiros: number;
   qtyPastelitos: number;
@@ -30,7 +33,6 @@ export function SummaryDetails({
   deposit,
   discount,
   event,
-  presentation,
   promoPct,
   qtyBrigadeiros,
   qtyPastelitos,
@@ -66,16 +68,10 @@ export function SummaryDetails({
             Brigadeiros: {qtyBrigadeiros} x {pesos(UNIT_PRICE_BRIGADEIROS)}
           </div>
         )}
-        <div>
-          Presentación:{" "}
-          {presentation === "mesa"
-            ? "Mesa de postres"
-            : "Recuerdito individual"}
-        </div>
         {withCart && (
           <div>
-            Carrito/Barra: {pesos(CART_RENTAL_PRICE)} (incluye montaje,
-            desmontaje y {SERVICE_HOURS}h)
+            Carrito: {pesos(CART_RENTAL_PRICE)} (incluye montaje, desmontaje y{" "}
+            {SERVICE_HOURS}h)
           </div>
         )}
       </div>

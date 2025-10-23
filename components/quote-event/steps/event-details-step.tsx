@@ -36,14 +36,15 @@ export function EventDetailsStep({
   const [dateError, setDateError] = useState<string>("");
 
   const handleNext = () => {
-    // Check if date is before today
     if (event.date) {
       const selectedDate = new Date(event.date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
-      if (selectedDate < today) {
-        setDateError("La fecha del evento no puede ser anterior a hoy");
+      const yesterday = new Date();
+      yesterday.setHours(0, 0, 0, 0);
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      if (selectedDate < yesterday) {
+        setDateError("La fecha del evento no puede ser anterior a ayer");
         return;
       }
     }

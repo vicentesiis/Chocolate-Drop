@@ -54,13 +54,10 @@ export default function QuoteEventPage() {
   const [qtyPastelitos, setQtyPastelitos] = useState<number>(0);
   const [qtyBrigadeiros, setQtyBrigadeiros] = useState<number>(0);
 
-  // Step 3: Presentation
-  const [presentation, setPresentation] = useState<"mesa" | "recuerdo">("mesa");
-
-  // Step 4: Extras
+  // Step 3: Extras
   const [withCart, setWithCart] = useState<boolean>(false);
 
-  // Step 5: Contact
+  // Step 4: Contact
   const [contact, setContact] = useState<ContactDetails>({
     email: "",
     name: "",
@@ -122,7 +119,6 @@ export default function QuoteEventPage() {
       withCart
         ? `• Carrito/Barra: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
-      presentation ? `• Presentación: ${presentation}` : undefined,
       promoPct ? `• Descuento: ${promoPct}%` : undefined,
       `Subtotal: ${pesos(subtotal)}`,
       promoPct ? `Descuento: -${pesos(discount)}` : undefined,
@@ -136,7 +132,6 @@ export default function QuoteEventPage() {
     qtyPastelitos,
     qtyBrigadeiros,
     withCart,
-    presentation,
     promoPct,
     subtotal,
     discount,
@@ -186,10 +181,8 @@ export default function QuoteEventPage() {
             isValid={step2Valid}
             onNext={handleNext}
             onPrev={handlePrev}
-            presentation={presentation}
             qtyBrigadeiros={qtyBrigadeiros}
             qtyPastelitos={qtyPastelitos}
-            setPresentation={setPresentation}
             setQtyBrigadeiros={setQtyBrigadeiros}
             setQtyPastelitos={setQtyPastelitos}
           />
@@ -223,7 +216,6 @@ export default function QuoteEventPage() {
             event={event}
             onPrev={handlePrev}
             onSubmit={handleSubmit}
-            presentation={presentation}
             promoPct={promoPct}
             qtyBrigadeiros={qtyBrigadeiros}
             qtyPastelitos={qtyPastelitos}
