@@ -13,16 +13,15 @@ export const prepareEventForFirestore = (event: Event) => {
     // Convert Date to Firestore Timestamp (you'll need to import Timestamp from firebase/firestore)
     // date: Timestamp.fromDate(event.date),
 
-    // Add calculated fields if not already present
-    subtotalProducts: event.subtotalProducts || 0,
-    subtotalExtras: event.subtotalExtras || 0,
-    subtotal: event.subtotal || 0,
-    total: event.total || 0,
-    deposit: event.deposit || 0,
-    balance: event.balance || 0,
-
     // Add metadata
     createdAt: new Date(), // Will be converted to Timestamp by Firestore
+    deposit: event.deposit || 0,
+    subtotal: event.subtotal || 0,
+    subtotalExtras: event.subtotalExtras || 0,
+    // Add calculated fields if not already present
+    subtotalProducts: event.subtotalProducts || 0,
+
+    total: event.total || 0,
     updatedAt: new Date(),
   };
 };

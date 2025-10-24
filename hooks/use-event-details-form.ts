@@ -10,12 +10,12 @@ import { useForm } from "react-hook-form";
 interface UseEventDetailsFormProps {
   defaultValues?: {
     city?: string;
-    date?: string; // Keep as string for form handling
+    date?: string;
     name?: string;
     phone?: string;
     type?: string;
   };
-  onSubmit?: (data: EventDetailsData) => void; // Now receives processed data with Date
+  onSubmit?: (data: EventDetailsData) => void;
 }
 
 export function useEventDetailsForm({
@@ -38,18 +38,12 @@ export function useEventDetailsForm({
     formState: { dirtyFields, errors, isValid },
   } = form;
 
-  // Check if individual fields are valid
-  const isNameValid =
-    !errors.name && dirtyFields.name && form.getValues("name").trim() !== "";
-  const isPhoneValid =
-    !errors.phone && dirtyFields.phone && form.getValues("phone").trim() !== "";
-  const isCityValid =
-    !errors.city && dirtyFields.city && form.getValues("city").trim() !== "";
-  const isDateValid =
-    !errors.date && dirtyFields.date && form.getValues("date").trim() !== "";
+  const isNameValid = !errors.name && dirtyFields.name;
+  const isPhoneValid = !errors.phone && dirtyFields.phone;
+  const isCityValid = !errors.city && dirtyFields.city;
+  const isDateValid = !errors.date && dirtyFields.date;
 
   const handleSubmit = form.handleSubmit((data) => {
-    // Transform form data (string date) to processed data (Date object)
     const processedData = transformEventDetailsFormData(data);
     onSubmit?.(processedData);
   });

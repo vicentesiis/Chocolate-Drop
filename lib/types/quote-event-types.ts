@@ -12,22 +12,21 @@ export interface Event {
   // Event details
   city: string;
   date: Date;
+  deposit?: number;
   name: string;
   phone: string;
-  type: string;
 
+  qtyBrigadeiros: number;
   // Product quantities
   qtyPastelitos: number;
-  qtyBrigadeiros: number;
 
-  // Extras
-  withCart: boolean;
+  subtotal?: number;
 
+  subtotalExtras?: number;
   // Calculated fields (optional for storage, can be computed)
   subtotalProducts?: number;
-  subtotalExtras?: number;
-  subtotal?: number;
   total?: number;
-  deposit?: number;
-  balance?: number;
+  type: string;
+  // Extras
+  withCart: boolean;
 }

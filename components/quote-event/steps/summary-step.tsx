@@ -13,7 +13,6 @@ import {
 import { ChevronLeft } from "lucide-react";
 
 interface SummaryStepProps {
-  balance: number;
   deposit: number;
   event: Event;
   onPrev: () => void;
@@ -24,7 +23,6 @@ interface SummaryStepProps {
 }
 
 export function SummaryStep({
-  balance,
   deposit,
   event,
   onPrev,
@@ -43,7 +41,6 @@ export function SummaryStep({
       </CardHeader>
       <CardContent>
         <SummaryDetails
-          balance={balance}
           deposit={deposit}
           event={event}
           subtotal={subtotal}

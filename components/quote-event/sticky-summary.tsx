@@ -19,14 +19,12 @@ import { pesos } from "@/lib/utils/quote-event-utils";
 import { MapPin, PartyPopper, ShoppingBasket, Wallet } from "lucide-react";
 
 interface StickySummaryProps {
-  balance: number;
   deposit: number;
   event: Event;
   subtotal: number;
 }
 
 export function StickySummary({
-  balance,
   deposit,
   event,
   subtotal,
@@ -157,15 +155,10 @@ export function StickySummary({
                 <span className="text-muted-foreground">Anticipo 50%</span>
                 <span>{pesos(deposit)}</span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Saldo</span>
-                <span>{pesos(balance)}</span>
-              </div>
             </div>
 
             <p className="mt-2 text-xs text-muted-foreground">
-              Anticipo del 50% para confirmar fecha. Precios sujetos a
-              disponibilidad.
+              Anticipo del 50% para confirmar fecha.
             </p>
           </div>
         </CardContent>

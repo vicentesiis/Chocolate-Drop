@@ -54,7 +54,6 @@ export default function QuoteEventPage() {
   const subtotal = subtotalProducts + subtotalExtras;
   const total = subtotal;
   const deposit = Math.round(total * 0.5);
-  const balance = total - deposit;
 
   // Guards & validation helpers
   const step2Valid =
@@ -121,10 +120,9 @@ export default function QuoteEventPage() {
       `Subtotal: ${pesos(subtotal)}`,
       `Total: ${pesos(total)}`,
       `Anticipo 50%: ${pesos(deposit)}`,
-      `Saldo: ${pesos(balance)}`,
     ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
-  }, [event, subtotal, total, deposit, balance]);
+  }, [event, subtotal, total, deposit]);
 
   // Simple submit handler (replace with API route integration)
   function handleSubmit() {
@@ -132,15 +130,14 @@ export default function QuoteEventPage() {
       // Prepare the complete event data for Firestore
       const eventForFirestore = {
         ...event,
-        // Add calculated fields
-        subtotalProducts,
-        subtotalExtras,
-        subtotal,
-        total,
-        deposit,
-        balance,
         // Add timestamp
         createdAt: new Date(),
+        deposit,
+        subtotal,
+        subtotalExtras,
+        // Add calculated fields
+        subtotalProducts,
+        total,
       };
 
       // Here you could POST to /api/quotes with eventForFirestore
@@ -209,7 +206,6 @@ export default function QuoteEventPage() {
 
         {step === 3 && (
           <SummaryStep
-            balance={balance}
             deposit={deposit}
             event={event}
             onPrev={handlePrev}
@@ -231,12 +227,7 @@ export default function QuoteEventPage() {
           md:block
         `}
       >
-        <StickySummary
-          balance={balance}
-          deposit={deposit}
-          event={event}
-          subtotal={subtotal}
-        />
+        <StickySummary deposit={deposit} event={event} subtotal={subtotal} />
       </aside>
 
       {/* Mobile summary trigger */}
@@ -271,7 +262,6 @@ export default function QuoteEventPage() {
               </SheetHeader>
               <div className="py-4">
                 <StickySummary
-                  balance={balance}
                   deposit={deposit}
                   event={event}
                   subtotal={subtotal}

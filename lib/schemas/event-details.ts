@@ -1,5 +1,6 @@
-import { z } from "zod";
 import type { Event } from "@/lib/types/quote-event-types";
+
+import { z } from "zod";
 
 // Schema for form input (date as string)
 export const eventDetailsFormSchema = z.object({
@@ -31,28 +32,27 @@ export const eventSchema = z.object({
   // Event details
   city: z.string().min(1, "Selecciona una ciudad"),
   date: z.date(),
+  deposit: z.number().optional(),
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   phone: z
     .string()
     .min(10, "El teléfono debe tener 10 dígitos")
     .max(10, "El teléfono debe tener 10 dígitos")
     .regex(/^\d+$/, "El teléfono solo debe contener números"),
-  type: z.string().min(1, "Selecciona un tipo de evento"),
 
+  qtyBrigadeiros: z.number().min(0),
   // Product quantities
   qtyPastelitos: z.number().min(0),
-  qtyBrigadeiros: z.number().min(0),
 
-  // Extras
-  withCart: z.boolean(),
+  subtotal: z.number().optional(),
 
+  subtotalExtras: z.number().optional(),
   // Optional calculated fields
   subtotalProducts: z.number().optional(),
-  subtotalExtras: z.number().optional(),
-  subtotal: z.number().optional(),
   total: z.number().optional(),
-  deposit: z.number().optional(),
-  balance: z.number().optional(),
+  type: z.string().min(1, "Selecciona un tipo de evento"),
+  // Extras
+  withCart: z.boolean(),
 });
 
 export type EventDetailsFormData = z.infer<typeof eventDetailsFormSchema>;
@@ -65,9 +65,9 @@ export const createDefaultEvent = (): Event => ({
   date: new Date(), // This will be overridden in the form with empty string
   name: "",
   phone: "",
-  type: "social",
-  qtyPastelitos: 0,
   qtyBrigadeiros: 0,
+  qtyPastelitos: 0,
+  type: "social",
   withCart: false,
 });
 

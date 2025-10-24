@@ -1,5 +1,7 @@
 import type { Event } from "@/lib/types/quote-event-types";
 
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   CART_RENTAL_PRICE,
@@ -8,7 +10,6 @@ import {
   UNIT_PRICE_BRIGADEIROS,
   UNIT_PRICE_PASTELITOS,
 } from "@/lib/constants/quote-event-constants";
-
 import { pesos } from "@/lib/utils/quote-event-utils";
 import {
   Calendar,
@@ -19,7 +20,6 @@ import {
 } from "lucide-react";
 
 interface SummaryDetailsProps {
-  balance: number;
   deposit: number;
   event: Event;
   subtotal: number;
@@ -27,7 +27,6 @@ interface SummaryDetailsProps {
 }
 
 export function SummaryDetails({
-  balance,
   deposit,
   event,
   subtotal,
@@ -35,29 +34,33 @@ export function SummaryDetails({
 }: SummaryDetailsProps) {
   const eventTypeLabel =
     EVENT_TYPES.find((t) => t.id === event.type)?.label ?? "-";
+  const showSubtotal = subtotal !== total;
+
+  const formatDate = (d?: Date | string) => {
+    if (!d) return "-";
+    if (d instanceof Date) return d.toLocaleDateString("es-ES");
+    const parsed = new Date(d);
+    return Number.isNaN(parsed.getTime())
+      ? d
+      : parsed.toLocaleDateString("es-ES");
+  };
 
   return (
-    <div className="grid gap-2 text-[15px] leading-snug">
-      {/* Evento */}
-      <section
-        className={`
-          rounded-lg border p-4
-          md:p-5
-        `}
-      >
-        <div className="mb-2 flex items-center gap-2">
-          <PartyPopper className="!size-5 text-muted-foreground" />
-          <h3 className="text-base font-semibold text-foreground">
-            Detalles del evento
-          </h3>
-        </div>
-
-        <div className="grid gap-1.5 text-muted-foreground">
+    <div className="grid gap-3 text-[15px] leading-snug">
+      {/* Detalles del evento */}
+      <Card className="border bg-muted">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <PartyPopper className="size-5 text-muted-foreground" />
+            <CardTitle className="text-base">Detalles del evento</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="grid gap-2 text-muted-foreground">
           <div className="flex items-center gap-2">
             <Calendar className="h-3.5 w-3.5" />
             <span>Fecha:</span>
             <span className="font-medium text-foreground">
-              {event.date ? event.date.toLocaleDateString("es-ES") : "-"}
+              {formatDate(event.date)}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -70,31 +73,25 @@ export function SummaryDetails({
           <div className="flex items-center gap-2">
             <ShoppingBasket className="h-3.5 w-3.5" />
             <span>Tipo:</span>
-            <span
-              className={`
-                rounded-full bg-muted px-2 py-0.5 text-xs font-medium
-                text-foreground
-              `}
+            <Badge
+              className="rounded-full px-2 py-0.5 text-xs"
+              variant="secondary"
             >
               {eventTypeLabel}
-            </span>
+            </Badge>
           </div>
-        </div>
-      </section>
+        </CardContent>
+      </Card>
 
       {/* Productos */}
-      <section
-        className={`
-          rounded-lg border p-4
-          md:p-5
-        `}
-      >
-        <div className="mb-2 flex items-center gap-2">
-          <ShoppingBasket className="!size-5 text-muted-foreground" />
-          <h3 className="text-base font-semibold text-foreground">Productos</h3>
-        </div>
-
-        <div className="grid gap-1.5">
+      <Card className="border">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <ShoppingBasket className="size-5 text-muted-foreground" />
+            <CardTitle className="text-base">Productos</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="grid gap-2">
           {event.qtyPastelitos > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
@@ -123,58 +120,62 @@ export function SummaryDetails({
               <span className="font-medium">{pesos(CART_RENTAL_PRICE)}</span>
             </div>
           )}
-        </div>
-      </section>
+          {/* If nothing selected, show a gentle hint */}
+          {event.qtyPastelitos <= 0 &&
+            event.qtyBrigadeiros <= 0 &&
+            !event.withCart && (
+              <span className="text-sm text-muted-foreground">
+                Sin productos seleccionados.
+              </span>
+            )}
+        </CardContent>
+      </Card>
 
       {/* Totales */}
-      <section
-        className={`
-          rounded-lg border p-4
-          md:p-5
-        `}
-      >
-        <div className="mb-2 flex items-center gap-2">
-          <Wallet className="!size-5 text-muted-foreground" />
-          <h3 className="text-base font-semibold text-foreground">Totales</h3>
-        </div>
+      <Card className="border">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <Wallet className="size-5 text-muted-foreground" />
+            <CardTitle className="text-base">Totales</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {showSubtotal && (
+            <>
+              <div
+                className={`
+                  flex items-center justify-between text-sm
+                  text-muted-foreground
+                `}
+              >
+                <span>Subtotal</span>
+                <span className="font-medium text-foreground">
+                  {pesos(subtotal)}
+                </span>
+              </div>
+              <Separator className="my-1.5" />
+            </>
+          )}
 
-        <div className="space-y-1.5">
-          <div
-            className={`
-              flex items-center justify-between text-sm text-muted-foreground
-            `}
-          >
-            <span>Subtotal</span>
-            <span className="font-medium text-foreground">
-              {pesos(subtotal)}
+          {/* Total destacado */}
+          <div className="flex items-center justify-between">
+            <span className="text-base font-semibold">Total</span>
+            <span className="text-base font-semibold text-foreground">
+              {pesos(total)}
             </span>
           </div>
 
-          <Separator className="my-2" />
+          <Separator className="my-1.5" />
 
-          <div
-            className={`
-              flex items-center justify-between text-base font-semibold
-            `}
-          >
-            <span>Total</span>
-            <span className="text-foreground">{pesos(total)}</span>
-          </div>
-
-          <Separator className="my-2" />
-
-          <div className="grid gap-1 text-sm">
+          {/* Anticipo / Saldo */}
+          <div className="grid gap-1.5 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Anticipo (50%)</span>
-              <span>{pesos(deposit)}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Saldo</span>
-              <span>{pesos(balance)}</span>
+              {pesos(deposit)}
             </div>
           </div>
-        </div>
-      </section>
+        </CardContent>
+      </Card>
     </div>
   );
 }
