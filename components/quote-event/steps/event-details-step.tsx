@@ -46,7 +46,7 @@ export function EventDetailsStep({
     useEventDetailsForm({
       defaultValues: {
         city: event.city,
-        date: event.date.toISOString().split("T")[0], // Convert Date to string for form
+        date: event.name ? event.date.toISOString().split("T")[0] : "", // Empty date for new forms
         name: event.name,
         phone: event.phone,
         type: event.type,

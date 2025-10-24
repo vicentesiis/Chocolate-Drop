@@ -1,8 +1,8 @@
-import type { EventDetails } from "@/lib/types/quote-event-types";
-
 import {
+  type EventDetailsData,
   type EventDetailsFormData,
-  eventDetailsSchema,
+  eventDetailsFormSchema,
+  transformEventDetailsFormData,
 } from "@/lib/schemas/event-details";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ interface UseEventDetailsFormProps {
     phone?: string;
     type?: string;
   };
-  onSubmit?: (data: EventDetailsFormData) => void;
+  onSubmit?: (data: EventDetailsData) => void; // Now receives processed data with Date
 }
 
 export function useEventDetailsForm({
@@ -31,7 +31,7 @@ export function useEventDetailsForm({
   const form = useForm<EventDetailsFormData>({
     defaultValues,
     mode: "onChange",
-    resolver: zodResolver(eventDetailsSchema),
+    resolver: zodResolver(eventDetailsFormSchema),
   });
 
   const {
@@ -49,7 +49,9 @@ export function useEventDetailsForm({
     !errors.date && dirtyFields.date && form.getValues("date").trim() !== "";
 
   const handleSubmit = form.handleSubmit((data) => {
-    onSubmit?.(data);
+    // Transform form data (string date) to processed data (Date object)
+    const processedData = transformEventDetailsFormData(data);
+    onSubmit?.(processedData);
   });
 
   return {
