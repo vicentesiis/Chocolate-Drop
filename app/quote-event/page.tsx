@@ -31,11 +31,14 @@ import {
 } from "@/lib/constants/quote-event-constants";
 import { pesos } from "@/lib/utils/quote-event-utils";
 import { ShoppingCart } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 export default function QuoteEventPage() {
   // Wizard step (0–2), 3 = summary
   const [step, setStep] = useState<number>(0);
+
+  // Ref for the Progress component
+  const progressRef = useRef<HTMLDivElement>(null);
 
   // Step 1: Event details
   const [event, setEvent] = useState<EventDetails>({
@@ -75,10 +78,38 @@ export default function QuoteEventPage() {
 
   // Navigation handlers
   function handleNext() {
-    if (step < 3) setStep((s) => s + 1);
+    if (step < 3) {
+      setStep((s) => s + 1);
+      scrollToProgress();
+    }
   }
   function handlePrev() {
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) {
+      setStep((s) => s - 1);
+      scrollToProgress();
+    }
+  }
+
+  // Scroll to progress component
+  function scrollToProgress() {
+    const el = progressRef.current;
+    if (!el) return;
+
+    // Desired top gap (what your scroll-mt was doing)
+    const OFFSET = 85;
+
+    // Get current scroll + element position
+    const rect = el.getBoundingClientRect();
+    const currentY = window.pageYOffset || document.documentElement.scrollTop;
+    const targetY = Math.max(0, currentY + rect.top - OFFSET);
+
+    // Use the root scroller (Safari-safe) and avoid scrollIntoView
+    const scroller = document.scrollingElement || document.documentElement;
+
+    // Smooth, no jank with fixed bars
+    requestAnimationFrame(() => {
+      scroller.scrollTo({ behavior: "smooth", top: targetY });
+    });
   }
 
   // Memoized event change handler to prevent infinite loops
@@ -147,7 +178,9 @@ export default function QuoteEventPage() {
         `}
       >
         <HeaderSection />
-        <Progress step={step} />
+        <div className="scroll-mt-[85px]" ref={progressRef}>
+          <Progress step={step} />
+        </div>
 
         {/* Step cards */}
         {step === 0 && (
