@@ -101,7 +101,7 @@ export default function QuoteEventPage() {
         ? `• Brigadeiros: ${qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
         : undefined,
       withCart
-        ? `• Carrito/Barra: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
+        ? `• Carrito: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
       `Subtotal: ${pesos(subtotal)}`,
       `Total: ${pesos(total)}`,
