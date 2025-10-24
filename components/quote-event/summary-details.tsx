@@ -1,7 +1,4 @@
-import type {
-  ContactDetails,
-  EventDetails,
-} from "@/lib/types/quote-event-types";
+import type { EventDetails } from "@/lib/types/quote-event-types";
 
 import { Separator } from "@/components/ui/separator";
 import {
@@ -15,11 +12,8 @@ import { pesos } from "@/lib/utils/quote-event-utils";
 
 interface SummaryDetailsProps {
   balance: number;
-  contact: ContactDetails;
   deposit: number;
-  discount: number;
   event: EventDetails;
-  promoPct: number;
   qtyBrigadeiros: number;
   qtyPastelitos: number;
   subtotal: number;
@@ -29,11 +23,8 @@ interface SummaryDetailsProps {
 
 export function SummaryDetails({
   balance,
-  contact,
   deposit,
-  discount,
   event,
-  promoPct,
   qtyBrigadeiros,
   qtyPastelitos,
   subtotal,
@@ -81,14 +72,7 @@ export function SummaryDetails({
           <span className="text-muted-foreground">Subtotal</span>
           <span>{pesos(subtotal)}</span>
         </div>
-        {promoPct > 0 && (
-          <div className="flex items-center justify-between">
-            <span className="text-muted-foreground">
-              Descuento ({promoPct}%)
-            </span>
-            <span>-{pesos(discount)}</span>
-          </div>
-        )}
+
         <div
           className={`flex items-center justify-between text-base font-semibold`}
         >
@@ -108,17 +92,8 @@ export function SummaryDetails({
 
       <div className="grid gap-2">
         <div className="font-medium">Contacto</div>
-        <div className="text-muted-foreground">{contact.name || "-"}</div>
-        <div className="text-muted-foreground">{contact.email || "-"}</div>
-        <div className="text-muted-foreground">{contact.phone || "-"}</div>
-        {contact.notes && (
-          <div className="rounded-lg bg-muted/50 p-3 text-sm">
-            <div className="mb-1 font-medium">Notas</div>
-            <div className="whitespace-pre-wrap text-muted-foreground">
-              {contact.notes}
-            </div>
-          </div>
-        )}
+        <div className="text-muted-foreground">{event.name || "-"}</div>
+        <div className="text-muted-foreground">{event.phone || "-"}</div>
       </div>
     </div>
   );

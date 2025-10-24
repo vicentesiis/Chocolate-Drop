@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import {
   CART_RENTAL_PRICE,
   SERVICE_HOURS,
@@ -44,19 +43,16 @@ export function ExtrasStep({
       </CardHeader>
 
       <CardContent>
-        <button
+        <div
           className={cn(
             `
-              group w-full overflow-hidden rounded-xl border text-left
-              transition
+              group w-full cursor-pointer overflow-hidden rounded-xl border
+              text-left transition
               hover:bg-muted/40
-              focus:outline-none
-              focus-visible:ring-2 focus-visible:ring-ring
             `,
             withCart && "border-primary bg-primary/5 ring-2 ring-primary/20",
           )}
           onClick={() => setWithCart(!withCart)}
-          type="button"
         >
           <div
             className={`
@@ -132,7 +128,7 @@ export function ExtrasStep({
               </div>
             </div>
           </div>
-        </button>
+        </div>
       </CardContent>
 
       <CardFooter className="flex items-center justify-between">

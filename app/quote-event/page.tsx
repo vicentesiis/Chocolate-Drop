@@ -1,12 +1,8 @@
 "use client";
 
-import type {
-  ContactDetails,
-  EventDetails,
-} from "@/lib/types/quote-event-types";
+import type { EventDetails } from "@/lib/types/quote-event-types";
 
 import {
-  ContactStep,
   EventDetailsStep,
   ExtrasStep,
   Faq,
@@ -35,10 +31,10 @@ import {
 } from "@/lib/constants/quote-event-constants";
 import { pesos } from "@/lib/utils/quote-event-utils";
 import { ShoppingCart } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export default function QuoteEventPage() {
-  // Wizard step (0–3), 4 = summary
+  // Wizard step (0–2), 3 = summary
   const [step, setStep] = useState<number>(0);
 
   // Step 1: Event details
@@ -46,6 +42,8 @@ export default function QuoteEventPage() {
     city: "Monterrey",
     date: "",
     guests: null,
+    name: "",
+    phone: "",
     time: "",
     type: "social",
   });
@@ -57,15 +55,6 @@ export default function QuoteEventPage() {
   // Step 3: Extras
   const [withCart, setWithCart] = useState<boolean>(false);
 
-  // Step 4: Contact
-  const [contact, setContact] = useState<ContactDetails>({
-    email: "",
-    name: "",
-    notes: "",
-    phone: "",
-    promo: "",
-  });
-
   // Derived/stateful helpers
   const piecesTotal = qtyPastelitos + qtyBrigadeiros;
   const subtotalProducts =
@@ -73,34 +62,29 @@ export default function QuoteEventPage() {
     qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
   const subtotalExtras = withCart ? CART_RENTAL_PRICE : 0;
 
-  // Promo logic (very simple – accepts numeric percent 0-100)
-  const promoPct = useMemo(() => {
-    const raw = Number.parseInt(contact.promo, 10);
-    if (Number.isFinite(raw) && raw > 0 && raw <= 100) return raw;
-    return 0;
-  }, [contact.promo]);
-
   const subtotal = subtotalProducts + subtotalExtras;
-  const discount = Math.round((subtotal * promoPct) / 100);
-  const total = subtotal - discount;
+  const total = subtotal;
   const deposit = Math.round(total * 0.5);
   const balance = total - deposit;
 
   // Guards & validation helpers
-  const step1Valid = Boolean(event.date && event.city);
   const step2Valid =
     (qtyPastelitos === 0 || qtyPastelitos >= MIN_PASTELITOS) &&
     (qtyBrigadeiros === 0 || qtyBrigadeiros >= MIN_BRIGADEIROS) &&
     piecesTotal > 0;
-  const step3Valid = Boolean(contact.name && contact.email && contact.phone);
 
   // Navigation handlers
   function handleNext() {
-    if (step < 4) setStep((s) => s + 1);
+    if (step < 3) setStep((s) => s + 1);
   }
   function handlePrev() {
     if (step > 0) setStep((s) => s - 1);
   }
+
+  // Memoized event change handler to prevent infinite loops
+  const handleEventChange = useCallback((newEvent: EventDetails) => {
+    setEvent(newEvent);
+  }, []);
 
   // Build a WhatsApp deep link with summary (user can send you the quote quickly)
   const whatsAppMessage = useMemo(() => {
@@ -119,9 +103,7 @@ export default function QuoteEventPage() {
       withCart
         ? `• Carrito/Barra: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
-      promoPct ? `• Descuento: ${promoPct}%` : undefined,
       `Subtotal: ${pesos(subtotal)}`,
-      promoPct ? `Descuento: -${pesos(discount)}` : undefined,
       `Total: ${pesos(total)}`,
       `Anticipo 50%: ${pesos(deposit)}`,
       `Saldo: ${pesos(balance)}`,
@@ -132,9 +114,7 @@ export default function QuoteEventPage() {
     qtyPastelitos,
     qtyBrigadeiros,
     withCart,
-    promoPct,
     subtotal,
-    discount,
     total,
     deposit,
     balance,
@@ -168,11 +148,10 @@ export default function QuoteEventPage() {
         {step === 0 && (
           <EventDetailsStep
             event={event}
-            isValid={step1Valid}
+            onEventChange={handleEventChange}
             onNext={handleNext}
             onPrev={handlePrev}
             piecesTotal={piecesTotal}
-            setEvent={setEvent}
           />
         )}
 
@@ -198,25 +177,12 @@ export default function QuoteEventPage() {
         )}
 
         {step === 3 && (
-          <ContactStep
-            contact={contact}
-            isValid={step3Valid}
-            onNext={handleNext}
-            onPrev={handlePrev}
-            setContact={setContact}
-          />
-        )}
-
-        {step === 4 && (
           <SummaryStep
             balance={balance}
-            contact={contact}
             deposit={deposit}
-            discount={discount}
             event={event}
             onPrev={handlePrev}
             onSubmit={handleSubmit}
-            promoPct={promoPct}
             qtyBrigadeiros={qtyBrigadeiros}
             qtyPastelitos={qtyPastelitos}
             subtotal={subtotal}
@@ -240,9 +206,7 @@ export default function QuoteEventPage() {
         <StickySummary
           balance={balance}
           deposit={deposit}
-          discount={discount}
           event={event}
-          promoPct={promoPct}
           qtyBrigadeiros={qtyBrigadeiros}
           qtyPastelitos={qtyPastelitos}
           subtotal={subtotal}
@@ -284,9 +248,7 @@ export default function QuoteEventPage() {
                 <StickySummary
                   balance={balance}
                   deposit={deposit}
-                  discount={discount}
                   event={event}
-                  promoPct={promoPct}
                   qtyBrigadeiros={qtyBrigadeiros}
                   qtyPastelitos={qtyPastelitos}
                   subtotal={subtotal}

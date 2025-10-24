@@ -20,9 +20,7 @@ import { pesos } from "@/lib/utils/quote-event-utils";
 interface StickySummaryProps {
   balance: number;
   deposit: number;
-  discount: number;
   event: EventDetails;
-  promoPct: number;
   qtyBrigadeiros: number;
   qtyPastelitos: number;
   subtotal: number;
@@ -32,9 +30,7 @@ interface StickySummaryProps {
 export function StickySummary({
   balance,
   deposit,
-  discount,
   event,
-  promoPct,
   qtyBrigadeiros,
   qtyPastelitos,
   subtotal,
@@ -104,21 +100,13 @@ export function StickySummary({
                 <span className="text-muted-foreground">Subtotal</span>
                 <span>{pesos(subtotal)}</span>
               </div>
-              {promoPct > 0 && (
-                <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">
-                    Descuento ({promoPct}%)
-                  </span>
-                  <span>-{pesos(discount)}</span>
-                </div>
-              )}
               <div
                 className={`
                   flex items-center justify-between text-base font-semibold
                 `}
               >
                 <span>Total</span>
-                <span>{pesos(subtotal - (promoPct ? discount : 0))}</span>
+                <span>{pesos(subtotal)}</span>
               </div>
             </div>
             <Separator />

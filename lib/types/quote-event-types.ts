@@ -4,6 +4,8 @@ export interface EventDetails {
   city: string;
   date: string; // ISO yyyy-mm-dd
   guests: null | number;
+  name: string;
+  phone: string;
   time: string; // HH:mm
   type: string; // EVENT_TYPES.id
 }
@@ -11,7 +13,5 @@ export interface EventDetails {
 export interface ContactDetails {
   email: string;
   name: string;
-  notes: string;
   phone: string;
-  promo: string; // optional % or code – we handle number only for demo
 }

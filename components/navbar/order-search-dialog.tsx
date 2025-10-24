@@ -1,6 +1,6 @@
 "use client";
 
-import { FormInput } from "@/components/shared/forms/form-input";
+import { FormFieldInput } from "@/components/shared/forms/form-input";
 import { CollapsibleProductList } from "@/components/shared/ui/collapsible-product-list";
 import { InfoCard } from "@/components/shared/ui/info-card";
 import { SectionHeader } from "@/components/shared/ui/section-header";
@@ -14,24 +14,40 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
 import { useOrderSearch } from "@/hooks/use-order-search";
 import { statusLabels, statusVariants } from "@/lib/constants/order-constants";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Calendar, Gift, Hash, ReceiptText, Search, User } from "lucide-react";
 import { useState } from "react";
 
+const orderSearchSchema = z.object({
+  orderNumber: z.string().min(1, "El número de pedido es requerido"),
+});
+
+type OrderSearchFormData = z.infer<typeof orderSearchSchema>;
+
 export const OrderSearchDialog = () => {
-  const [orderNumber, setOrderNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { clearSearch, handleSearchOrder, isSearching, searchResult } =
     useOrderSearch();
 
-  const onSearch = async () => {
-    await handleSearchOrder(orderNumber);
-  };
+  const form = useForm<OrderSearchFormData>({
+    resolver: zodResolver(orderSearchSchema),
+    defaultValues: {
+      orderNumber: "",
+    },
+  });
+
+  const onSearch = form.handleSubmit(async (data: OrderSearchFormData) => {
+    await handleSearchOrder(data.orderNumber);
+  });
 
   const handleClose = () => {
     setIsOpen(false);
-    setOrderNumber("");
+    form.reset();
     clearSearch();
   };
 
@@ -111,45 +127,51 @@ export const OrderSearchDialog = () => {
           `}
         >
           {!searchResult && (
-            <div
-              className={`
-                flex flex-col gap-3 px-2
-                sm:flex-row sm:gap-2
-              `}
-            >
-              <div className="flex-1">
-                <FormInput
-                  icon={Hash}
-                  label="Identificador del Pedido"
-                  onChange={(e) => setOrderNumber(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => e.key === "Enter" && onSearch()}
-                  placeholder="Ej: ABC123DEF"
-                  required
-                  value={orderNumber}
-                />
-              </div>
-              <div
+            <Form {...form}>
+              <form
                 className={`
-                  flex
-                  sm:items-end
+                  flex flex-col gap-3 px-2
+                  sm:flex-row sm:gap-2
                 `}
+                onSubmit={onSearch}
               >
-                <SubmitButton
+                <div className="flex-1">
+                  <FormFieldInput
+                    control={form.control}
+                    name="orderNumber"
+                    icon={Hash}
+                    label="Identificador del Pedido"
+                    placeholder="Ej: ABC123DEF"
+                    required
+                    onFieldChange={(value) => {
+                      // Convert to uppercase as user types
+                      form.setValue("orderNumber", value.toUpperCase());
+                    }}
+                  />
+                </div>
+                <div
                   className={`
-                    w-full
-                    sm:w-auto
+                    flex
+                    sm:items-end
                   `}
-                  disabled={!orderNumber.trim()}
-                  icon={<Search className="h-4 w-4" />}
-                  isSubmitting={isSearching}
-                  loadingText="Buscando..."
-                  onClick={onSearch}
-                  size="lg"
                 >
-                  Buscar
-                </SubmitButton>
-              </div>
-            </div>
+                  <SubmitButton
+                    className={`
+                      w-full
+                      sm:w-auto
+                    `}
+                    disabled={!form.watch("orderNumber")?.trim()}
+                    icon={<Search className="h-4 w-4" />}
+                    isSubmitting={isSearching}
+                    loadingText="Buscando..."
+                    type="submit"
+                    size="lg"
+                  >
+                    Buscar
+                  </SubmitButton>
+                </div>
+              </form>
+            </Form>
           )}
 
           {searchResult && (

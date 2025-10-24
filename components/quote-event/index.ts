@@ -13,5 +13,4 @@ export { EventDetailsStep } from "./steps/event-details-step";
 export { ProductsStep } from "./steps/products-step";
 export { FlavorsStep } from "./steps/flavors-step";
 export { ExtrasStep } from "./steps/extras-step";
-export { ContactStep } from "./steps/contact-step";
 export { SummaryStep } from "./steps/summary-step";

@@ -3,7 +3,7 @@ export { default as ThemeToggle } from "./theme-toggle";
 export { ConditionalNavbar } from "./conditional-navbar";
 
 // Form components
-export { FormInput } from "./forms/form-input";
+export { FormFieldInput, FormFieldToggleGroup } from "./forms/form-input";
 
 // Table components
 export { DataTable, TableSkeleton } from "./table";

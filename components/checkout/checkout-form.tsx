@@ -1,7 +1,8 @@
 import type { CustomerData } from "@/lib/schemas/customer";
 
-import { FormInput } from "@/components/shared/forms/form-input";
+import { FormFieldInput } from "@/components/shared/forms/form-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
 import { useCustomerForm } from "@/hooks/use-customer-form";
 import { Phone, User } from "lucide-react";
 import React from "react";
@@ -17,15 +18,14 @@ export function CheckoutForm({
   onFormChange,
   onSubmit,
 }: CheckoutFormProps) {
-  const { errors, handleSubmit, isNameValid, isPhoneValid, register, watch } =
-    useCustomerForm({
-      defaultValues,
-      onSubmit,
-    });
+  const { form, handleSubmit, isNameValid, isPhoneValid } = useCustomerForm({
+    defaultValues,
+    onSubmit,
+  });
 
   // Watch individual fields to avoid object reference issues
-  const nameValue = watch("name");
-  const phoneValue = watch("phone");
+  const nameValue = form.watch("name");
+  const phoneValue = form.watch("phone");
   const isFormValid = Boolean(isNameValid && isPhoneValid);
 
   React.useEffect(() => {
@@ -84,39 +84,41 @@ export function CheckoutForm({
           sm:space-y-6 sm:px-6
         `}
       >
-        <form
-          className={`
-            space-y-5
-            sm:space-y-6
-          `}
-          onSubmit={handleSubmit}
-        >
-          <FormInput
-            autoComplete="name"
-            error={errors.name?.message}
-            icon={User}
-            inputMode="text"
-            isValid={isNameValid}
-            label="Nombre Completo"
-            placeholder="Ej: María González López"
-            required
-            {...register("name")}
-          />
+        <Form {...form}>
+          <form
+            className={`
+              space-y-5
+              sm:space-y-6
+            `}
+            onSubmit={handleSubmit}
+          >
+            <FormFieldInput
+              autoComplete="name"
+              control={form.control}
+              icon={User}
+              inputMode="text"
+              isValid={isNameValid}
+              label="Nombre Completo"
+              name="name"
+              placeholder="Ej: María González López"
+              required
+            />
 
-          <FormInput
-            autoComplete="tel"
-            error={errors.phone?.message}
-            icon={Phone}
-            inputMode="tel"
-            isValid={isPhoneValid}
-            label="Teléfono"
-            maxLength={10}
-            placeholder="Ej: 5512345678"
-            required
-            type="tel"
-            {...register("phone")}
-          />
-        </form>
+            <FormFieldInput
+              autoComplete="tel"
+              control={form.control}
+              icon={Phone}
+              inputMode="tel"
+              isValid={isPhoneValid}
+              label="Teléfono"
+              maxLength={10}
+              name="phone"
+              placeholder="Ej: 5512345678"
+              required
+              type="tel"
+            />
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );
