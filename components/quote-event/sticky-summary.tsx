@@ -16,7 +16,14 @@ import {
 } from "@/lib/constants/quote-event-constants";
 import { cn } from "@/lib/utils";
 import { pesos } from "@/lib/utils/quote-event-utils";
-import { MapPin, PartyPopper, ShoppingBasket, Wallet } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  PartyPopper,
+  ShoppingBasket,
+  Sparkles,
+  Wallet,
+} from "lucide-react";
 
 interface StickySummaryProps {
   deposit: number;
@@ -30,6 +37,15 @@ export function StickySummary({
   subtotal,
 }: StickySummaryProps) {
   const eventTypeLabel = EVENT_TYPES.find((t) => t.id === event.type)?.label;
+
+  const formatDate = (d?: Date | string) => {
+    if (!d) return "-";
+    if (d instanceof Date) return d.toLocaleDateString("es-ES");
+    const parsed = new Date(d);
+    return Number.isNaN(parsed.getTime())
+      ? d
+      : parsed.toLocaleDateString("es-ES");
+  };
 
   return (
     <div className="sticky top-24">
@@ -51,24 +67,33 @@ export function StickySummary({
             <div>
               <div className="mb-1 flex items-center gap-2 font-medium">
                 <PartyPopper className="h-4 w-4 text-muted-foreground" />
-                Evento
+                Detalles del evento
               </div>
               <div className="text-muted-foreground">
-                {event.date ? (
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-3.5 w-3.5" />
-                      <span>
-                        {event.city} ·{" "}
+                <div className="space-y-1">
+                  {event.date ? (
+                    <div className="ml-2 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-3.5 w-3.5" />
+                        <span className="text-foreground">{event.city} </span>
+                      </div>
+                      <div className={`flex items-center gap-2`}>
+                        <Calendar className="h-3.5 w-3.5" />
+                        <span className="text-foreground">
+                          {formatDate(event.date)}{" "}
+                        </span>
+                      </div>
+                      <div className={`flex items-center gap-2`}>
+                        <Sparkles className="h-3.5 w-3.5" />
                         <span className="text-foreground">
                           {eventTypeLabel}
                         </span>
-                      </span>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div>Completa los detalles</div>
-                )}
+                  ) : (
+                    <div>Completa los detalles</div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -82,7 +107,7 @@ export function StickySummary({
               </div>
 
               {event.qtyPastelitos > 0 ? (
-                <div className="flex items-center justify-between">
+                <div className="ml-2 flex items-center justify-between">
                   <span>Pastelitos x {event.qtyPastelitos}</span>
                   <span className="font-medium">
                     {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
@@ -91,7 +116,7 @@ export function StickySummary({
               ) : null}
 
               {event.qtyBrigadeiros > 0 ? (
-                <div className="flex items-center justify-between">
+                <div className="ml-2 flex items-center justify-between">
                   <span>Brigadeiros x {event.qtyBrigadeiros}</span>
                   <span className="font-medium">
                     {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
@@ -100,13 +125,13 @@ export function StickySummary({
               ) : null}
 
               {event.qtyPastelitos === 0 && event.qtyBrigadeiros === 0 && (
-                <div className="text-muted-foreground">
+                <div className="ml-2 text-muted-foreground">
                   Agrega cantidades para ver aquí.
                 </div>
               )}
 
               {event.withCart && (
-                <div className="flex items-center justify-between">
+                <div className="ml-2 flex items-center justify-between">
                   <span>Carrito de postres ({SERVICE_HOURS}h)</span>
                   <span className="font-medium">
                     {pesos(CART_RENTAL_PRICE)}
@@ -119,36 +144,20 @@ export function StickySummary({
 
             {/* Totales */}
             <div className="space-y-1">
-              <div className="mb-1 flex items-center gap-2 font-medium">
-                <Wallet className="h-4 w-4 text-muted-foreground" />
-                Totales
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span>{pesos(subtotal)}</span>
-              </div>
-
               <div className="flex items-center justify-between text-base">
-                <span className="font-semibold">Total</span>
+                <span
+                  className={`
+                    flex items-center justify-center gap-2 font-semibold
+                  `}
+                >
+                  <Wallet className={`h-4 w-4 text-muted-foreground`} />
+                  Total
+                </span>
                 <span className="font-semibold text-primary">
                   {pesos(subtotal)}
                 </span>
               </div>
             </div>
-
-            <Separator />
-
-            <div className="space-y-1">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Anticipo 50%</span>
-                <span>{pesos(deposit)}</span>
-              </div>
-            </div>
-
-            <p className="mt-2 text-xs text-muted-foreground">
-              Anticipo del 50% para confirmar fecha.
-            </p>
           </div>
         </CardContent>
       </Card>

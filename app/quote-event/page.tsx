@@ -142,9 +142,7 @@ export default function QuoteEventPage() {
 
       // Here you could POST to /api/quotes with eventForFirestore
       console.log("Event data ready for Firestore:", eventForFirestore);
-      alert(
-        "Cotización enviada (demo). Puedes conectar este flujo a tu backend.",
-      );
+      alert("Cotización enviada");
     } catch (error) {
       console.error("Error preparing event data:", error);
       alert("Error al procesar la cotización. Intenta de nuevo.");
@@ -158,8 +156,7 @@ export default function QuoteEventPage() {
     <div
       className={`
         mx-auto grid h-full gap-6 bg-[hsl(20_60%_96%)] p-3
-        md:grid-cols-[1fr_380px] md:gap-8 md:px-6
-        lg:px-40 lg:py-8
+        lg:grid-cols-[1fr_380px] lg:gap-8 lg:px-40 lg:py-8
       `}
     >
       {/* Main */}
@@ -224,7 +221,7 @@ export default function QuoteEventPage() {
       <aside
         className={`
           hidden
-          md:block
+          lg:block
         `}
       >
         <StickySummary deposit={deposit} event={event} subtotal={subtotal} />
@@ -235,7 +232,7 @@ export default function QuoteEventPage() {
         className={`
           fixed inset-x-0 bottom-0 z-30 bg-background/80 backdrop-blur
           supports-[backdrop-filter]:bg-background/60
-          md:hidden
+          lg:hidden
         `}
       >
         <div

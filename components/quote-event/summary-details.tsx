@@ -16,6 +16,7 @@ import {
   MapPin,
   PartyPopper,
   ShoppingBasket,
+  Sparkles,
   Wallet,
 } from "lucide-react";
 
@@ -71,8 +72,8 @@ export function SummaryDetails({
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <ShoppingBasket className="h-3.5 w-3.5" />
-            <span>Tipo:</span>
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Tipo de evento:</span>
             <span className="font-medium text-foreground">
               {eventTypeLabel}
             </span>
@@ -80,7 +81,7 @@ export function SummaryDetails({
         </CardContent>
       </Card>
 
-      {/* Productos */}
+      {/* Tu seleccion */}
       <Card className="bg-card shadow-md">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">

@@ -32,7 +32,7 @@ const Navbar = () => {
         <div
           className={`
             absolute left-1/2 hidden -translate-x-1/2 transform
-            md:flex
+            lg:flex
           `}
         >
           <NavMenu />
@@ -48,7 +48,7 @@ const Navbar = () => {
             <Button
               className={`
                 hidden
-                md:inline-flex
+                lg:inline-flex
               `}
             >
               Cotiza tu Evento!
@@ -58,7 +58,7 @@ const Navbar = () => {
           <CartSheet />
 
           {/* Mobile Menu */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <NavigationSheet />
           </div>
         </div>

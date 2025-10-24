@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 import { DessertCartHeader } from "./dessert-cart-header";
 import { DessertCartHighlights } from "./dessert-cart-highlights";
 
@@ -29,15 +31,17 @@ export function DessertCartContent() {
             md:pt-4
           `}
         >
-          <Button
-            className={`
-              h-10 w-full text-base font-semibold
-              sm:w-auto sm:px-8 sm:text-lg
-            `}
-            size="lg"
-          >
-            Reservar Ahora!
-          </Button>
+          <Link href="/quote-event">
+            <Button
+              className={`
+                h-10 w-full text-base font-semibold
+                sm:w-auto sm:px-8 sm:text-lg
+              `}
+              size="lg"
+            >
+              Cotizar Ahora!
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
