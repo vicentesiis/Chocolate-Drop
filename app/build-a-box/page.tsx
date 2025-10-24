@@ -1,16 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import type { Brigadeiro } from "@/lib/types/brigadeiro";
+
 import { BoxSelector } from "@/components/build-a-box/box-selector";
-import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
-import { ProgressHeader } from "@/components/build-a-box/progress-header";
 import {
   BrigadeiroTabs,
   CategoryFilter,
 } from "@/components/build-a-box/brigadeiro-filters";
+import { BrigadeiroGrid } from "@/components/build-a-box/brigadeiro-grid";
+import { ProgressHeader } from "@/components/build-a-box/progress-header";
 import { useCart } from "@/lib/contexts/cart-context";
 import { BOXES, BRIGADEIROS } from "@/lib/data/products";
-import type { Brigadeiro } from "@/lib/types/brigadeiro";
+import { useEffect, useRef, useState } from "react";
 
 export default function BuildABoxPage() {
   const [selectedBox, setSelectedBox] = useState<(typeof BOXES)[0] | null>(
@@ -98,8 +99,8 @@ export default function BuildABoxPage() {
           const stickyHeaderHeight = navbarHeight + progressHeader;
 
           window.scrollTo({
-            top: elementTop - stickyHeaderHeight,
             behavior: "smooth",
+            top: elementTop - stickyHeaderHeight,
           });
         }
       }, 200);
@@ -119,38 +120,42 @@ export default function BuildABoxPage() {
   }, [selectedBox]);
 
   return (
-    <div className="h-full bg-gradient-to-br from-orange-50 to-amber-50 select-none">
+    <div
+      className={`
+        h-full bg-gradient-to-br from-orange-50 to-amber-50 select-none
+      `}
+    >
       {/* Main Content Container */}
       <div
         className={`
-        mx-auto max-w-7xl px-4
-        sm:px-6
-        lg:px-8
-      `}
+          mx-auto max-w-7xl px-4
+          sm:px-6
+          lg:px-8
+        `}
       >
         {/* Header Section */}
         <div
           className={`
-          py-6
-          sm:py-8
-          lg:py-12
-        `}
+            py-6
+            sm:py-8
+            lg:py-12
+          `}
         >
           <div className="text-center">
             <h1
               className={`
-              mb-3 text-2xl font-bold text-gray-900
-              sm:mb-4 sm:text-3xl
-              lg:text-4xl
-            `}
+                mb-3 text-2xl font-bold text-gray-900
+                sm:mb-4 sm:text-3xl
+                lg:text-4xl
+              `}
             >
               {selectedBox ? "Selecciona tus Brigadeiros" : "Elige tu Empaque"}
             </h1>
             <p
               className={`
-              mx-auto max-w-2xl px-4 text-base text-gray-600
-              sm:text-lg
-            `}
+                mx-auto max-w-2xl px-4 text-base text-gray-600
+                sm:text-lg
+              `}
             >
               {selectedBox
                 ? `Completa tu ${selectedBox.name} con los sabores que más te gusten`
@@ -162,14 +167,14 @@ export default function BuildABoxPage() {
         {/* Box Selector Grid */}
         <div
           className={`
-          mb-8
-          sm:mb-12
-        `}
+            mb-8
+            sm:mb-12
+          `}
         >
           <BoxSelector
             boxes={BOXES}
-            selectedBox={selectedBox}
             onSelectBox={setSelectedBox}
+            selectedBox={selectedBox}
           />
         </div>
       </div>
@@ -178,24 +183,25 @@ export default function BuildABoxPage() {
       {selectedBox && (
         <div
           className={`
-          sticky top-16 z-40 border-b border-gray-200 bg-white/85 shadow-sm backdrop-blur-sm
-          sm:top-20
-        `}
+            sticky top-16 z-40 border-b border-gray-200 bg-white/85 shadow-sm
+            backdrop-blur-sm
+            sm:top-20
+          `}
         >
           <div
             className={`
-            mx-auto max-w-7xl px-4
-            sm:px-6
-            lg:px-8
-          `}
+              mx-auto max-w-7xl px-4
+              sm:px-6
+              lg:px-8
+            `}
           >
             <ProgressHeader
+              isBoxFull={isBoxFull}
+              onAddToCart={handleAddToCart}
+              onClearSelection={clearSelection}
+              progressPercentage={progressPercentage}
               selectedBox={selectedBox}
               totalSelected={totalSelected}
-              progressPercentage={progressPercentage}
-              isBoxFull={isBoxFull}
-              onClearSelection={clearSelection}
-              onAddToCart={handleAddToCart}
             />
           </div>
         </div>
@@ -205,24 +211,25 @@ export default function BuildABoxPage() {
       {selectedBox && (
         <div
           className={`
-          mx-auto max-w-7xl px-4
-          sm:px-6
-          lg:px-8
-        `}
+            mx-auto max-w-7xl px-4
+            sm:px-6
+            lg:px-8
+          `}
         >
           {/* Filters Section */}
-          <div ref={filtersRef} className={`py-4`}>
+          <div className={`py-4`} ref={filtersRef}>
             <div
               className={`
-              rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm backdrop-blur-sm
-              sm:p-6
-            `}
+                rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm
+                backdrop-blur-sm
+                sm:p-6
+              `}
             >
               <div
                 className={`
-                flex flex-col gap-4
-                sm:flex-row sm:items-center sm:justify-between
-              `}
+                  flex flex-col gap-4
+                  sm:flex-row sm:items-center sm:justify-between
+                `}
               >
                 {/* Tabs on the left */}
                 <div className="flex-shrink-0">
@@ -236,8 +243,8 @@ export default function BuildABoxPage() {
                 {activeTab === "regular" && (
                   <div className="flex-shrink-0">
                     <CategoryFilter
-                      selectedCategory={selectedCategory}
                       onCategoryChange={setSelectedCategory}
+                      selectedCategory={selectedCategory}
                     />
                   </div>
                 )}
@@ -248,18 +255,18 @@ export default function BuildABoxPage() {
           {/* Brigadeiro Grid */}
           <div
             className={`
-            pb-8
-            sm:pb-12
-            lg:pb-16
-          `}
+              pb-8
+              sm:pb-12
+              lg:pb-16
+            `}
           >
             <BrigadeiroGrid
-              selectedBox={selectedBox}
-              brigadeiros={brigadeiros}
-              totalSelected={totalSelected}
-              onUpdateQuantity={updateDessertQuantity}
               activeTab={activeTab}
+              brigadeiros={brigadeiros}
+              onUpdateQuantity={updateDessertQuantity}
+              selectedBox={selectedBox}
               selectedCategory={selectedCategory}
+              totalSelected={totalSelected}
             />
           </div>
         </div>

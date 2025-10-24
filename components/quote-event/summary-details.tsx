@@ -48,7 +48,7 @@ export function SummaryDetails({
   return (
     <div className="grid gap-3 text-[15px] leading-snug">
       {/* Detalles del evento */}
-      <Card className="border bg-muted">
+      <Card className="bg-card shadow-md">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
             <PartyPopper className="size-5 text-muted-foreground" />
@@ -73,29 +73,29 @@ export function SummaryDetails({
           <div className="flex items-center gap-2">
             <ShoppingBasket className="h-3.5 w-3.5" />
             <span>Tipo:</span>
-            <Badge
-              className="rounded-full px-2 py-0.5 text-xs"
-              variant="secondary"
-            >
+            <span className="font-medium text-foreground">
               {eventTypeLabel}
-            </Badge>
+            </span>
           </div>
         </CardContent>
       </Card>
 
       {/* Productos */}
-      <Card className="border">
+      <Card className="bg-card shadow-md">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
             <ShoppingBasket className="size-5 text-muted-foreground" />
-            <CardTitle className="text-base">Productos</CardTitle>
+            <CardTitle className="text-base">Tu selección</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="grid gap-2">
           {event.qtyPastelitos > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
-                Pastelitos x {event.qtyPastelitos}
+                Mini pastelitos gourmet
+                <Badge className="ml-2 px-2" variant={"outline"}>
+                  x {event.qtyPastelitos}
+                </Badge>
               </span>
               <span className="font-medium">
                 {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
@@ -105,7 +105,10 @@ export function SummaryDetails({
           {event.qtyBrigadeiros > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
-                Brigadeiros x {event.qtyBrigadeiros}
+                Brigadeiros gourmet
+                <Badge className="ml-2 px-2" variant={"outline"}>
+                  x {event.qtyBrigadeiros}
+                </Badge>
               </span>
               <span className="font-medium">
                 {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
@@ -132,7 +135,7 @@ export function SummaryDetails({
       </Card>
 
       {/* Totales */}
-      <Card className="border">
+      <Card className="bg-card shadow-md">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
             <Wallet className="size-5 text-muted-foreground" />
@@ -160,7 +163,7 @@ export function SummaryDetails({
           {/* Total destacado */}
           <div className="flex items-center justify-between">
             <span className="text-base font-semibold">Total</span>
-            <span className="text-base font-semibold text-foreground">
+            <span className="text-base font-semibold text-primary">
               {pesos(total)}
             </span>
           </div>

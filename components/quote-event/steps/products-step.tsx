@@ -1,3 +1,5 @@
+import type { Event } from "@/lib/types/quote-event-types";
+
 import { InfoRow } from "@/components/quote-event/info-feature-rows";
 import { ProductQtyCard } from "@/components/quote-event/product-qty-card";
 import { Badge } from "@/components/ui/badge";
@@ -26,8 +28,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-import type { Event } from "@/lib/types/quote-event-types";
-
 interface ProductsStepProps {
   event: Event;
   isValid: boolean;
@@ -51,7 +51,7 @@ export function ProductsStep({
   const activeCakes = CAKES.filter((c) => c.isActive).map((c) => c.name);
 
   return (
-    <Card>
+    <Card className="bg-background shadow-xl">
       <CardHeader>
         <CardTitle>2) Productos, presentación y sabores</CardTitle>
       </CardHeader>
@@ -98,7 +98,7 @@ export function ProductsStep({
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm font-medium">
-                    Sabores disponibles (mezcla incluida)
+                    * Sabores disponibles (mezcla incluida)
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground">
                     Se entrega en <strong>mezcla variada</strong> según
@@ -132,12 +132,12 @@ export function ProductsStep({
         {/* Desktop (always expanded) */}
         <div
           className={`
-            hidden rounded-xl border p-4
+            hidden rounded-xl border p-4 shadow-lg
             md:col-span-2 md:block
           `}
         >
           <div className="mb-2 text-sm font-medium">
-            Sabores disponibles (mezcla incluida)
+            * Sabores disponibles (mezcla incluida)
           </div>
           <FlavorList
             activeBrigadeiros={activeBrigadeiros}

@@ -17,10 +17,9 @@ export function Progress({ step }: ProgressProps) {
       aria-label="Progreso"
       className={cn(
         `
-          rounded-xl border bg-gradient-to-b from-background to-muted/30 p-3
+          rounded-xl border bg-background p-3
           md:p-4
         `,
-        "shadow-[inset_0_1px_0_0_hsl(var(--border))]",
       )}
     >
       {/* Mobile: compact progress bar + labels (UI-only) */}

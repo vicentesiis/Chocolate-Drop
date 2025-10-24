@@ -16,11 +16,11 @@ export const SERVICE_HOURS = 3; // for copy only
 
 // Event types configuration
 export const EVENT_TYPES = [
+  { icon: PartyPopper, id: "social", label: "Social" },
   { icon: Heart, id: "boda", label: "Boda" },
   { icon: BriefcaseBusiness, id: "corporativo", label: "Corporativo" },
   { icon: Cake, id: "cumpleaños", label: "Cumpleaños" },
   { icon: Baby, id: "baby", label: "Baby Shower" },
-  { icon: PartyPopper, id: "social", label: "Social" },
 ];
 
 // Cities list

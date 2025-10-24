@@ -48,7 +48,7 @@ export function Faq() {
           </AccordionItem>
           <AccordionItem value="q3">
             <AccordionTrigger>
-              ¿Qué incluye la renta del carrito/barra?
+              ¿Qué incluye la renta del carrito?
             </AccordionTrigger>
             <AccordionContent>
               Montaje, desmontaje y atención personalizada por {SERVICE_HOURS}{" "}

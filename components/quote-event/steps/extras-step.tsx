@@ -1,3 +1,5 @@
+import type { Event } from "@/lib/types/quote-event-types";
+
 import { FeatureRow } from "@/components/quote-event/info-feature-rows";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,8 +21,6 @@ import { pesos } from "@/lib/utils/quote-event-utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
-import type { Event } from "@/lib/types/quote-event-types";
-
 interface ExtrasStepProps {
   event: Event;
   onEventChange: (event: Partial<Event>) => void;
@@ -35,7 +35,7 @@ export function ExtrasStep({
   onPrev,
 }: ExtrasStepProps) {
   return (
-    <Card>
+    <Card className="bg-background shadow-xl">
       <CardHeader>
         <CardTitle>4) Extras</CardTitle>
         <CardDescription>

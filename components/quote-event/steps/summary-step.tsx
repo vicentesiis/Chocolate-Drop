@@ -32,9 +32,9 @@ export function SummaryStep({
   whatsAppMessage,
 }: SummaryStepProps) {
   return (
-    <Card>
+    <Card className="bg-background shadow-xl">
       <CardHeader>
-        <CardTitle>Resumen y envío</CardTitle>
+        <CardTitle>Resumen de tu Evento</CardTitle>
         <CardDescription>
           Revisa los detalles antes de enviar tu cotización.
         </CardDescription>
@@ -52,15 +52,6 @@ export function SummaryStep({
           <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
         </Button>
         <div className="flex flex-wrap items-center gap-2">
-          <Button asChild variant="outline">
-            <a
-              href={`https://wa.me/5210000000000?text=${whatsAppMessage}`}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Enviar por WhatsApp
-            </a>
-          </Button>
           <Button onClick={onSubmit}>Enviar cotización</Button>
         </div>
       </CardFooter>

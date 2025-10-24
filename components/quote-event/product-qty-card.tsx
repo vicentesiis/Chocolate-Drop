@@ -50,7 +50,7 @@ export function ProductQtyCard({
   return (
     <Card
       className={cn(
-        "relative overflow-hidden",
+        "relative overflow-hidden bg-background shadow-lg",
         !meetsMin &&
           `
             shadow-[0_0_0_2px_theme(colors.destructive/20)]

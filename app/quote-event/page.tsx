@@ -157,9 +157,9 @@ export default function QuoteEventPage() {
   return (
     <div
       className={`
-        mx-auto grid w-full max-w-7xl gap-6 p-3
+        mx-auto grid h-full gap-6 bg-[hsl(20_60%_96%)] p-3
         md:grid-cols-[1fr_380px] md:gap-8 md:px-6
-        lg:px-8
+        lg:px-40 lg:py-8
       `}
     >
       {/* Main */}

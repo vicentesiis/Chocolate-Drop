@@ -33,14 +33,7 @@ export function StickySummary({
 
   return (
     <div className="sticky top-24">
-      <Card
-        className={cn(
-          `
-            overflow-hidden border bg-background/80 shadow-md backdrop-blur
-            supports-[backdrop-filter]:bg-background/60
-          `,
-        )}
-      >
+      <Card className={cn(`overflow-hidden border shadow-lg`)}>
         <div className="border-b bg-muted/40 px-4 py-3">
           <div className="flex items-center justify-between">
             <div>
@@ -85,7 +78,7 @@ export function StickySummary({
             <div className="space-y-1">
               <div className="mb-1 flex items-center gap-2 font-medium">
                 <ShoppingBasket className="h-4 w-4 text-muted-foreground" />
-                Productos
+                Tu selección
               </div>
 
               {event.qtyPastelitos > 0 ? (
@@ -111,22 +104,16 @@ export function StickySummary({
                   Agrega cantidades para ver aquí.
                 </div>
               )}
-            </div>
 
-            {event.withCart && (
-              <>
-                <Separator />
-                <div className="space-y-1">
-                  <div className="mb-1 font-medium">Extras</div>
-                  <div className="flex items-center justify-between">
-                    <span>Carrito de postres ({SERVICE_HOURS}h)</span>
-                    <span className="font-medium">
-                      {pesos(CART_RENTAL_PRICE)}
-                    </span>
-                  </div>
+              {event.withCart && (
+                <div className="flex items-center justify-between">
+                  <span>Carrito de postres ({SERVICE_HOURS}h)</span>
+                  <span className="font-medium">
+                    {pesos(CART_RENTAL_PRICE)}
+                  </span>
                 </div>
-              </>
-            )}
+              )}
+            </div>
 
             <Separator />
 
@@ -144,7 +131,9 @@ export function StickySummary({
 
               <div className="flex items-center justify-between text-base">
                 <span className="font-semibold">Total</span>
-                <span className="font-semibold">{pesos(subtotal)}</span>
+                <span className="font-semibold text-primary">
+                  {pesos(subtotal)}
+                </span>
               </div>
             </div>
 
