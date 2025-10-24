@@ -11,10 +11,6 @@ export function DashboardHeader() {
   const { logout } = useAuth();
 
   const getPageTitle = () => {
-    if (pathname === "/dashboard") {
-      return "Dashboard Home";
-    }
-
     if (pathname.startsWith("/dashboard/orders")) {
       return "Pedidos";
     }
