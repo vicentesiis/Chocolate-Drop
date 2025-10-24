@@ -119,6 +119,24 @@
   --sidebar-accent-foreground: hsl(25 40% 25%);
   --sidebar-border: hsl(39 20% 88%);
   --sidebar-ring: hsl(25 95% 35%);
+
+  /* Success = mint/emerald that complements warm palette */
+  --success: hsl(152 46% 35%); /* deep mint */
+  --success-foreground: hsl(39 100% 98%); /* paper */
+  --success-soft: hsl(152 46% 92%); /* mint wash */
+  --success-soft-foreground: hsl(152 46% 25%);
+
+  /* Warning/Amber (pending) tuned to your theme hues */
+  --warning: hsl(39 90% 55%); /* amber caramel */
+  --warning-foreground: hsl(25 40% 15%);
+  --warning-soft: hsl(39 85% 90%);
+  --warning-soft-foreground: hsl(25 40% 25%);
+
+  /* Info/Preparing as warm accent (no cold blues for chocolate brand) */
+  --info: hsl(33 80% 55%); /* warm tangerine */
+  --info-foreground: hsl(39 100% 98%);
+  --info-soft: hsl(33 80% 90%);
+  --info-soft-foreground: hsl(25 40% 20%);
 }
 
 @layer base {

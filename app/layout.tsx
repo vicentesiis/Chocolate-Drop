@@ -24,8 +24,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: "Vicente Cantú",
-  description:
-    "ChocolateDrop is a ecommerce plataform to sell chocolates online and the presentational website for the brand.",
+  description: "ChocolateDrop!.",
   icons: [
     {
       rel: "icon",

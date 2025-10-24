@@ -30,7 +30,7 @@ export function useOrderColumns({
         width: "100px",
       },
       {
-        align: "left",
+        align: "left" as const,
         header: "Cliente",
         key: "customer",
         render: (order: Order) => (
@@ -42,7 +42,7 @@ export function useOrderColumns({
         width: "150px",
       },
       {
-        align: "left",
+        align: "left" as const,
         collapsible: true,
         header: "Productos",
         key: "products",
@@ -56,14 +56,14 @@ export function useOrderColumns({
         width: "0px",
       },
       {
-        align: "center",
+        align: "center" as const,
         header: "Total",
         key: "total",
         render: (order: Order) => <PriceCell amount={order.total} />,
         width: "100px",
       },
       {
-        align: "center",
+        align: "center" as const,
         header: "Estatus",
         key: "status",
         render: (order: Order) => (
@@ -78,7 +78,7 @@ export function useOrderColumns({
         width: "0px",
       },
       {
-        align: "center",
+        align: "center" as const,
         header: "Fecha",
         key: "date",
         render: (order: Order) => <DateCell date={order.createdAt} />,

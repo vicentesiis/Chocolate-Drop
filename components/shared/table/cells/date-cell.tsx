@@ -5,5 +5,6 @@ interface DateCellProps {
 }
 
 export function DateCell({ date }: DateCellProps) {
-  return <div className="text-sm">{formatDate(date)}</div>;
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+  return <div className="text-sm">{formatDate(dateObj)}</div>;
 }
