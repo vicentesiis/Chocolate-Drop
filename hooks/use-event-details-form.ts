@@ -1,10 +1,11 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  eventDetailsSchema,
-  type EventDetailsFormData,
-} from "@/lib/schemas/event-details";
 import type { EventDetails } from "@/lib/types/quote-event-types";
+
+import {
+  type EventDetailsFormData,
+  eventDetailsSchema,
+} from "@/lib/schemas/event-details";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 interface UseEventDetailsFormProps {
   defaultValues?: Partial<EventDetails>;
@@ -13,24 +14,22 @@ interface UseEventDetailsFormProps {
 
 export function useEventDetailsForm({
   defaultValues = {
-    name: "",
-    phone: "",
     city: "Monterrey",
     date: "",
+    name: "",
+    phone: "",
     type: "social",
-    time: "",
-    guests: null,
   },
   onSubmit,
 }: UseEventDetailsFormProps = {}) {
   const form = useForm<EventDetailsFormData>({
-    resolver: zodResolver(eventDetailsSchema),
     defaultValues,
     mode: "onChange",
+    resolver: zodResolver(eventDetailsSchema),
   });
 
   const {
-    formState: { errors, isValid, dirtyFields },
+    formState: { dirtyFields, errors, isValid },
   } = form;
 
   // Check if individual fields are valid
@@ -48,16 +47,16 @@ export function useEventDetailsForm({
   });
 
   return {
-    form,
     errors,
-    isValid,
-    isNameValid,
-    isPhoneValid,
+    form,
+    getValues: form.getValues,
+    handleSubmit,
     isCityValid,
     isDateValid,
-    handleSubmit,
+    isNameValid,
+    isPhoneValid,
+    isValid,
     setValue: form.setValue,
-    getValues: form.getValues,
     watch: form.watch,
   };
 }

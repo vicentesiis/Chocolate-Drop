@@ -44,10 +44,8 @@ export default function QuoteEventPage() {
   const [event, setEvent] = useState<EventDetails>({
     city: "Monterrey",
     date: "",
-    guests: null,
     name: "",
     phone: "",
-    time: "",
     type: "social",
   });
 
@@ -121,10 +119,8 @@ export default function QuoteEventPage() {
   const whatsAppMessage = useMemo(() => {
     const lines = [
       `Hola, me interesa una cotización para evento:`,
-      `• Fecha: ${event.date || "-"} ${event.time || ""}`,
       `• Ciudad: ${event.city || "-"}`,
       `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.type)?.label || "-"}`,
-      event.guests ? `• Invitados: ${event.guests}` : undefined,
       qtyPastelitos
         ? `• Pastelitos: ${qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
         : undefined,

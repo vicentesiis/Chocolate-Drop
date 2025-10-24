@@ -79,12 +79,6 @@ export function StickySummary({
                 {event.date ? (
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-3.5 w-3.5" />
-                      <span>
-                        {event.date} {event.time}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
                       <MapPin className="h-3.5 w-3.5" />
                       <span>
                         {event.city} ·{" "}
