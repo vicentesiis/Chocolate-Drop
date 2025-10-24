@@ -8,7 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 interface UseEventDetailsFormProps {
-  defaultValues?: Partial<EventDetails>;
+  defaultValues?: {
+    city?: string;
+    date?: string; // Keep as string for form handling
+    name?: string;
+    phone?: string;
+    type?: string;
+  };
   onSubmit?: (data: EventDetailsFormData) => void;
 }
 

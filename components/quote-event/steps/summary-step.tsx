@@ -1,4 +1,4 @@
-import type { EventDetails } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/quote-event-types";
 
 import { SummaryDetails } from "@/components/quote-event/summary-details";
 import { Button } from "@/components/ui/button";
@@ -15,15 +15,12 @@ import { ChevronLeft } from "lucide-react";
 interface SummaryStepProps {
   balance: number;
   deposit: number;
-  event: EventDetails;
+  event: Event;
   onPrev: () => void;
   onSubmit: () => void;
-  qtyBrigadeiros: number;
-  qtyPastelitos: number;
   subtotal: number;
   total: number;
   whatsAppMessage: string;
-  withCart: boolean;
 }
 
 export function SummaryStep({
@@ -32,12 +29,9 @@ export function SummaryStep({
   event,
   onPrev,
   onSubmit,
-  qtyBrigadeiros,
-  qtyPastelitos,
   subtotal,
   total,
   whatsAppMessage,
-  withCart,
 }: SummaryStepProps) {
   return (
     <Card>
@@ -52,11 +46,8 @@ export function SummaryStep({
           balance={balance}
           deposit={deposit}
           event={event}
-          qtyBrigadeiros={qtyBrigadeiros}
-          qtyPastelitos={qtyPastelitos}
           subtotal={subtotal}
           total={total}
-          withCart={withCart}
         />
       </CardContent>
       <CardFooter className="flex items-center justify-between">

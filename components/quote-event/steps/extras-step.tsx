@@ -19,18 +19,20 @@ import { pesos } from "@/lib/utils/quote-event-utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
+import type { Event } from "@/lib/types/quote-event-types";
+
 interface ExtrasStepProps {
+  event: Event;
+  onEventChange: (event: Partial<Event>) => void;
   onNext: () => void;
   onPrev: () => void;
-  setWithCart: (withCart: boolean) => void;
-  withCart: boolean;
 }
 
 export function ExtrasStep({
+  event,
+  onEventChange,
   onNext,
   onPrev,
-  setWithCart,
-  withCart,
 }: ExtrasStepProps) {
   return (
     <Card>
@@ -50,9 +52,10 @@ export function ExtrasStep({
               text-left transition
               hover:bg-muted/40
             `,
-            withCart && "border-primary bg-primary/5 ring-2 ring-primary/20",
+            event.withCart &&
+              "border-primary bg-primary/5 ring-2 ring-primary/20",
           )}
-          onClick={() => setWithCart(!withCart)}
+          onClick={() => onEventChange({ withCart: !event.withCart })}
         >
           <div
             className={`
@@ -91,10 +94,12 @@ export function ExtrasStep({
             >
               <div className="flex items-start gap-3">
                 <Checkbox
-                  checked={withCart}
+                  checked={event.withCart}
                   className="mt-1 shrink-0"
                   id="withCart"
-                  onCheckedChange={(checked) => setWithCart(!!checked)}
+                  onCheckedChange={(checked) =>
+                    onEventChange({ withCart: !!checked })
+                  }
                   onClick={(e) => e.stopPropagation()}
                 />
                 <div className="flex-1">

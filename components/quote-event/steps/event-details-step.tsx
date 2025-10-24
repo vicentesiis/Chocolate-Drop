@@ -1,4 +1,4 @@
-import type { EventDetails } from "@/lib/types/quote-event-types";
+import type { Event, EventDetails } from "@/lib/types/quote-event-types";
 
 import {
   FormFieldInput,
@@ -28,8 +28,8 @@ import {
 import { useCallback, useState } from "react";
 
 interface EventDetailsStepProps {
-  event: EventDetails;
-  onEventChange: (event: EventDetails) => void;
+  event: Event;
+  onEventChange: (event: Partial<Event>) => void;
   onNext: () => void;
   onPrev: () => void;
   piecesTotal: number;
@@ -44,7 +44,13 @@ export function EventDetailsStep({
 
   const { form, isCityValid, isDateValid, isNameValid, isPhoneValid, isValid } =
     useEventDetailsForm({
-      defaultValues: event,
+      defaultValues: {
+        city: event.city,
+        date: event.date.toISOString().split("T")[0], // Convert Date to string for form
+        name: event.name,
+        phone: event.phone,
+        type: event.type,
+      },
       onSubmit: () => {
         handleNext();
       },
@@ -52,13 +58,13 @@ export function EventDetailsStep({
 
   const handleFieldChange = useCallback(
     (field: keyof EventDetails, value: null | number | string) => {
-      const updatedEvent: EventDetails = {
-        ...event,
-        [field]: value,
-      };
-      onEventChange(updatedEvent);
+      if (field === "date" && typeof value === "string") {
+        onEventChange({ [field]: new Date(value) });
+      } else {
+        onEventChange({ [field]: value });
+      }
     },
-    [event, onEventChange],
+    [onEventChange],
   );
 
   const handleNext = () => {

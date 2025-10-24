@@ -1,6 +1,6 @@
 "use client";
 
-import type { EventDetails } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/quote-event-types";
 
 import {
   EventDetailsStep,
@@ -29,6 +29,7 @@ import {
   UNIT_PRICE_BRIGADEIROS,
   UNIT_PRICE_PASTELITOS,
 } from "@/lib/constants/quote-event-constants";
+import { createDefaultEvent } from "@/lib/schemas/event-details";
 import { pesos } from "@/lib/utils/quote-event-utils";
 import { ShoppingCart } from "lucide-react";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -40,28 +41,15 @@ export default function QuoteEventPage() {
   // Ref for the Progress component
   const progressRef = useRef<HTMLDivElement>(null);
 
-  // Step 1: Event details
-  const [event, setEvent] = useState<EventDetails>({
-    city: "Monterrey",
-    date: "",
-    name: "",
-    phone: "",
-    type: "social",
-  });
-
-  // Step 2: Quantities
-  const [qtyPastelitos, setQtyPastelitos] = useState<number>(0);
-  const [qtyBrigadeiros, setQtyBrigadeiros] = useState<number>(0);
-
-  // Step 3: Extras
-  const [withCart, setWithCart] = useState<boolean>(false);
+  // Complete event state
+  const [event, setEvent] = useState<Event>(createDefaultEvent);
 
   // Derived/stateful helpers
-  const piecesTotal = qtyPastelitos + qtyBrigadeiros;
+  const piecesTotal = event.qtyPastelitos + event.qtyBrigadeiros;
   const subtotalProducts =
-    qtyPastelitos * UNIT_PRICE_PASTELITOS +
-    qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
-  const subtotalExtras = withCart ? CART_RENTAL_PRICE : 0;
+    event.qtyPastelitos * UNIT_PRICE_PASTELITOS +
+    event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
+  const subtotalExtras = event.withCart ? CART_RENTAL_PRICE : 0;
 
   const subtotal = subtotalProducts + subtotalExtras;
   const total = subtotal;
@@ -70,8 +58,8 @@ export default function QuoteEventPage() {
 
   // Guards & validation helpers
   const step2Valid =
-    (qtyPastelitos === 0 || qtyPastelitos >= MIN_PASTELITOS) &&
-    (qtyBrigadeiros === 0 || qtyBrigadeiros >= MIN_BRIGADEIROS) &&
+    (event.qtyPastelitos === 0 || event.qtyPastelitos >= MIN_PASTELITOS) &&
+    (event.qtyBrigadeiros === 0 || event.qtyBrigadeiros >= MIN_BRIGADEIROS) &&
     piecesTotal > 0;
 
   // Navigation handlers
@@ -111,8 +99,8 @@ export default function QuoteEventPage() {
   }
 
   // Memoized event change handler to prevent infinite loops
-  const handleEventChange = useCallback((newEvent: EventDetails) => {
-    setEvent(newEvent);
+  const handleEventChange = useCallback((newEvent: Partial<Event>) => {
+    setEvent((prev) => ({ ...prev, ...newEvent }));
   }, []);
 
   // Build a WhatsApp deep link with summary (user can send you the quote quickly)
@@ -121,13 +109,13 @@ export default function QuoteEventPage() {
       `Hola, me interesa una cotización para evento:`,
       `• Ciudad: ${event.city || "-"}`,
       `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.type)?.label || "-"}`,
-      qtyPastelitos
-        ? `• Pastelitos: ${qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
+      event.qtyPastelitos
+        ? `• Pastelitos: ${event.qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
         : undefined,
-      qtyBrigadeiros
-        ? `• Brigadeiros: ${qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
+      event.qtyBrigadeiros
+        ? `• Brigadeiros: ${event.qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
         : undefined,
-      withCart
+      event.withCart
         ? `• Carrito: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
       `Subtotal: ${pesos(subtotal)}`,
@@ -136,23 +124,34 @@ export default function QuoteEventPage() {
       `Saldo: ${pesos(balance)}`,
     ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
-  }, [
-    event,
-    qtyPastelitos,
-    qtyBrigadeiros,
-    withCart,
-    subtotal,
-    total,
-    deposit,
-    balance,
-  ]);
+  }, [event, subtotal, total, deposit, balance]);
 
   // Simple submit handler (replace with API route integration)
   function handleSubmit() {
-    // Here you could POST to /api/quotes
-    alert(
-      "Cotización enviada (demo). Puedes conectar este flujo a tu backend.",
-    );
+    try {
+      // Prepare the complete event data for Firestore
+      const eventForFirestore = {
+        ...event,
+        // Add calculated fields
+        subtotalProducts,
+        subtotalExtras,
+        subtotal,
+        total,
+        deposit,
+        balance,
+        // Add timestamp
+        createdAt: new Date(),
+      };
+
+      // Here you could POST to /api/quotes with eventForFirestore
+      console.log("Event data ready for Firestore:", eventForFirestore);
+      alert(
+        "Cotización enviada (demo). Puedes conectar este flujo a tu backend.",
+      );
+    } catch (error) {
+      console.error("Error preparing event data:", error);
+      alert("Error al procesar la cotización. Intenta de nuevo.");
+    }
   }
 
   // Responsive summary: sheet on mobile
@@ -191,22 +190,20 @@ export default function QuoteEventPage() {
 
         {step === 1 && (
           <ProductsStep
+            event={event}
             isValid={step2Valid}
+            onEventChange={handleEventChange}
             onNext={handleNext}
             onPrev={handlePrev}
-            qtyBrigadeiros={qtyBrigadeiros}
-            qtyPastelitos={qtyPastelitos}
-            setQtyBrigadeiros={setQtyBrigadeiros}
-            setQtyPastelitos={setQtyPastelitos}
           />
         )}
 
         {step === 2 && (
           <ExtrasStep
+            event={event}
+            onEventChange={handleEventChange}
             onNext={handleNext}
             onPrev={handlePrev}
-            setWithCart={setWithCart}
-            withCart={withCart}
           />
         )}
 
@@ -217,12 +214,9 @@ export default function QuoteEventPage() {
             event={event}
             onPrev={handlePrev}
             onSubmit={handleSubmit}
-            qtyBrigadeiros={qtyBrigadeiros}
-            qtyPastelitos={qtyPastelitos}
             subtotal={subtotal}
             total={total}
             whatsAppMessage={whatsAppMessage}
-            withCart={withCart}
           />
         )}
 
@@ -241,10 +235,7 @@ export default function QuoteEventPage() {
           balance={balance}
           deposit={deposit}
           event={event}
-          qtyBrigadeiros={qtyBrigadeiros}
-          qtyPastelitos={qtyPastelitos}
           subtotal={subtotal}
-          withCart={withCart}
         />
       </aside>
 
@@ -283,10 +274,7 @@ export default function QuoteEventPage() {
                   balance={balance}
                   deposit={deposit}
                   event={event}
-                  qtyBrigadeiros={qtyBrigadeiros}
-                  qtyPastelitos={qtyPastelitos}
                   subtotal={subtotal}
-                  withCart={withCart}
                 />
               </div>
             </SheetContent>

@@ -1,4 +1,4 @@
-import type { EventDetails } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/quote-event-types";
 
 import { Separator } from "@/components/ui/separator";
 import {
@@ -8,7 +8,7 @@ import {
   UNIT_PRICE_BRIGADEIROS,
   UNIT_PRICE_PASTELITOS,
 } from "@/lib/constants/quote-event-constants";
-import { cn } from "@/lib/utils";
+
 import { pesos } from "@/lib/utils/quote-event-utils";
 import {
   Calendar,
@@ -21,23 +21,17 @@ import {
 interface SummaryDetailsProps {
   balance: number;
   deposit: number;
-  event: EventDetails;
-  qtyBrigadeiros: number;
-  qtyPastelitos: number;
+  event: Event;
   subtotal: number;
   total: number;
-  withCart: boolean;
 }
 
 export function SummaryDetails({
   balance,
   deposit,
   event,
-  qtyBrigadeiros,
-  qtyPastelitos,
   subtotal,
   total,
-  withCart,
 }: SummaryDetailsProps) {
   const eventTypeLabel =
     EVENT_TYPES.find((t) => t.id === event.type)?.label ?? "-";
@@ -63,7 +57,7 @@ export function SummaryDetails({
             <Calendar className="h-3.5 w-3.5" />
             <span>Fecha:</span>
             <span className="font-medium text-foreground">
-              {event.date || "-"}
+              {event.date ? event.date.toLocaleDateString("es-ES") : "-"}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -101,27 +95,27 @@ export function SummaryDetails({
         </div>
 
         <div className="grid gap-1.5">
-          {qtyPastelitos > 0 && (
+          {event.qtyPastelitos > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
-                Pastelitos x {qtyPastelitos}
+                Pastelitos x {event.qtyPastelitos}
               </span>
               <span className="font-medium">
-                {pesos(qtyPastelitos * UNIT_PRICE_PASTELITOS)}
+                {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
               </span>
             </div>
           )}
-          {qtyBrigadeiros > 0 && (
+          {event.qtyBrigadeiros > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
-                Brigadeiros x {qtyBrigadeiros}
+                Brigadeiros x {event.qtyBrigadeiros}
               </span>
               <span className="font-medium">
-                {pesos(qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
+                {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
               </span>
             </div>
           )}
-          {withCart && (
+          {event.withCart && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
                 Carrito de postres ({SERVICE_HOURS}h)

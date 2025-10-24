@@ -1,10 +1,9 @@
-import type { EventDetails } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/quote-event-types";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -17,32 +16,20 @@ import {
 } from "@/lib/constants/quote-event-constants";
 import { cn } from "@/lib/utils";
 import { pesos } from "@/lib/utils/quote-event-utils";
-import {
-  Calendar,
-  MapPin,
-  PartyPopper,
-  ShoppingBasket,
-  Wallet,
-} from "lucide-react";
+import { MapPin, PartyPopper, ShoppingBasket, Wallet } from "lucide-react";
 
 interface StickySummaryProps {
   balance: number;
   deposit: number;
-  event: EventDetails;
-  qtyBrigadeiros: number;
-  qtyPastelitos: number;
+  event: Event;
   subtotal: number;
-  withCart: boolean;
 }
 
 export function StickySummary({
   balance,
   deposit,
   event,
-  qtyBrigadeiros,
-  qtyPastelitos,
   subtotal,
-  withCart,
 }: StickySummaryProps) {
   const eventTypeLabel = EVENT_TYPES.find((t) => t.id === event.type)?.label;
 
@@ -103,32 +90,32 @@ export function StickySummary({
                 Productos
               </div>
 
-              {qtyPastelitos > 0 ? (
+              {event.qtyPastelitos > 0 ? (
                 <div className="flex items-center justify-between">
-                  <span>Pastelitos x {qtyPastelitos}</span>
+                  <span>Pastelitos x {event.qtyPastelitos}</span>
                   <span className="font-medium">
-                    {pesos(qtyPastelitos * UNIT_PRICE_PASTELITOS)}
+                    {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
                   </span>
                 </div>
               ) : null}
 
-              {qtyBrigadeiros > 0 ? (
+              {event.qtyBrigadeiros > 0 ? (
                 <div className="flex items-center justify-between">
-                  <span>Brigadeiros x {qtyBrigadeiros}</span>
+                  <span>Brigadeiros x {event.qtyBrigadeiros}</span>
                   <span className="font-medium">
-                    {pesos(qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
+                    {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
                   </span>
                 </div>
               ) : null}
 
-              {qtyPastelitos === 0 && qtyBrigadeiros === 0 && (
+              {event.qtyPastelitos === 0 && event.qtyBrigadeiros === 0 && (
                 <div className="text-muted-foreground">
                   Agrega cantidades para ver aquí.
                 </div>
               )}
             </div>
 
-            {withCart && (
+            {event.withCart && (
               <>
                 <Separator />
                 <div className="space-y-1">

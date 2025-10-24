@@ -26,24 +26,22 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
+import type { Event } from "@/lib/types/quote-event-types";
+
 interface ProductsStepProps {
+  event: Event;
   isValid: boolean;
+  onEventChange: (event: Partial<Event>) => void;
   onNext: () => void;
   onPrev: () => void;
-  qtyBrigadeiros: number;
-  qtyPastelitos: number;
-  setQtyBrigadeiros: (qty: number) => void;
-  setQtyPastelitos: (qty: number) => void;
 }
 
 export function ProductsStep({
+  event,
   isValid,
+  onEventChange,
   onNext,
   onPrev,
-  qtyBrigadeiros,
-  qtyPastelitos,
-  setQtyBrigadeiros,
-  setQtyPastelitos,
 }: ProductsStepProps) {
   // Active flavors
   const activeBrigadeiros = BRIGADEIROS.filter(
@@ -68,18 +66,18 @@ export function ProductsStep({
         <ProductQtyCard
           imageSrc="/mini-cakes/cake.jpeg"
           min={MIN_PASTELITOS}
-          setValue={setQtyPastelitos}
+          setValue={(qty) => onEventChange({ qtyPastelitos: qty })}
           subtitle={`$${UNIT_PRICE_PASTELITOS} c/u`}
           title="Mini pastelitos gourmet"
-          value={qtyPastelitos}
+          value={event.qtyPastelitos}
         />
         <ProductQtyCard
           imageSrc="/hero.jpg"
           min={MIN_BRIGADEIROS}
-          setValue={setQtyBrigadeiros}
+          setValue={(qty) => onEventChange({ qtyBrigadeiros: qty })}
           subtitle={`$${UNIT_PRICE_BRIGADEIROS} c/u`}
           title="Brigadeiros gourmet"
-          value={qtyBrigadeiros}
+          value={event.qtyBrigadeiros}
         />
 
         <div className="md:col-span-2">
