@@ -134,13 +134,18 @@ export default function QuoteEventPage() {
   return (
     <div
       className={`
-        mx-auto grid w-full max-w-7xl gap-6 px-4 py-8
+        mx-auto grid w-full max-w-7xl gap-6 p-3
         md:grid-cols-[1fr_380px] md:gap-8 md:px-6
         lg:px-8
       `}
     >
       {/* Main */}
-      <div className="space-y-6">
+      <div
+        className={`
+          space-y-3
+          sm:space-y-4
+        `}
+      >
         <HeaderSection />
         <Progress step={step} />
 

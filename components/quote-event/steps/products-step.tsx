@@ -56,9 +56,6 @@ export function ProductsStep({
     <Card>
       <CardHeader>
         <CardTitle>2) Productos, presentación y sabores</CardTitle>
-        <CardDescription>
-          Los mínimos se validan por producto: 50 pastelitos, 100 brigadeiros.
-        </CardDescription>
       </CardHeader>
 
       <CardContent
@@ -69,16 +66,18 @@ export function ProductsStep({
       >
         {/* Cantidades */}
         <ProductQtyCard
+          imageSrc="/mini-cakes/cake.jpeg"
           min={MIN_PASTELITOS}
           setValue={setQtyPastelitos}
-          subtitle={`$${UNIT_PRICE_PASTELITOS} c/u · mínimo ${MIN_PASTELITOS}`}
+          subtitle={`$${UNIT_PRICE_PASTELITOS} c/u`}
           title="Mini pastelitos gourmet"
           value={qtyPastelitos}
         />
         <ProductQtyCard
+          imageSrc="/hero.jpg"
           min={MIN_BRIGADEIROS}
           setValue={setQtyBrigadeiros}
-          subtitle={`$${UNIT_PRICE_BRIGADEIROS} c/u · mínimo ${MIN_BRIGADEIROS}`}
+          subtitle={`$${UNIT_PRICE_BRIGADEIROS} c/u`}
           title="Brigadeiros gourmet"
           value={qtyBrigadeiros}
         />

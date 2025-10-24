@@ -82,7 +82,7 @@ export function EventDetailsStep({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>1) Detalles del evento</CardTitle>
+        <CardTitle>1) Datos del evento</CardTitle>
         <CardDescription>
           Cuéntanos lo básico para poder sugerirte cantidades y presentación.
           También necesitamos tus datos de contacto para enviarte la cotización.

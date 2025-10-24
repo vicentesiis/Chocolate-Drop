@@ -9,10 +9,22 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
+import { ImageOff, Trash2 } from "lucide-react";
+import Image from "next/image";
+import * as React from "react";
+
+import { Badge } from "../ui/badge";
 
 interface ProductQtyCardProps {
+  imageAlt?: string;
+  /** Bubble through Next/Image priority when desired */
+  imagePriority?: boolean;
+  /** Override <Image> sizes if needed (defaults are good for this layout) */
+  imageSizes?: string;
+  /** Optional image props (static path from /public or remote if configured) */
+  imageSrc?: string;
   min: number;
+
   setValue: (n: number) => void;
   subtitle: string;
   title: string;
@@ -20,6 +32,10 @@ interface ProductQtyCardProps {
 }
 
 export function ProductQtyCard({
+  imageAlt,
+  imagePriority = false,
+  imageSizes = "(min-width: 640px) 112px, 100vw",
+  imageSrc,
   min,
   setValue,
   subtitle,
@@ -28,67 +44,157 @@ export function ProductQtyCard({
 }: ProductQtyCardProps) {
   const meetsMin = value === 0 || value >= min;
 
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const handleFocus = () => inputRef.current?.select();
+
   return (
-    <Card className={cn("h-full", !meetsMin && "border-destructive/60")}>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{subtitle}</CardDescription>
+    <Card
+      className={cn(
+        "relative overflow-hidden",
+        !meetsMin &&
+          `
+            shadow-[0_0_0_2px_theme(colors.destructive/20)]
+            border-destructive/60
+          `,
+      )}
+    >
+      {/* min badge */}
+      <Badge
+        className={`
+          absolute top-3 right-3 z-10 rounded-full px-2 py-0.5 text-xs
+          font-medium
+        `}
+        variant={"secondary"}
+      >
+        Mín: {min}
+      </Badge>
+
+      <CardHeader className="pb-3">
+        <div
+          className={`
+            grid gap-3
+            sm:grid-cols-[112px_1fr] sm:items-center
+          `}
+        >
+          {/* Product image (or placeholder) */}
+          <div
+            className={`
+              relative aspect-[4/3] overflow-hidden rounded-xl bg-muted
+              sm:aspect-square sm:h-[112px]
+            `}
+          >
+            {imageSrc ? (
+              <Image
+                alt={imageAlt ?? title ?? "Imagen del producto"}
+                className={`
+                  object-cover transition-transform duration-300
+                  group-hover:scale-[1.02]
+                `}
+                fill
+                priority={imagePriority}
+                sizes={imageSizes}
+                src={imageSrc}
+              />
+            ) : (
+              <div
+                className={`
+                  flex h-full w-full items-center justify-center
+                  text-muted-foreground
+                `}
+              >
+                <ImageOff aria-hidden="true" className="h-6 w-6" />
+              </div>
+            )}
+          </div>
+
+          {/* Title + subtitle */}
+          <div>
+            <CardTitle
+              className={`
+                text-base
+                sm:text-lg
+              `}
+            >
+              {title}
+            </CardTitle>
+            <CardDescription className="mt-1 text-base font-medium">
+              {subtitle}
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-2">
+
+      <CardContent className="pt-0">
+        <div
+          className={cn(
+            `
+              mt-0 flex w-full items-center justify-center gap-3
+              sm:mt-3 sm:gap-4
+            `,
+          )}
+        >
+          {/* -10 */}
           <Button
+            aria-label="Restar diez"
+            className="h-11 w-16 rounded-xl text-base font-semibold"
             onClick={() => setValue(Math.max(0, value - 10))}
-            size="icon"
             type="button"
             variant="outline"
           >
             -10
           </Button>
-          <Button
-            onClick={() => setValue(Math.max(0, value - 1))}
-            size="icon"
-            type="button"
-            variant="outline"
-          >
-            -
-          </Button>
+
+          {/* input */}
           <Input
-            className="w-32 text-center"
+            aria-describedby={!meetsMin ? "qty-error" : undefined}
+            aria-invalid={!meetsMin}
+            aria-label="Cantidad"
+            className={cn(
+              `
+                h-11 w-28 rounded-xl text-center text-lg font-medium
+                tabular-nums shadow-inner
+                sm:w-32
+              `,
+              !meetsMin &&
+                `
+                  border-destructive/60
+                  focus-visible:ring-destructive/30
+                `,
+            )}
             inputMode="numeric"
             onChange={(e) =>
               setValue(Math.max(0, Number.parseInt(e.target.value || "0") || 0))
             }
+            onFocus={handleFocus}
+            pattern="\d*"
             placeholder="0"
+            ref={inputRef}
             value={value}
           />
+
+          {/* +10 */}
           <Button
-            onClick={() => setValue(value + 1)}
-            size="icon"
-            type="button"
-            variant="outline"
-          >
-            +
-          </Button>
-          <Button
+            aria-label="Sumar diez"
+            className="h-11 w-16 rounded-xl text-base font-semibold"
             onClick={() => setValue(value + 10)}
-            size="icon"
             type="button"
             variant="outline"
           >
             +10
           </Button>
         </div>
+
         {!meetsMin && (
-          <p className="mt-2 text-sm text-destructive">
+          <p
+            aria-live="polite"
+            className="mt-3 text-center text-sm text-destructive"
+            id="qty-error"
+            role="alert"
+          >
             Mínimo {min} para continuar.
           </p>
         )}
       </CardContent>
-      <CardFooter className="justify-end">
-        <Button onClick={() => setValue(0)} size="sm" variant="ghost">
-          <Trash2 className="mr-1 h-4 w-4" /> Limpiar
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
