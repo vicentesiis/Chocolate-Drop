@@ -133,9 +133,10 @@ export function DataTable<T>({
                   <React.Fragment key={rowKey}>
                     <TableRow
                       className={`
-                      border-b border-border/50 bg-background transition-colors
-                      hover:bg-muted/30
-                    `}
+                        border-b border-border/50 bg-background
+                        transition-colors
+                        hover:bg-muted/30
+                      `}
                     >
                       {columns.map((column) => (
                         <TableCell
@@ -158,9 +159,7 @@ export function DataTable<T>({
                       <TableRow>
                         <TableCell className="p-0" colSpan={columns.length}>
                           <div
-                            className={`
-                            border-t border-border bg-muted/20 p-6
-                          `}
+                            className={`border-t border-border bg-muted/20 p-6`}
                           >
                             {expandedContent(item)}
                           </div>

@@ -1,4 +1,4 @@
-import type { Event, EventDetails } from "@/lib/types/quote-event-types";
+import type { Event, EventDetails } from "@/lib/types/event";
 
 import {
   FormFieldInput,

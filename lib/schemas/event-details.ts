@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import { z } from "zod";
 
@@ -32,7 +32,6 @@ export const eventSchema = z.object({
   // Event details
   city: z.string().min(1, "Selecciona una ciudad"),
   date: z.date(),
-  deposit: z.number().optional(),
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   phone: z
     .string()
@@ -43,8 +42,6 @@ export const eventSchema = z.object({
   qtyBrigadeiros: z.number().min(0),
   // Product quantities
   qtyPastelitos: z.number().min(0),
-
-  subtotal: z.number().optional(),
 
   subtotalExtras: z.number().optional(),
   // Optional calculated fields

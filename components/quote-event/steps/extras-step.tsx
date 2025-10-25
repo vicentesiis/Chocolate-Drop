@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import { FeatureRow } from "@/components/quote-event/info-feature-rows";
 import { Badge } from "@/components/ui/badge";

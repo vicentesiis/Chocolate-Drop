@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import { InfoRow } from "@/components/quote-event/info-feature-rows";
 import { ProductQtyCard } from "@/components/quote-event/product-qty-card";

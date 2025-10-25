@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,21 +21,13 @@ import {
 } from "lucide-react";
 
 interface SummaryDetailsProps {
-  deposit: number;
   event: Event;
-  subtotal: number;
   total: number;
 }
 
-export function SummaryDetails({
-  deposit,
-  event,
-  subtotal,
-  total,
-}: SummaryDetailsProps) {
+export function SummaryDetails({ event, total }: SummaryDetailsProps) {
   const eventTypeLabel =
     EVENT_TYPES.find((t) => t.id === event.type)?.label ?? "-";
-  const showSubtotal = subtotal !== total;
 
   const formatDate = (d?: Date | string) => {
     if (!d) return "-";
@@ -144,38 +136,17 @@ export function SummaryDetails({
           </div>
         </CardHeader>
         <CardContent className="space-y-2">
-          {showSubtotal && (
-            <>
-              <div
-                className={`
-                  flex items-center justify-between text-sm
-                  text-muted-foreground
-                `}
-              >
-                <span>Subtotal</span>
-                <span className="font-medium text-foreground">
-                  {pesos(subtotal)}
-                </span>
-              </div>
-              <Separator className="my-1.5" />
-            </>
-          )}
-
-          {/* Total destacado */}
           <div className="flex items-center justify-between">
             <span className="text-base font-semibold">Total</span>
             <span className="text-base font-semibold text-primary">
               {pesos(total)}
             </span>
           </div>
-
           <Separator className="my-1.5" />
-
-          {/* Anticipo / Saldo */}
           <div className="grid gap-1.5 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Anticipo (50%)</span>
-              {pesos(deposit)}
+              {pesos(total * 0.5)}
             </div>
           </div>
         </CardContent>

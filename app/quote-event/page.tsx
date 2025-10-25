@@ -1,6 +1,6 @@
 "use client";
 
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import {
   EventDetailsStep,
@@ -12,14 +12,6 @@ import {
   StickySummary,
   SummaryStep,
 } from "@/components/quote-event";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import {
   CART_RENTAL_PRICE,
   EVENT_TYPES,
@@ -31,7 +23,6 @@ import {
 } from "@/lib/constants/quote-event-constants";
 import { createDefaultEvent } from "@/lib/schemas/event-details";
 import { pesos } from "@/lib/utils/quote-event-utils";
-import { ShoppingCart } from "lucide-react";
 import { useCallback, useMemo, useRef, useState } from "react";
 
 export default function QuoteEventPage() {
@@ -51,9 +42,7 @@ export default function QuoteEventPage() {
     event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
   const subtotalExtras = event.withCart ? CART_RENTAL_PRICE : 0;
 
-  const subtotal = subtotalProducts + subtotalExtras;
-  const total = subtotal;
-  const deposit = Math.round(total * 0.5);
+  const total = subtotalProducts + subtotalExtras;
 
   // Guards & validation helpers
   const step2Valid =
@@ -117,12 +106,11 @@ export default function QuoteEventPage() {
       event.withCart
         ? `• Carrito: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
-      `Subtotal: ${pesos(subtotal)}`,
       `Total: ${pesos(total)}`,
-      `Anticipo 50%: ${pesos(deposit)}`,
+      `Anticipo 50%: ${pesos(total * 0.5)}`,
     ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
-  }, [event, subtotal, total, deposit]);
+  }, [event, total]);
 
   // Simple submit handler (replace with API route integration)
   function handleSubmit() {
@@ -132,8 +120,6 @@ export default function QuoteEventPage() {
         ...event,
         // Add timestamp
         createdAt: new Date(),
-        deposit,
-        subtotal,
         subtotalExtras,
         // Add calculated fields
         subtotalProducts,
@@ -148,9 +134,6 @@ export default function QuoteEventPage() {
       alert("Error al procesar la cotización. Intenta de nuevo.");
     }
   }
-
-  // Responsive summary: sheet on mobile
-  const [openSummary, setOpenSummary] = useState(false);
 
   return (
     <div
@@ -203,11 +186,9 @@ export default function QuoteEventPage() {
 
         {step === 3 && (
           <SummaryStep
-            deposit={deposit}
             event={event}
             onPrev={handlePrev}
             onSubmit={handleSubmit}
-            subtotal={subtotal}
             total={total}
             whatsAppMessage={whatsAppMessage}
           />
@@ -224,50 +205,8 @@ export default function QuoteEventPage() {
           lg:block
         `}
       >
-        <StickySummary deposit={deposit} event={event} subtotal={subtotal} />
+        <StickySummary event={event} total={total} />
       </aside>
-
-      {/* Mobile summary trigger */}
-      <div
-        className={`
-          fixed inset-x-0 bottom-0 z-30 bg-background/80 backdrop-blur
-          supports-[backdrop-filter]:bg-background/60
-          lg:hidden
-        `}
-      >
-        <div
-          className={`
-            mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3
-          `}
-        >
-          <div className="text-sm">
-            <div className="font-medium">Total actual</div>
-            <div className="text-lg font-bold">{pesos(total)}</div>
-          </div>
-          <Sheet onOpenChange={setOpenSummary} open={openSummary}>
-            <SheetTrigger asChild>
-              <Button className="gap-2">
-                <ShoppingCart className="h-4 w-4" /> Ver resumen
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              className="max-h-[85vh] overflow-y-auto"
-              side="bottom"
-            >
-              <SheetHeader>
-                <SheetTitle>Resumen de tu cotización</SheetTitle>
-              </SheetHeader>
-              <div className="py-4">
-                <StickySummary
-                  deposit={deposit}
-                  event={event}
-                  subtotal={subtotal}
-                />
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
     </div>
   );
 }

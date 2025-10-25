@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 // Example Firestore utility functions for the Event model
 // You'll need to install and configure Firebase/Firestore first
@@ -15,8 +15,6 @@ export const prepareEventForFirestore = (event: Event) => {
 
     // Add metadata
     createdAt: new Date(), // Will be converted to Timestamp by Firestore
-    deposit: event.deposit || 0,
-    subtotal: event.subtotal || 0,
     subtotalExtras: event.subtotalExtras || 0,
     // Add calculated fields if not already present
     subtotalProducts: event.subtotalProducts || 0,

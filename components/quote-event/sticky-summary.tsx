@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/types/quote-event-types";
+import type { Event } from "@/lib/types/event";
 
 import {
   Card,
@@ -26,16 +26,11 @@ import {
 } from "lucide-react";
 
 interface StickySummaryProps {
-  deposit: number;
   event: Event;
-  subtotal: number;
+  total: number;
 }
 
-export function StickySummary({
-  deposit,
-  event,
-  subtotal,
-}: StickySummaryProps) {
+export function StickySummary({ event, total }: StickySummaryProps) {
   const eventTypeLabel = EVENT_TYPES.find((t) => t.id === event.type)?.label;
 
   const formatDate = (d?: Date | string) => {
@@ -154,7 +149,7 @@ export function StickySummary({
                   Total
                 </span>
                 <span className="font-semibold text-primary">
-                  {pesos(subtotal)}
+                  {pesos(total)}
                 </span>
               </div>
             </div>
