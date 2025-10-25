@@ -60,7 +60,7 @@ export function DataTable<T>({
               `}
             />
             <Input
-              className="pl-10"
+              className="border-input bg-background pl-10"
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
               value={searchTerm}
@@ -70,12 +70,23 @@ export function DataTable<T>({
       </div>
 
       {/* Table */}
-      <div className="rounded-md border">
+      <div
+        className={`
+          overflow-hidden rounded-lg border border-border bg-background
+          shadow-sm
+        `}
+      >
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow
+              className={`
+                border-b border-border bg-muted/50
+                hover:bg-muted/50
+              `}
+            >
               {columns.map((column) => (
                 <TableHead
+                  className="font-semibold text-foreground"
                   key={column.key}
                   style={{
                     textAlign: column.align,
@@ -89,9 +100,11 @@ export function DataTable<T>({
           </TableHeader>
           <TableBody>
             {data.length === 0 ? (
-              <TableRow>
+              <TableRow className="hover:bg-transparent">
                 <TableCell
-                  className="py-8 text-center text-muted-foreground"
+                  className={`
+                    bg-background py-12 text-center text-muted-foreground
+                  `}
                   colSpan={columns.length}
                 >
                   {emptyMessage}
@@ -118,9 +131,15 @@ export function DataTable<T>({
 
                 return (
                   <React.Fragment key={rowKey}>
-                    <TableRow>
+                    <TableRow
+                      className={`
+                      border-b border-border/50 bg-background transition-colors
+                      hover:bg-muted/30
+                    `}
+                    >
                       {columns.map((column) => (
                         <TableCell
+                          className="text-foreground"
                           key={column.key}
                           style={{
                             textAlign: column.align,
@@ -138,7 +157,11 @@ export function DataTable<T>({
                     {hasExpandableContent && isExpanded && expandedContent && (
                       <TableRow>
                         <TableCell className="p-0" colSpan={columns.length}>
-                          <div className="border-t bg-muted p-4">
+                          <div
+                            className={`
+                            border-t border-border bg-muted/20 p-6
+                          `}
+                          >
                             {expandedContent(item)}
                           </div>
                         </TableCell>

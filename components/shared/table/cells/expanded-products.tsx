@@ -10,17 +10,19 @@ interface ExpandedProductsProps {
 
 export function ExpandedProducts({ items }: ExpandedProductsProps) {
   return (
-    <div className="space-y-6">
+    <div
+      className={`space-y-4 rounded-lg border border-border/30 bg-background/50`}
+    >
       {items.map((item, itemIndex) => (
-        <Card className="shadow-sm" key={itemIndex}>
+        <Card className="border-border bg-background shadow-sm" key={itemIndex}>
           <CardContent className="p-4">
             {/* Box Header */}
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
                   className={`
-                    flex h-8 w-8 items-center justify-center rounded-full
-                    bg-primary/10
+                    flex h-8 w-8 items-center justify-center rounded-full border
+                    border-primary/20 bg-primary/15
                   `}
                 >
                   <span className="text-sm font-semibold text-primary">
@@ -31,12 +33,18 @@ export function ExpandedProducts({ items }: ExpandedProductsProps) {
                   {item.boxType.name}
                 </h4>
               </div>
-              <Badge className="text-sm font-medium" variant="secondary">
+              <Badge
+                className={`
+                  border-primary/20 bg-primary/10 text-sm font-medium
+                  text-primary
+                `}
+                variant="secondary"
+              >
                 ${item.totalPrice.toFixed(2)}
               </Badge>
             </div>
 
-            <Separator className="mb-4" />
+            <Separator className="mb-4 bg-border/50" />
 
             {/* Brigadeiros Grid */}
             <div
@@ -50,8 +58,10 @@ export function ExpandedProducts({ items }: ExpandedProductsProps) {
               {item.brigadeiros.map((brigadeiro, brigIndex) => (
                 <div
                   className={`
-                    group relative overflow-hidden rounded-lg border bg-card p-3
-                    transition-all duration-200
+                    group relative overflow-hidden rounded-lg border
+                    border-border/60 bg-background/80 p-3 transition-all
+                    duration-200
+                    hover:border-border hover:bg-muted/30 hover:shadow-sm
                   `}
                   key={brigIndex}
                 >
@@ -59,14 +69,17 @@ export function ExpandedProducts({ items }: ExpandedProductsProps) {
                     <div className="min-w-0 flex-1">
                       <p
                         className={`
-                          truncate text-sm font-medium text-card-foreground
+                          truncate text-sm font-medium text-foreground
                         `}
                       >
                         {brigadeiro.name}
                       </p>
                     </div>
                     <Badge
-                      className="shrink-0 text-xs font-semibold"
+                      className={`
+                        shrink-0 border-border/50 bg-muted/50 text-xs
+                        font-semibold text-foreground
+                      `}
                       variant="outline"
                     >
                       ×{brigadeiro.quantity}
