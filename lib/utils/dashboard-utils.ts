@@ -116,3 +116,42 @@ export function calculateEventStats(events: Event[]) {
     totalRevenue,
   };
 }
+
+export interface BrigadeiroStats {
+  id: string;
+  name: string;
+  totalQuantity: number;
+  orderCount: number;
+}
+
+export function getMostRequestedBrigadeiros(
+  orders: Order[],
+  limit = 5,
+): BrigadeiroStats[] {
+  const brigadeiroStats = new Map<string, BrigadeiroStats>();
+
+  // Count brigadeiros from all orders
+  for (const order of orders) {
+    for (const item of order.items) {
+      for (const brigadeiro of item.brigadeiros) {
+        const existing = brigadeiroStats.get(brigadeiro.id);
+        if (existing) {
+          existing.totalQuantity += brigadeiro.quantity;
+          existing.orderCount += 1;
+        } else {
+          brigadeiroStats.set(brigadeiro.id, {
+            id: brigadeiro.id,
+            name: brigadeiro.name,
+            totalQuantity: brigadeiro.quantity,
+            orderCount: 1,
+          });
+        }
+      }
+    }
+  }
+
+  // Convert to array and sort by total quantity
+  return Array.from(brigadeiroStats.values())
+    .sort((a, b) => b.totalQuantity - a.totalQuantity)
+    .slice(0, limit);
+}

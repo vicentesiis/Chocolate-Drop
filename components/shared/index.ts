@@ -6,6 +6,7 @@ export { ConditionalNavbar } from "./conditional-navbar";
 export { StatsCard } from "./stats-card";
 export { DateFilter, getDateRange, type DateFilterOption } from "./date-filter";
 export { StatusPieChart } from "./status-pie-chart";
+export { TopBrigadeiros } from "./top-brigadeiros";
 
 // Form components
 export { FormFieldInput, FormFieldToggleGroup } from "./forms/form-input";

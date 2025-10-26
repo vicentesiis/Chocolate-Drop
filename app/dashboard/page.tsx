@@ -8,6 +8,7 @@ import {
   type DateFilterOption,
   StatsCard,
   StatusPieChart,
+  TopBrigadeiros,
 } from "@/components/shared";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { eventService } from "@/lib/services/event-service";
@@ -17,6 +18,7 @@ import {
   calculateOrderStats,
   filterDataByDate,
   getEventStatusData,
+  getMostRequestedBrigadeiros,
   getOrderStatusData,
 } from "@/lib/utils/dashboard-utils";
 import {
@@ -46,6 +48,12 @@ export default function DashboardHome() {
   // Chart data
   const orderStatusData = getOrderStatusData(filteredOrders);
   const eventStatusData = getEventStatusData(filteredEvents);
+
+  // Most requested brigadeiros
+  const mostRequestedBrigadeiros = getMostRequestedBrigadeiros(
+    filteredOrders,
+    5,
+  );
 
   // Unique customers
   const uniqueCustomers = new Set([
@@ -161,15 +169,30 @@ export default function DashboardHome() {
             />
           </div>
 
-          {/* Order Status Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Estado de Órdenes</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <StatusPieChart className="w-full" data={orderStatusData} />
-            </CardContent>
-          </Card>
+          {/* Order Status Chart and Top Brigadeiros */}
+          <div
+            className={`
+              grid grid-cols-1 gap-6
+              lg:grid-cols-2
+            `}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle>Estado de Órdenes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <StatusPieChart
+                  className="w-full"
+                  data={orderStatusData}
+                  legendPosition="bottom"
+                  size="sm"
+                  title="Ordenes"
+                />
+              </CardContent>
+            </Card>
+
+            <TopBrigadeiros brigadeiros={mostRequestedBrigadeiros} />
+          </div>
         </div>
 
         {/* Events Section */}
