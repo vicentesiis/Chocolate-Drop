@@ -31,7 +31,9 @@ interface StickySummaryProps {
 }
 
 export function StickySummary({ event, total }: StickySummaryProps) {
-  const eventTypeLabel = EVENT_TYPES.find((t) => t.id === event.type)?.label;
+  const eventTypeLabel = EVENT_TYPES.find(
+    (t) => t.id === event.details.type,
+  )?.label;
 
   const formatDate = (d?: Date | string) => {
     if (!d) return "-";
@@ -70,16 +72,18 @@ export function StickySummary({ event, total }: StickySummaryProps) {
               </div>
               <div className="text-muted-foreground">
                 <div className="space-y-1">
-                  {event.date ? (
+                  {event.details.date ? (
                     <div className="ml-2 space-y-1">
                       <div className="flex items-center gap-2">
                         <MapPin className="h-3.5 w-3.5" />
-                        <span className="text-foreground">{event.city} </span>
+                        <span className="text-foreground">
+                          {event.details.city}{" "}
+                        </span>
                       </div>
                       <div className={`flex items-center gap-2`}>
                         <Calendar className="h-3.5 w-3.5" />
                         <span className="text-foreground">
-                          {formatDate(event.date)}{" "}
+                          {formatDate(event.details.date)}{" "}
                         </span>
                       </div>
                       <div className={`flex items-center gap-2`}>
@@ -105,31 +109,36 @@ export function StickySummary({ event, total }: StickySummaryProps) {
                 Tu selección
               </div>
 
-              {event.qtyPastelitos > 0 ? (
+              {event.products.qtyPastelitos > 0 ? (
                 <div className="ml-2 flex items-center justify-between">
-                  <span>Pastelitos x {event.qtyPastelitos}</span>
+                  <span>Pastelitos x {event.products.qtyPastelitos}</span>
                   <span className="font-medium">
-                    {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
+                    {pesos(
+                      event.products.qtyPastelitos * UNIT_PRICE_PASTELITOS,
+                    )}
                   </span>
                 </div>
               ) : null}
 
-              {event.qtyBrigadeiros > 0 ? (
+              {event.products.qtyBrigadeiros > 0 ? (
                 <div className="ml-2 flex items-center justify-between">
-                  <span>Brigadeiros x {event.qtyBrigadeiros}</span>
+                  <span>Brigadeiros x {event.products.qtyBrigadeiros}</span>
                   <span className="font-medium">
-                    {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
+                    {pesos(
+                      event.products.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS,
+                    )}
                   </span>
                 </div>
               ) : null}
 
-              {event.qtyPastelitos === 0 && event.qtyBrigadeiros === 0 && (
-                <div className="ml-2 text-muted-foreground">
-                  Agrega cantidades para ver aquí.
-                </div>
-              )}
+              {event.products.qtyPastelitos === 0 &&
+                event.products.qtyBrigadeiros === 0 && (
+                  <div className="ml-2 text-muted-foreground">
+                    Agrega productos para ver aquí.
+                  </div>
+                )}
 
-              {event.withCart && (
+              {event.products.withCart && (
                 <div className="ml-2 flex items-center justify-between">
                   <span>Carrito de postres ({SERVICE_HOURS}h)</span>
                   <span className="font-medium">

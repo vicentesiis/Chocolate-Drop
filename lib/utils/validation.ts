@@ -2,16 +2,14 @@
  * Validation utilities for data integrity
  */
 
+import { OrderStatus } from "@/lib/constants/order-constants";
 import type { CartItem } from "@/lib/types/cart";
-import type { CustomerInfo } from "@/lib/types/customer";
-import type { OrderStatus } from "@/lib/types/order";
-
-import { OrderStatus as OrderStatusEnum } from "@/lib/constants/order-constants";
+import type { Customer } from "@/lib/types/customer";
 
 /**
  * Validates customer information
  */
-export const validateCustomerInfo = (customer: CustomerInfo): string[] => {
+export const validateCustomer = (customer: Customer): string[] => {
   const errors: string[] = [];
 
   if (!customer.name?.trim()) {
@@ -84,12 +82,12 @@ export const validateOrderTotal = (
  */
 export const validateOrderStatus = (status: string): status is OrderStatus => {
   const validStatuses: OrderStatus[] = [
-    OrderStatusEnum.CANCELLED,
-    OrderStatusEnum.CONFIRMED,
-    OrderStatusEnum.DELIVERED,
-    OrderStatusEnum.PENDING,
-    OrderStatusEnum.PREPARING,
-    OrderStatusEnum.READY,
+    OrderStatus.CANCELLED,
+    OrderStatus.CONFIRMED,
+    OrderStatus.DELIVERED,
+    OrderStatus.PENDING,
+    OrderStatus.PREPARING,
+    OrderStatus.READY,
   ];
 
   return validStatuses.includes(status as OrderStatus);
@@ -99,12 +97,12 @@ export const validateOrderStatus = (status: string): status is OrderStatus => {
  * Validates complete order data
  */
 export const validateOrderData = (
-  customer: CustomerInfo,
+  customer: Customer,
   items: CartItem[],
   total: number,
 ): string[] => {
   return [
-    ...validateCustomerInfo(customer),
+    ...validateCustomer(customer),
     ...validateCartItems(items),
     ...validateOrderTotal(total, items),
   ];

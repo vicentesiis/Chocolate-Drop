@@ -6,7 +6,7 @@
  */
 
 import type { CartItem } from "@/lib/types/cart";
-import type { CustomerInfo } from "@/lib/types/customer";
+import type { Customer } from "@/lib/types/customer";
 
 import { orderBy } from "firebase/firestore";
 
@@ -28,10 +28,9 @@ class OrderService extends BaseFirestoreService<Order> {
    * Creates a new order with generated order number
    */
   async createOrder(
-    customer: CustomerInfo,
+    customer: Customer,
     items: CartItem[],
     total: number,
-    notes?: string,
   ): Promise<string> {
     // Validate order data
     const validationErrors = validateOrderData(customer, items, total);
@@ -44,7 +43,6 @@ class OrderService extends BaseFirestoreService<Order> {
     const orderData: Omit<Order, "createdAt" | "id" | "updatedAt"> = {
       customer,
       items,
-      notes,
       orderNumber,
       status: "pending",
       total,
@@ -113,13 +111,6 @@ class OrderService extends BaseFirestoreService<Order> {
    */
   async searchByOrderNumber(orderNumber: string): Promise<null | Order> {
     return this.getById(orderNumber.toUpperCase());
-  }
-
-  /**
-   * Updates order notes
-   */
-  async updateOrderNotes(orderNumber: string, notes: string): Promise<void> {
-    await this.update(orderNumber, { notes });
   }
 
   /**

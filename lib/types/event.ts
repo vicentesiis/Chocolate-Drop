@@ -1,13 +1,27 @@
-export interface Event {
+import type { BaseEntity } from "@/lib/services/base-firestore-service";
+import type { Customer } from "@/lib/types/customer";
+
+export interface EventDetails {
   city: string;
   date?: Date;
-  name: string;
-  phone: string;
+  type: string;
+}
+
+export interface EventProducts {
   qtyBrigadeiros: number;
   qtyPastelitos: number;
+  withCart: boolean;
+}
+
+export interface EventTotals {
   subtotalExtras?: number;
   subtotalProducts?: number;
   total?: number;
-  type: string;
-  withCart: boolean;
+}
+
+export interface Event extends BaseEntity {
+  customer: Customer;
+  details: EventDetails;
+  products: EventProducts;
+  totals: EventTotals;
 }

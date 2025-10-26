@@ -27,7 +27,7 @@ interface SummaryDetailsProps {
 
 export function SummaryDetails({ event, total }: SummaryDetailsProps) {
   const eventTypeLabel =
-    EVENT_TYPES.find((t) => t.id === event.type)?.label ?? "-";
+    EVENT_TYPES.find((t) => t.id === event.details.type)?.label ?? "-";
 
   const formatDate = (d?: Date | string) => {
     if (!d) return "-";
@@ -53,14 +53,14 @@ export function SummaryDetails({ event, total }: SummaryDetailsProps) {
             <Calendar className="h-3.5 w-3.5" />
             <span>Fecha:</span>
             <span className="font-medium text-foreground">
-              {formatDate(event.date)}
+              {formatDate(event.details.date)}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="h-3.5 w-3.5" />
             <span>Ciudad:</span>
             <span className="font-medium text-foreground">
-              {event.city || "-"}
+              {event.details.city || "-"}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -82,33 +82,33 @@ export function SummaryDetails({ event, total }: SummaryDetailsProps) {
           </div>
         </CardHeader>
         <CardContent className="grid gap-2">
-          {event.qtyPastelitos > 0 && (
+          {event.products.qtyPastelitos > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
                 Mini pastelitos gourmet
                 <Badge className="ml-2 px-2" variant={"outline"}>
-                  x {event.qtyPastelitos}
+                  x {event.products.qtyPastelitos}
                 </Badge>
               </span>
               <span className="font-medium">
-                {pesos(event.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
+                {pesos(event.products.qtyPastelitos * UNIT_PRICE_PASTELITOS)}
               </span>
             </div>
           )}
-          {event.qtyBrigadeiros > 0 && (
+          {event.products.qtyBrigadeiros > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
                 Brigadeiros gourmet
                 <Badge className="ml-2 px-2" variant={"outline"}>
-                  x {event.qtyBrigadeiros}
+                  x {event.products.qtyBrigadeiros}
                 </Badge>
               </span>
               <span className="font-medium">
-                {pesos(event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
+                {pesos(event.products.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS)}
               </span>
             </div>
           )}
-          {event.withCart && (
+          {event.products.withCart && (
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">
                 Carrito de postres ({SERVICE_HOURS}h)
@@ -117,9 +117,9 @@ export function SummaryDetails({ event, total }: SummaryDetailsProps) {
             </div>
           )}
           {/* If nothing selected, show a gentle hint */}
-          {event.qtyPastelitos <= 0 &&
-            event.qtyBrigadeiros <= 0 &&
-            !event.withCart && (
+          {event.products.qtyPastelitos <= 0 &&
+            event.products.qtyBrigadeiros <= 0 &&
+            !event.products.withCart && (
               <span className="text-sm text-muted-foreground">
                 Sin productos seleccionados.
               </span>

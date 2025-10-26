@@ -36,18 +36,21 @@ export default function QuoteEventPage() {
   const [event, setEvent] = useState<Event>(createDefaultEvent);
 
   // Derived/stateful helpers
-  const piecesTotal = event.qtyPastelitos + event.qtyBrigadeiros;
+  const piecesTotal =
+    event.products.qtyPastelitos + event.products.qtyBrigadeiros;
   const subtotalProducts =
-    event.qtyPastelitos * UNIT_PRICE_PASTELITOS +
-    event.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
-  const subtotalExtras = event.withCart ? CART_RENTAL_PRICE : 0;
+    event.products.qtyPastelitos * UNIT_PRICE_PASTELITOS +
+    event.products.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
+  const subtotalExtras = event.products.withCart ? CART_RENTAL_PRICE : 0;
 
   const total = subtotalProducts + subtotalExtras;
 
   // Guards & validation helpers
   const step2Valid =
-    (event.qtyPastelitos === 0 || event.qtyPastelitos >= MIN_PASTELITOS) &&
-    (event.qtyBrigadeiros === 0 || event.qtyBrigadeiros >= MIN_BRIGADEIROS) &&
+    (event.products.qtyPastelitos === 0 ||
+      event.products.qtyPastelitos >= MIN_PASTELITOS) &&
+    (event.products.qtyBrigadeiros === 0 ||
+      event.products.qtyBrigadeiros >= MIN_BRIGADEIROS) &&
     piecesTotal > 0;
 
   // Navigation handlers
@@ -95,15 +98,15 @@ export default function QuoteEventPage() {
   const whatsAppMessage = useMemo(() => {
     const lines = [
       `Hola, me interesa una cotización para evento:`,
-      `• Ciudad: ${event.city || "-"}`,
-      `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.type)?.label || "-"}`,
-      event.qtyPastelitos
-        ? `• Pastelitos: ${event.qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
+      `• Ciudad: ${event.details.city || "-"}`,
+      `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.details.type)?.label || "-"}`,
+      event.products.qtyPastelitos
+        ? `• Pastelitos: ${event.products.qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
         : undefined,
-      event.qtyBrigadeiros
-        ? `• Brigadeiros: ${event.qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
+      event.products.qtyBrigadeiros
+        ? `• Brigadeiros: ${event.products.qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
         : undefined,
-      event.withCart
+      event.products.withCart
         ? `• Carrito: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
         : undefined,
       `Total: ${pesos(total)}`,

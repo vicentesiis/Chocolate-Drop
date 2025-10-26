@@ -52,10 +52,17 @@ export function ExtrasStep({
               text-left transition
               hover:bg-muted/40
             `,
-            event.withCart &&
+            event.products.withCart &&
               "border-primary bg-primary/5 ring-2 ring-primary/20",
           )}
-          onClick={() => onEventChange({ withCart: !event.withCart })}
+          onClick={() =>
+            onEventChange({
+              products: {
+                ...event.products,
+                withCart: !event.products.withCart,
+              },
+            })
+          }
         >
           <div
             className={`
@@ -94,11 +101,13 @@ export function ExtrasStep({
             >
               <div className="flex items-start gap-3">
                 <Checkbox
-                  checked={event.withCart}
+                  checked={event.products.withCart}
                   className="mt-1 shrink-0"
                   id="withCart"
                   onCheckedChange={(checked) =>
-                    onEventChange({ withCart: !!checked })
+                    onEventChange({
+                      products: { ...event.products, withCart: !!checked },
+                    })
                   }
                   onClick={(e) => e.stopPropagation()}
                 />

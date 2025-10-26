@@ -2,6 +2,37 @@ import type { Event } from "@/lib/types/event";
 
 import { z } from "zod";
 
+// Customer schema for reuse
+const customerSchema = z.object({
+  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  phone: z
+    .string()
+    .min(10, "El teléfono debe tener 10 dígitos")
+    .max(10, "El teléfono debe tener 10 dígitos")
+    .regex(/^\d+$/, "El teléfono solo debe contener números"),
+});
+
+// Event details schema
+const eventDetailsSchema = z.object({
+  city: z.string().min(1, "Selecciona una ciudad"),
+  date: z.date().optional(),
+  type: z.string().min(1, "Selecciona un tipo de evento"),
+});
+
+// Event products schema
+const eventProductsSchema = z.object({
+  qtyBrigadeiros: z.number().min(0),
+  qtyPastelitos: z.number().min(0),
+  withCart: z.boolean(),
+});
+
+// Event totals schema
+const eventTotalsSchema = z.object({
+  subtotalExtras: z.number().optional(),
+  subtotalProducts: z.number().optional(),
+  total: z.number().optional(),
+});
+
 // Schema for form input (date as string)
 export const eventDetailsFormSchema = z.object({
   city: z.string().min(1, "Selecciona una ciudad"),
@@ -16,65 +47,64 @@ export const eventDetailsFormSchema = z.object({
 });
 
 // Schema for processed data (date as Date object)
-export const eventDetailsSchema = z.object({
-  city: z.string().min(1, "Selecciona una ciudad"),
-  date: z.date().optional(),
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  phone: z
-    .string()
-    .min(10, "El teléfono debe tener 10 dígitos")
-    .max(10, "El teléfono debe tener 10 dígitos")
-    .regex(/^\d+$/, "El teléfono solo debe contener números"),
-  type: z.string().min(1, "Selecciona un tipo de evento"),
+export const eventDetailsProcessedSchema = z.object({
+  customer: customerSchema,
+  details: eventDetailsSchema,
 });
 
 export const eventSchema = z.object({
-  // Event details
-  city: z.string().min(1, "Selecciona una ciudad"),
-  date: z.date().optional(),
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  phone: z
-    .string()
-    .min(10, "El teléfono debe tener 10 dígitos")
-    .max(10, "El teléfono debe tener 10 dígitos")
-    .regex(/^\d+$/, "El teléfono solo debe contener números"),
-
-  qtyBrigadeiros: z.number().min(0),
-  // Product quantities
-  qtyPastelitos: z.number().min(0),
-
-  subtotalExtras: z.number().optional(),
-  // Optional calculated fields
-  subtotalProducts: z.number().optional(),
-  total: z.number().optional(),
-  type: z.string().min(1, "Selecciona un tipo de evento"),
-  // Extras
-  withCart: z.boolean(),
+  customer: customerSchema,
+  details: eventDetailsSchema,
+  products: eventProductsSchema,
+  totals: eventTotalsSchema,
 });
 
 export type EventDetailsFormData = z.infer<typeof eventDetailsFormSchema>;
-export type EventDetailsData = z.infer<typeof eventDetailsSchema>;
+export type EventDetailsProcessedData = z.infer<
+  typeof eventDetailsProcessedSchema
+>;
 export type EventFormData = z.infer<typeof eventSchema>;
 
 // Helper function to create a new Event with default values
 export const createDefaultEvent = (): Event => ({
-  city: "Monterrey",
-  date: undefined,
-  name: "",
-  phone: "",
-  qtyBrigadeiros: 0,
-  qtyPastelitos: 0,
-  type: "social",
-  withCart: false,
+  createdAt: new Date(),
+  customer: {
+    name: "",
+    phone: "",
+  },
+  details: {
+    city: "Monterrey",
+    date: undefined,
+    type: "social",
+  },
+  id: undefined,
+  products: {
+    qtyBrigadeiros: 0,
+    qtyPastelitos: 0,
+    withCart: false,
+  },
+  totals: {
+    subtotalExtras: undefined,
+    subtotalProducts: undefined,
+    total: undefined,
+  },
+  updatedAt: new Date(),
 });
 
 // Helper function to transform form data to processed data
 export const transformEventDetailsFormData = (
   formData: EventDetailsFormData,
-): EventDetailsData => {
+): EventDetailsProcessedData => {
   return {
-    ...formData,
-    date: formData.date ? new Date(formData.date) : undefined,
+    customer: {
+      name: formData.name,
+      phone: formData.phone,
+    },
+    details: {
+      city: formData.city,
+      date: formData.date ? new Date(formData.date) : undefined,
+      type: formData.type,
+    },
   };
 };
 

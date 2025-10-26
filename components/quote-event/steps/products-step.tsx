@@ -66,18 +66,26 @@ export function ProductsStep({
         <ProductQtyCard
           imageSrc="/mini-cakes/cake.jpeg"
           min={MIN_PASTELITOS}
-          setValue={(qty) => onEventChange({ qtyPastelitos: qty })}
+          setValue={(qty) =>
+            onEventChange({
+              products: { ...event.products, qtyPastelitos: qty },
+            })
+          }
           subtitle={`$${UNIT_PRICE_PASTELITOS} c/u`}
           title="Mini pastelitos gourmet"
-          value={event.qtyPastelitos}
+          value={event.products.qtyPastelitos}
         />
         <ProductQtyCard
           imageSrc="/hero.jpg"
           min={MIN_BRIGADEIROS}
-          setValue={(qty) => onEventChange({ qtyBrigadeiros: qty })}
+          setValue={(qty) =>
+            onEventChange({
+              products: { ...event.products, qtyBrigadeiros: qty },
+            })
+          }
           subtitle={`$${UNIT_PRICE_BRIGADEIROS} c/u`}
           title="Brigadeiros gourmet"
-          value={event.qtyBrigadeiros}
+          value={event.products.qtyBrigadeiros}
         />
 
         <div className="md:col-span-2">

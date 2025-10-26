@@ -1,19 +1,12 @@
-import type { CartItem } from "@/lib/types/cart";
-import type { CustomerInfo } from "@/lib/types/customer";
 import type { BaseEntity } from "@/lib/services/base-firestore-service";
+import type { CartItem } from "@/lib/types/cart";
+import type { Customer } from "@/lib/types/customer";
 
-export type OrderStatus =
-  | "cancelled"
-  | "confirmed"
-  | "delivered"
-  | "pending"
-  | "preparing"
-  | "ready";
+import type { OrderStatus } from "../constants/order-constants";
 
 export interface Order extends BaseEntity {
-  customer: CustomerInfo;
+  customer: Customer;
   items: CartItem[];
-  notes?: string;
   orderNumber: string;
   status: OrderStatus;
   total: number;

@@ -45,11 +45,11 @@ export function EventDetailsStep({
   const { form, isCityValid, isDateValid, isNameValid, isPhoneValid, isValid } =
     useEventDetailsForm({
       defaultValues: {
-        city: event.city,
+        city: event.details.city,
         date: "",
-        name: event.name,
-        phone: event.phone,
-        type: event.type,
+        name: event.customer.name,
+        phone: event.customer.phone,
+        type: event.details.type,
       },
       onSubmit: () => {
         handleNext();
@@ -57,17 +57,25 @@ export function EventDetailsStep({
     });
 
   const handleFieldChange = useCallback(
-    (field: keyof Event, value: null | number | string) => {
+    (field: string, value: null | number | string) => {
       if (field === "date" && typeof value === "string") {
         // Create a local date to avoid timezone issues
         const [year, month, day] = value.split("-").map(Number);
         const localDate = new Date(year, month - 1, day);
-        onEventChange({ [field]: localDate });
-      } else {
-        onEventChange({ [field]: value });
+        onEventChange({
+          details: { ...event.details, date: localDate },
+        });
+      } else if (field === "name" || field === "phone") {
+        onEventChange({
+          customer: { ...event.customer, [field]: value },
+        });
+      } else if (field === "city" || field === "type") {
+        onEventChange({
+          details: { ...event.details, [field]: value },
+        });
       }
     },
-    [onEventChange],
+    [onEventChange, event.details, event.customer],
   );
 
   const handleNext = () => {
@@ -95,10 +103,7 @@ export function EventDetailsStep({
     <Card className="bg-background shadow-lg">
       <CardHeader>
         <CardTitle>1) Datos del evento</CardTitle>
-        <CardDescription>
-          Cuéntanos lo básico para poder sugerirte cantidades y presentación.
-          También necesitamos tus datos de contacto para enviarte la cotización.
-        </CardDescription>
+        <CardDescription>Cuéntanos lo esencial para tu evento.</CardDescription>
       </CardHeader>
       <CardContent
         className={`
