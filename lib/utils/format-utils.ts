@@ -1,6 +1,18 @@
 // Default format for Mexico with time
-export const formatDate = (date: Date | string) => {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
+export const formatDate = (date: Date | string | any) => {
+  let dateObj: Date;
+
+  if (typeof date === "string") {
+    dateObj = new Date(date);
+  } else if (date && typeof date.toDate === "function") {
+    // Handle Firestore Timestamp
+    dateObj = date.toDate();
+  } else if (date instanceof Date) {
+    dateObj = date;
+  } else {
+    return "-";
+  }
+
   if (!dateObj || Number.isNaN(dateObj.getTime())) return "-";
 
   return new Intl.DateTimeFormat("es-MX", {
@@ -14,8 +26,20 @@ export const formatDate = (date: Date | string) => {
 };
 
 // Date only format for simple date display
-export const formatDateOnly = (date: Date | string) => {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
+export const formatDateOnly = (date: Date | string | any) => {
+  let dateObj: Date;
+
+  if (typeof date === "string") {
+    dateObj = new Date(date);
+  } else if (date && typeof date.toDate === "function") {
+    // Handle Firestore Timestamp
+    dateObj = date.toDate();
+  } else if (date instanceof Date) {
+    dateObj = date;
+  } else {
+    return "-";
+  }
+
   if (!dateObj || Number.isNaN(dateObj.getTime())) return "-";
 
   return dateObj.toLocaleDateString("es-MX", {

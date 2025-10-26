@@ -66,7 +66,6 @@ export class BaseFirestoreService<T extends BaseEntity> {
   protected serializeForFirestore(
     entity: Omit<T, "createdAt" | "id" | "updatedAt">,
   ): Omit<FirestoreDocument, "id"> {
-    // Remove undefined values recursively
     const cleanEntity = this.removeUndefinedValues(entity);
 
     return {
@@ -86,6 +85,11 @@ export class BaseFirestoreService<T extends BaseEntity> {
 
     if (Array.isArray(obj)) {
       return obj.map((item) => this.removeUndefinedValues(item));
+    }
+
+    // Handle Date objects specially - they should be preserved as-is
+    if (obj instanceof Date) {
+      return obj;
     }
 
     if (typeof obj === "object") {

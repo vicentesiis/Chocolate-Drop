@@ -1,5 +1,5 @@
 import {
-  type EventDetailsData,
+  type EventDetailsProcessedData,
   type EventDetailsFormData,
   eventDetailsFormSchema,
   transformEventDetailsFormData,
@@ -15,7 +15,7 @@ interface UseEventDetailsFormProps {
     phone?: string;
     type?: string;
   };
-  onSubmit?: (data: EventDetailsData) => void;
+  onSubmit?: (data: EventDetailsProcessedData) => void;
 }
 
 export function useEventDetailsForm({

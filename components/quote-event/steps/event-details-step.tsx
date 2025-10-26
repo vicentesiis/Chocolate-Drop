@@ -46,7 +46,7 @@ export function EventDetailsStep({
     useEventDetailsForm({
       defaultValues: {
         city: event.details.city,
-        date: "",
+        date: event.details.date ? toLocalISODate(event.details.date) : "",
         name: event.customer.name,
         phone: event.customer.phone,
         type: event.details.type,
@@ -62,6 +62,7 @@ export function EventDetailsStep({
         // Create a local date to avoid timezone issues
         const [year, month, day] = value.split("-").map(Number);
         const localDate = new Date(year, month - 1, day);
+
         onEventChange({
           details: { ...event.details, date: localDate },
         });

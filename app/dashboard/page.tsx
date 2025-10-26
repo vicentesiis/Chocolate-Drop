@@ -9,6 +9,7 @@ import {
   StatsCard,
   StatusPieChart,
   TopBrigadeiros,
+  UpcomingEvents,
 } from "@/components/shared";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { eventService } from "@/lib/services/event-service";
@@ -236,15 +237,30 @@ export default function DashboardHome() {
             />
           </div>
 
-          {/* Event Status Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Estado de Eventos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <StatusPieChart className="w-full" data={eventStatusData} />
-            </CardContent>
-          </Card>
+          {/* Event Status Chart and Upcoming Events */}
+          <div
+            className={`
+              grid grid-cols-1 gap-6
+              lg:grid-cols-2
+            `}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle>Estado de Eventos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <StatusPieChart
+                  className="w-full"
+                  data={eventStatusData}
+                  legendPosition="bottom"
+                  size="sm"
+                  title="Eventos"
+                />
+              </CardContent>
+            </Card>
+
+            <UpcomingEvents events={filteredEvents} />
+          </div>
         </div>
 
         {/* General Stats */}

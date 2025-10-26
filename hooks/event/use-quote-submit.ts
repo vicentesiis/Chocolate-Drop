@@ -31,7 +31,6 @@ export function useQuoteSubmit() {
         // Submit to Firebase
         const eventNumber = await createEvent(eventWithTotals);
 
-        console.log("Event created successfully:", eventNumber);
         alert(
           `Cotización enviada exitosamente. Número de evento: ${eventNumber}`,
         );
