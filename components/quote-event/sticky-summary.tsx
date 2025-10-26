@@ -1,4 +1,5 @@
 import type { Event } from "@/lib/types/event";
+import { formatDateOnly } from "@/lib/utils/format-utils";
 
 import {
   Card,
@@ -35,19 +36,6 @@ export function StickySummary({ event, total }: StickySummaryProps) {
     (t) => t.id === event.details.type,
   )?.label;
 
-  const formatDate = (d?: Date | string) => {
-    if (!d) return "-";
-    if (d instanceof Date) {
-      // Use local date formatting to avoid timezone issues
-      return d.toLocaleDateString("es-MX", { timeZone: "America/Monterrey" });
-    }
-    // If it's a string, try to parse it as a local date
-    const parsed = new Date(d);
-    return Number.isNaN(parsed.getTime())
-      ? d
-      : parsed.toLocaleDateString("es-MX", { timeZone: "America/Monterrey" });
-  };
-
   return (
     <div className="sticky top-24">
       <Card className={cn(`overflow-hidden border shadow-lg`)}>
@@ -83,7 +71,9 @@ export function StickySummary({ event, total }: StickySummaryProps) {
                       <div className={`flex items-center gap-2`}>
                         <Calendar className="h-3.5 w-3.5" />
                         <span className="text-foreground">
-                          {formatDate(event.details.date)}{" "}
+                          {event.details.date
+                            ? formatDateOnly(event.details.date)
+                            : "-"}{" "}
                         </span>
                       </div>
                       <div className={`flex items-center gap-2`}>

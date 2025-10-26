@@ -1,4 +1,5 @@
 import type { Event } from "@/lib/types/event";
+import { formatDateOnly } from "@/lib/utils/format-utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,15 +30,6 @@ export function SummaryDetails({ event, total }: SummaryDetailsProps) {
   const eventTypeLabel =
     EVENT_TYPES.find((t) => t.id === event.details.type)?.label ?? "-";
 
-  const formatDate = (d?: Date | string) => {
-    if (!d) return "-";
-    if (d instanceof Date) return d.toLocaleDateString("es-ES");
-    const parsed = new Date(d);
-    return Number.isNaN(parsed.getTime())
-      ? d
-      : parsed.toLocaleDateString("es-ES");
-  };
-
   return (
     <div className="grid gap-3 text-[15px] leading-snug">
       {/* Detalles del evento */}
@@ -53,7 +45,7 @@ export function SummaryDetails({ event, total }: SummaryDetailsProps) {
             <Calendar className="h-3.5 w-3.5" />
             <span>Fecha:</span>
             <span className="font-medium text-foreground">
-              {formatDate(event.details.date)}
+              {event.details.date ? formatDateOnly(event.details.date) : "-"}
             </span>
           </div>
           <div className="flex items-center gap-2">

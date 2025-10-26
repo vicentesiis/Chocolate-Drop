@@ -17,11 +17,12 @@ import {
 import { Form } from "@/components/ui/form";
 import { useOrderSearch } from "@/hooks/use-order-search";
 import { statusLabels, statusVariants } from "@/lib/constants/order-constants";
-import { useForm } from "react-hook-form";
+import { formatDateWithTime } from "@/lib/utils/format-utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Calendar, Gift, Hash, ReceiptText, Search, User } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const orderSearchSchema = z.object({
   orderNumber: z.string().min(1, "El número de pedido es requerido"),
@@ -35,10 +36,10 @@ export const OrderSearchDialog = () => {
     useOrderSearch();
 
   const form = useForm<OrderSearchFormData>({
-    resolver: zodResolver(orderSearchSchema),
     defaultValues: {
       orderNumber: "",
     },
+    resolver: zodResolver(orderSearchSchema),
   });
 
   const onSearch = form.handleSubmit(async (data: OrderSearchFormData) => {
@@ -49,16 +50,6 @@ export const OrderSearchDialog = () => {
     setIsOpen(false);
     form.reset();
     clearSearch();
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("es-ES", {
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
   };
 
   return (
@@ -138,15 +129,15 @@ export const OrderSearchDialog = () => {
                 <div className="flex-1">
                   <FormFieldInput
                     control={form.control}
-                    name="orderNumber"
                     icon={Hash}
                     label="Identificador del Pedido"
-                    placeholder="Ej: ABC123DEF"
-                    required
+                    name="orderNumber"
                     onFieldChange={(value) => {
                       // Convert to uppercase as user types
                       form.setValue("orderNumber", value.toUpperCase());
                     }}
+                    placeholder="Ej: ABC123DEF"
+                    required
                   />
                 </div>
                 <div
@@ -164,8 +155,8 @@ export const OrderSearchDialog = () => {
                     icon={<Search className="h-4 w-4" />}
                     isSubmitting={isSearching}
                     loadingText="Buscando..."
-                    type="submit"
                     size="lg"
+                    type="submit"
                   >
                     Buscar
                   </SubmitButton>
@@ -198,7 +189,7 @@ export const OrderSearchDialog = () => {
                     {
                       icon: Calendar,
                       label: "Fecha de Pedido",
-                      value: formatDate(searchResult.createdAt),
+                      value: formatDateWithTime(searchResult.createdAt),
                     },
                   ]}
                 />
