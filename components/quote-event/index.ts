@@ -5,6 +5,7 @@ export { HeaderSection } from "./header-section";
 export { FeatureRow, InfoRow } from "./info-feature-rows";
 export { ProductQtyCard } from "./product-qty-card";
 export { Progress } from "./progress-indicator";
+export { QuoteStepRenderer } from "./quote-step-renderer";
 // Step components
 export { EventDetailsStep } from "./steps/event-details-step";
 export { ExtrasStep } from "./steps/extras-step";

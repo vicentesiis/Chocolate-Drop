@@ -1,137 +1,26 @@
 "use client";
 
-import type { Event } from "@/lib/types/event";
-
 import {
-  EventDetailsStep,
-  ExtrasStep,
   Faq,
   HeaderSection,
-  ProductsStep,
   Progress,
+  QuoteStepRenderer,
   StickySummary,
-  SummaryStep,
 } from "@/components/quote-event";
-import {
-  CART_RENTAL_PRICE,
-  EVENT_TYPES,
-  MIN_BRIGADEIROS,
-  MIN_PASTELITOS,
-  SERVICE_HOURS,
-  UNIT_PRICE_BRIGADEIROS,
-  UNIT_PRICE_PASTELITOS,
-} from "@/lib/constants/quote-event-constants";
-import { createDefaultEvent } from "@/lib/schemas/event-details";
-import { pesos } from "@/lib/utils/quote-event-utils";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useQuoteEvent } from "@/hooks/use-quote-event";
+import { useQuoteSubmit } from "@/hooks/use-quote-submit";
+import { useQuoteWizard } from "@/hooks/use-quote-wizard";
+import { useWhatsAppQuote } from "@/hooks/use-whatsapp-quote";
 
 export default function QuoteEventPage() {
-  // Wizard step (0–2), 3 = summary
-  const [step, setStep] = useState<number>(0);
+  // Custom hooks for separation of concerns
+  const { handleNext, handlePrev, progressRef, step } = useQuoteWizard();
 
-  // Ref for the Progress component
-  const progressRef = useRef<HTMLDivElement>(null);
+  const { event, handleEventChange, isProductsStepValid, piecesTotal, total } =
+    useQuoteEvent();
 
-  // Complete event state
-  const [event, setEvent] = useState<Event>(createDefaultEvent);
-
-  // Derived/stateful helpers
-  const piecesTotal =
-    event.products.qtyPastelitos + event.products.qtyBrigadeiros;
-  const subtotalProducts =
-    event.products.qtyPastelitos * UNIT_PRICE_PASTELITOS +
-    event.products.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
-  const subtotalExtras = event.products.withCart ? CART_RENTAL_PRICE : 0;
-
-  const total = subtotalProducts + subtotalExtras;
-
-  // Guards & validation helpers
-  const step2Valid =
-    (event.products.qtyPastelitos === 0 ||
-      event.products.qtyPastelitos >= MIN_PASTELITOS) &&
-    (event.products.qtyBrigadeiros === 0 ||
-      event.products.qtyBrigadeiros >= MIN_BRIGADEIROS) &&
-    piecesTotal > 0;
-
-  // Navigation handlers
-  function handleNext() {
-    if (step < 3) {
-      setStep((s) => s + 1);
-      scrollToProgress();
-    }
-  }
-  function handlePrev() {
-    if (step > 0) {
-      setStep((s) => s - 1);
-      scrollToProgress();
-    }
-  }
-
-  // Scroll to progress component
-  function scrollToProgress() {
-    const el = progressRef.current;
-    if (!el) return;
-
-    // Desired top gap (what your scroll-mt was doing)
-    const OFFSET = 85;
-
-    // Get current scroll + element position
-    const rect = el.getBoundingClientRect();
-    const currentY = window.pageYOffset || document.documentElement.scrollTop;
-    const targetY = Math.max(0, currentY + rect.top - OFFSET);
-
-    // Use the root scroller (Safari-safe) and avoid scrollIntoView
-    const scroller = document.scrollingElement || document.documentElement;
-
-    // Smooth, no jank with fixed bars
-    requestAnimationFrame(() => {
-      scroller.scrollTo({ behavior: "smooth", top: targetY });
-    });
-  }
-
-  // Memoized event change handler to prevent infinite loops
-  const handleEventChange = useCallback((newEvent: Partial<Event>) => {
-    setEvent((prev) => ({ ...prev, ...newEvent }));
-  }, []);
-
-  // Build a WhatsApp deep link with summary (user can send you the quote quickly)
-  const whatsAppMessage = useMemo(() => {
-    const lines = [
-      `Hola, me interesa una cotización para evento:`,
-      `• Ciudad: ${event.details.city || "-"}`,
-      `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.details.type)?.label || "-"}`,
-      event.products.qtyPastelitos
-        ? `• Pastelitos: ${event.products.qtyPastelitos} x $${UNIT_PRICE_PASTELITOS}`
-        : undefined,
-      event.products.qtyBrigadeiros
-        ? `• Brigadeiros: ${event.products.qtyBrigadeiros} x $${UNIT_PRICE_BRIGADEIROS}`
-        : undefined,
-      event.products.withCart
-        ? `• Carrito: ${pesos(CART_RENTAL_PRICE)} (${SERVICE_HOURS}h)`
-        : undefined,
-      `Total: ${pesos(total)}`,
-      `Anticipo 50%: ${pesos(total * 0.5)}`,
-    ].filter(Boolean);
-    return encodeURIComponent(lines.join("\n"));
-  }, [event, total]);
-
-  // Simple submit handler (replace with API route integration)
-  function handleSubmit() {
-    try {
-      // Prepare the complete event data for Firestore
-      const eventForFirestore = {
-        ...event,
-        createdAt: new Date(),
-      };
-
-      // Here you could POST to /api/quotes with eventForFirestore
-      console.log("Event data ready for Firestore:", eventForFirestore);
-      alert("Cotización enviada");
-    } catch (error) {
-      console.error("Error preparing event data:", error);
-      alert("Error al procesar la cotización. Intenta de nuevo.");
-    }
-  }
+  const whatsAppMessage = useWhatsAppQuote(event, total);
+  const { handleSubmit } = useQuoteSubmit();
 
   return (
     <div
@@ -153,44 +42,18 @@ export default function QuoteEventPage() {
         </div>
 
         {/* Step cards */}
-        {step === 0 && (
-          <EventDetailsStep
-            event={event}
-            onEventChange={handleEventChange}
-            onNext={handleNext}
-            onPrev={handlePrev}
-            piecesTotal={piecesTotal}
-          />
-        )}
-
-        {step === 1 && (
-          <ProductsStep
-            event={event}
-            isValid={step2Valid}
-            onEventChange={handleEventChange}
-            onNext={handleNext}
-            onPrev={handlePrev}
-          />
-        )}
-
-        {step === 2 && (
-          <ExtrasStep
-            event={event}
-            onEventChange={handleEventChange}
-            onNext={handleNext}
-            onPrev={handlePrev}
-          />
-        )}
-
-        {step === 3 && (
-          <SummaryStep
-            event={event}
-            onPrev={handlePrev}
-            onSubmit={handleSubmit}
-            total={total}
-            whatsAppMessage={whatsAppMessage}
-          />
-        )}
+        <QuoteStepRenderer
+          event={event}
+          isProductsStepValid={isProductsStepValid}
+          onEventChange={handleEventChange}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          onSubmit={() => handleSubmit(event)}
+          piecesTotal={piecesTotal}
+          step={step}
+          total={total}
+          whatsAppMessage={whatsAppMessage}
+        />
 
         {/* FAQ */}
         <Faq />
