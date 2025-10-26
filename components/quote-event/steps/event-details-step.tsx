@@ -1,4 +1,4 @@
-import type { Event, EventDetails } from "@/lib/types/event";
+import type { Event } from "@/lib/types/event";
 
 import {
   FormFieldInput,
@@ -46,7 +46,7 @@ export function EventDetailsStep({
     useEventDetailsForm({
       defaultValues: {
         city: event.city,
-        date: event.name ? event.date.toISOString().split("T")[0] : "", // Empty date for new forms
+        date: "",
         name: event.name,
         phone: event.phone,
         type: event.type,
@@ -57,9 +57,12 @@ export function EventDetailsStep({
     });
 
   const handleFieldChange = useCallback(
-    (field: keyof EventDetails, value: null | number | string) => {
+    (field: keyof Event, value: null | number | string) => {
       if (field === "date" && typeof value === "string") {
-        onEventChange({ [field]: new Date(value) });
+        // Create a local date to avoid timezone issues
+        const [year, month, day] = value.split("-").map(Number);
+        const localDate = new Date(year, month - 1, day);
+        onEventChange({ [field]: localDate });
       } else {
         onEventChange({ [field]: value });
       }
@@ -70,7 +73,10 @@ export function EventDetailsStep({
   const handleNext = () => {
     const currentDate = form.getValues("date");
     if (currentDate) {
-      const selectedDate = new Date(currentDate);
+      // Create a local date to avoid timezone issues
+      const [year, month, day] = currentDate.split("-").map(Number);
+      const selectedDate = new Date(year, month - 1, day);
+
       const yesterday = new Date();
       yesterday.setHours(0, 0, 0, 0);
       yesterday.setDate(yesterday.getDate() - 1);

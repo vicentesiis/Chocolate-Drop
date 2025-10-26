@@ -118,12 +118,7 @@ export default function QuoteEventPage() {
       // Prepare the complete event data for Firestore
       const eventForFirestore = {
         ...event,
-        // Add timestamp
         createdAt: new Date(),
-        subtotalExtras,
-        // Add calculated fields
-        subtotalProducts,
-        total,
       };
 
       // Here you could POST to /api/quotes with eventForFirestore

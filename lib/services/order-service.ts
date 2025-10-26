@@ -2,146 +2,146 @@
  * Order Service
  *
  * This service handles all Firebase operations related to orders.
- * It provides a clean API for order management operations.
+ * It extends the base Firestore service for common operations and adds order-specific functionality.
  */
 
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import type { CartItem } from "@/lib/types/cart";
+import type { CustomerInfo } from "@/lib/types/customer";
 
-import type { Order } from "../types/order";
+import { orderBy } from "firebase/firestore";
 
-import { db } from "../firebase";
+import type { Order, OrderStatus } from "../types/order";
+
 import { generateOrderNumber } from "../utils/order-utils";
+import { validateOrderData, validateOrderStatus } from "../utils/validation";
+import { BaseFirestoreService } from "./base-firestore-service";
 
 /**
- * Creates a new order in Firestore
- * @param customerInfo Customer information
- * @param items Cart items
- * @param totalPrice Order total
- * @returns Promise with order number
+ * Order service class extending base Firestore service
  */
-export const createOrder = async (
-  customer: { name: string; phone: string },
-  items: any[],
-  total: number,
-): Promise<string> => {
-  const orderNumber = generateOrderNumber();
-  const now = new Date();
+class OrderService extends BaseFirestoreService<Order> {
+  constructor() {
+    super("orders");
+  }
 
-  const orderData: Order = {
-    createdAt: now,
-    customer,
-    id: orderNumber,
-    items,
-    orderNumber,
-    status: "pending",
-    total,
-    updatedAt: now,
-  };
+  /**
+   * Creates a new order with generated order number
+   */
+  async createOrder(
+    customer: CustomerInfo,
+    items: CartItem[],
+    total: number,
+    notes?: string,
+  ): Promise<string> {
+    // Validate order data
+    const validationErrors = validateOrderData(customer, items, total);
+    if (validationErrors.length > 0) {
+      throw new Error(`Validation failed: ${validationErrors.join(", ")}`);
+    }
 
-  try {
-    // Convert dates to ISO strings for Firestore storage
-    await setDoc(doc(db, "orders", orderNumber), {
-      ...orderData,
-      createdAt: now.toISOString(),
-      updatedAt: now.toISOString(),
-    });
+    const orderNumber = generateOrderNumber();
+
+    const orderData: Omit<Order, "createdAt" | "id" | "updatedAt"> = {
+      customer,
+      items,
+      notes,
+      orderNumber,
+      status: "pending",
+      total,
+    };
+
+    // Use orderNumber as document ID for easy lookup
+    await this.create(orderData, orderNumber);
     return orderNumber;
-  } catch (error) {
-    console.error("Error creating order:", error);
-    throw new Error("Failed to create order");
   }
-};
 
-/**
- * Searches for an order by order number
- * @param orderNumber The order number to search for
- * @returns Promise with order data or null if not found
- */
-export const searchOrder = async (
-  orderNumber: string,
-): Promise<null | Order> => {
-  try {
-    const orderDoc = await getDoc(doc(db, "orders", orderNumber.toUpperCase()));
+  /**
+   * Gets all orders sorted by creation date (newest first)
+   */
+  async getAllOrdersSorted(): Promise<Order[]> {
+    return this.getAll([orderBy("createdAt", "desc")]);
+  }
 
-    if (orderDoc.exists()) {
-      const data = orderDoc.data();
-      // Convert ISO strings back to Date objects
-      return {
-        ...data,
-        createdAt: new Date(data.createdAt),
-        updatedAt: new Date(data.updatedAt),
-      } as Order;
+  /**
+   * Gets orders by customer phone
+   */
+  async getOrdersByCustomerPhone(phone: string): Promise<Order[]> {
+    return this.findBy("customer.phone", phone);
+  }
+
+  /**
+   * Gets orders by status
+   */
+  async getOrdersByStatus(status: OrderStatus): Promise<Order[]> {
+    return this.findBy("status", status);
+  }
+
+  /**
+   * Gets order statistics
+   */
+  async getOrderStats(): Promise<{
+    cancelled: number;
+    confirmed: number;
+    delivered: number;
+    pending: number;
+    preparing: number;
+    ready: number;
+    total: number;
+  }> {
+    const orders = await this.getAll();
+
+    return {
+      cancelled: orders.filter((o) => o.status === "cancelled").length,
+      confirmed: orders.filter((o) => o.status === "confirmed").length,
+      delivered: orders.filter((o) => o.status === "delivered").length,
+      pending: orders.filter((o) => o.status === "pending").length,
+      preparing: orders.filter((o) => o.status === "preparing").length,
+      ready: orders.filter((o) => o.status === "ready").length,
+      total: orders.length,
+    };
+  }
+
+  /**
+   * Gets recent orders with limit
+   */
+  async getRecentOrders(limitCount = 10): Promise<Order[]> {
+    return this.getPaginated(limitCount, [orderBy("createdAt", "desc")]);
+  }
+
+  /**
+   * Searches for an order by order number
+   */
+  async searchByOrderNumber(orderNumber: string): Promise<null | Order> {
+    return this.getById(orderNumber.toUpperCase());
+  }
+
+  /**
+   * Updates order notes
+   */
+  async updateOrderNotes(orderNumber: string, notes: string): Promise<void> {
+    await this.update(orderNumber, { notes });
+  }
+
+  /**
+   * Updates order status with validation
+   */
+  async updateOrderStatus(
+    orderNumber: string,
+    status: OrderStatus,
+  ): Promise<void> {
+    if (!validateOrderStatus(status)) {
+      throw new Error(`Invalid order status: ${status}`);
     }
-
-    return null;
-  } catch (error) {
-    console.error("Error searching order:", error);
-    throw new Error("Failed to search order");
+    await this.update(orderNumber, { status });
   }
-};
+}
 
-/**
- * Gets all orders from Firestore
- * @returns Promise with array of orders
- */
-export const getAllOrders = async (): Promise<Order[]> => {
-  try {
-    const ordersCollection = collection(db, "orders");
-    const querySnapshot = await getDocs(ordersCollection);
+// Export singleton instance
+export const orderService = new OrderService();
 
-    if (querySnapshot.empty) {
-      return [];
-    }
-
-    const orders: Order[] = [];
-    for (const docSnapshot of querySnapshot.docs) {
-      const data = docSnapshot.data();
-
-      const order = {
-        ...data,
-        createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
-        id: data.id || docSnapshot.id,
-        updatedAt: data.updatedAt ? new Date(data.updatedAt) : new Date(),
-      } as Order;
-
-      orders.push(order);
-    }
-
-    // Sort by createdAt descending (newest first)
-    orders.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-
-    return orders;
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    throw new Error("Failed to get orders");
-  }
-};
-
-/**
- * Updates an existing order status
- * @param orderNumber The order number to update
- * @param status New status
- * @returns Promise<void>
- */
-export const updateOrderStatus = async (
-  orderNumber: string,
-  status: Order["status"],
-): Promise<void> => {
-  try {
-    // Use the orderNumber as the document ID (your Firestore documents use orderNumber as the key)
-    const orderRef = doc(db, "orders", orderNumber);
-    const now = new Date();
-
-    await setDoc(
-      orderRef,
-      {
-        status,
-        updatedAt: now.toISOString(),
-      },
-      { merge: true },
-    );
-  } catch (error) {
-    console.error("Error updating order status:", error);
-    throw new Error("Failed to update order status");
-  }
-};
+// Export individual methods for backward compatibility
+export const createOrder = orderService.createOrder.bind(orderService);
+export const searchOrder = orderService.searchByOrderNumber.bind(orderService);
+export const getAllOrders = orderService.getAllOrdersSorted.bind(orderService);
+export const updateOrderStatus =
+  orderService.updateOrderStatus.bind(orderService);

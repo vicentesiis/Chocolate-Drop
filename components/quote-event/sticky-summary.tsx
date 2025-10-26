@@ -35,11 +35,15 @@ export function StickySummary({ event, total }: StickySummaryProps) {
 
   const formatDate = (d?: Date | string) => {
     if (!d) return "-";
-    if (d instanceof Date) return d.toLocaleDateString("es-ES");
+    if (d instanceof Date) {
+      // Use local date formatting to avoid timezone issues
+      return d.toLocaleDateString("es-MX", { timeZone: "America/Monterrey" });
+    }
+    // If it's a string, try to parse it as a local date
     const parsed = new Date(d);
     return Number.isNaN(parsed.getTime())
       ? d
-      : parsed.toLocaleDateString("es-ES");
+      : parsed.toLocaleDateString("es-MX", { timeZone: "America/Monterrey" });
   };
 
   return (

@@ -18,7 +18,7 @@ export const eventDetailsFormSchema = z.object({
 // Schema for processed data (date as Date object)
 export const eventDetailsSchema = z.object({
   city: z.string().min(1, "Selecciona una ciudad"),
-  date: z.date(),
+  date: z.date().optional(),
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   phone: z
     .string()
@@ -31,7 +31,7 @@ export const eventDetailsSchema = z.object({
 export const eventSchema = z.object({
   // Event details
   city: z.string().min(1, "Selecciona una ciudad"),
-  date: z.date(),
+  date: z.date().optional(),
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   phone: z
     .string()
@@ -59,7 +59,7 @@ export type EventFormData = z.infer<typeof eventSchema>;
 // Helper function to create a new Event with default values
 export const createDefaultEvent = (): Event => ({
   city: "Monterrey",
-  date: new Date(), // This will be overridden in the form with empty string
+  date: undefined,
   name: "",
   phone: "",
   qtyBrigadeiros: 0,
@@ -74,7 +74,7 @@ export const transformEventDetailsFormData = (
 ): EventDetailsData => {
   return {
     ...formData,
-    date: new Date(formData.date),
+    date: formData.date ? new Date(formData.date) : undefined,
   };
 };
 

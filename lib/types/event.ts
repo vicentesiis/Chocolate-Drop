@@ -1,7 +1,6 @@
 export interface Event {
   city: string;
-  createdAt: Date;
-  date: Date;
+  date?: Date;
   name: string;
   phone: string;
   qtyBrigadeiros: number;
