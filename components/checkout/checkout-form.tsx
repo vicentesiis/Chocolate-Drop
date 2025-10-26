@@ -3,7 +3,7 @@ import type { CustomerData } from "@/lib/schemas/customer";
 import { FormFieldInput } from "@/components/shared/forms/form-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { useCustomerForm } from "@/hooks/use-customer-form";
+import { useCustomerForm } from "@/hooks/checkout/use-customer-form";
 import { Phone, User } from "lucide-react";
 import React from "react";
 

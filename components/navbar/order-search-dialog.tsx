@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { useOrderSearch } from "@/hooks/use-order-search";
+import { useOrderSearch } from "@/hooks/order/use-order-search";
 import { statusLabels, statusVariants } from "@/lib/constants/order-constants";
 import { formatDateWithTime } from "@/lib/utils/format-utils";
 import { zodResolver } from "@hookform/resolvers/zod";

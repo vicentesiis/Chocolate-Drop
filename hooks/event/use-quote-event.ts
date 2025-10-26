@@ -40,10 +40,10 @@ export function useQuoteEvent() {
   return {
     event,
     handleEventChange,
-    piecesTotal,
-    subtotalProducts,
-    subtotalExtras,
-    total,
     isProductsStepValid,
+    piecesTotal,
+    subtotalExtras,
+    subtotalProducts,
+    total,
   };
 }

@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { useEventDetailsForm } from "@/hooks/use-event-details-form";
+import { useEventDetailsForm } from "@/hooks/event/use-event-details-form";
 import { CITIES, EVENT_TYPES } from "@/lib/constants/quote-event-constants";
 import { toLocalISODate } from "@/lib/utils/utils";
 import {

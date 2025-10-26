@@ -10,7 +10,7 @@ import {
   OrderSummary,
 } from "@/components/checkout";
 import { SubmitButton } from "@/components/shared/ui/submit-button";
-import { useCheckoutSubmit } from "@/hooks/use-checkout-submit";
+import { useCheckoutSubmit } from "@/hooks/checkout/use-checkout-submit";
 import { useCart } from "@/lib/contexts/cart-context";
 import { useCallback, useState } from "react";
 

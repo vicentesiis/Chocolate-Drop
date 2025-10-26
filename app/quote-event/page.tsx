@@ -7,10 +7,10 @@ import {
   QuoteStepRenderer,
   StickySummary,
 } from "@/components/quote-event";
-import { useQuoteEvent } from "@/hooks/use-quote-event";
-import { useQuoteSubmit } from "@/hooks/use-quote-submit";
-import { useQuoteWizard } from "@/hooks/use-quote-wizard";
-import { useWhatsAppQuote } from "@/hooks/use-whatsapp-quote";
+import { useQuoteEvent } from "@/hooks/event/use-quote-event";
+import { useQuoteSubmit } from "@/hooks/event/use-quote-submit";
+import { useQuoteWizard } from "@/hooks/event/use-quote-wizard";
+import { useWhatsAppQuote } from "@/hooks/use-whatsapp";
 
 export default function QuoteEventPage() {
   // Custom hooks for separation of concerns
