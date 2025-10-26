@@ -26,7 +26,7 @@ export default function QuoteEventPage() {
     <div
       className={`
         mx-auto grid h-full gap-6 bg-[hsl(20_60%_96%)] p-3
-        lg:grid-cols-[1fr_380px] lg:gap-8 lg:px-40 lg:py-8
+        xl:grid-cols-[1fr_380px] xl:gap-8 xl:px-40 xl:py-8
       `}
     >
       {/* Main */}
@@ -63,7 +63,7 @@ export default function QuoteEventPage() {
       <aside
         className={`
           hidden
-          lg:block
+          xl:block
         `}
       >
         <StickySummary event={event} total={total} />

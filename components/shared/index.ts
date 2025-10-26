@@ -14,4 +14,5 @@ export {
   PriceCell,
   StatusCell,
   DateCell,
+  EventStatusCell,
 } from "./table/cells";

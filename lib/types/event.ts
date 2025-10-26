@@ -18,7 +18,7 @@ export interface EventProducts {
 export interface EventTotals {
   subtotalExtras?: number;
   subtotalProducts?: number;
-  total?: number;
+  total: number;
 }
 
 export interface Event extends BaseEntity {
