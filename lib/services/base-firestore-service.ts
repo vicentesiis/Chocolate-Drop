@@ -66,11 +66,39 @@ export class BaseFirestoreService<T extends BaseEntity> {
   protected serializeForFirestore(
     entity: Omit<T, "createdAt" | "id" | "updatedAt">,
   ): Omit<FirestoreDocument, "id"> {
+    // Remove undefined values recursively
+    const cleanEntity = this.removeUndefinedValues(entity);
+
     return {
-      ...entity,
+      ...cleanEntity,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
+  }
+
+  /**
+   * Recursively removes undefined values from an object
+   */
+  private removeUndefinedValues(obj: any): any {
+    if (obj === null || obj === undefined) {
+      return obj;
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.removeUndefinedValues(item));
+    }
+
+    if (typeof obj === "object") {
+      const cleaned: any = {};
+      for (const [key, value] of Object.entries(obj)) {
+        if (value !== undefined) {
+          cleaned[key] = this.removeUndefinedValues(value);
+        }
+      }
+      return cleaned;
+    }
+
+    return obj;
   }
 
   /**

@@ -41,14 +41,14 @@ class EventService extends BaseFirestoreService<Event> {
   async createEvent(
     eventData: Omit<Event, "createdAt" | "id" | "status" | "updatedAt">,
   ): Promise<string> {
-    // Add default status if not provided
+    // Generate event number
+    const eventNumber = generateEventNumber();
+
+    // Add default status
     const eventWithStatus: Omit<Event, "createdAt" | "id" | "updatedAt"> = {
       ...eventData,
       status: EventStatus.LEAD,
     };
-
-    // Generate event number
-    const eventNumber = generateEventNumber();
 
     // Create the event with event number as document ID
     await this.create(eventWithStatus, eventNumber);
