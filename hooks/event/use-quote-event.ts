@@ -1,14 +1,12 @@
 import type { Event } from "@/lib/types/event";
 
-import {
-  CART_RENTAL_PRICE,
-  MIN_BRIGADEIROS,
-  MIN_PASTELITOS,
-  UNIT_PRICE_BRIGADEIROS,
-  UNIT_PRICE_PASTELITOS,
-} from "@/lib/constants/quote-event-constants";
 import { createDefaultEvent } from "@/lib/schemas/event-details";
-import { useCallback, useState } from "react";
+import {
+  calculateEventTotals,
+  calculateTotalPieces,
+} from "@/lib/utils/event-utils";
+import { meetsMinimumRequirements } from "@/lib/utils/event-utils";
+import { useCallback, useMemo, useState } from "react";
 
 export function useQuoteEvent() {
   const [event, setEvent] = useState<Event>(createDefaultEvent);
@@ -18,24 +16,22 @@ export function useQuoteEvent() {
     setEvent((prev) => ({ ...prev, ...newEvent }));
   }, []);
 
-  // Calculations
-  const piecesTotal =
-    event.products.qtyPastelitos + event.products.qtyBrigadeiros;
+  // Memoized calculations
+  const piecesTotal = useMemo(
+    () => calculateTotalPieces(event.products),
+    [event.products],
+  );
 
-  const subtotalProducts =
-    event.products.qtyPastelitos * UNIT_PRICE_PASTELITOS +
-    event.products.qtyBrigadeiros * UNIT_PRICE_BRIGADEIROS;
-
-  const subtotalExtras = event.products.withCart ? CART_RENTAL_PRICE : 0;
-  const total = subtotalProducts + subtotalExtras;
+  const { subtotalProducts, subtotalExtras, total } = useMemo(
+    () => calculateEventTotals(event.products),
+    [event.products],
+  );
 
   // Validation
-  const isProductsStepValid =
-    (event.products.qtyPastelitos === 0 ||
-      event.products.qtyPastelitos >= MIN_PASTELITOS) &&
-    (event.products.qtyBrigadeiros === 0 ||
-      event.products.qtyBrigadeiros >= MIN_BRIGADEIROS) &&
-    piecesTotal > 0;
+  const isProductsStepValid = useMemo(
+    () => meetsMinimumRequirements(event.products),
+    [event.products],
+  );
 
   return {
     event,

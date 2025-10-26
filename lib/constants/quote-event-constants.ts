@@ -33,22 +33,3 @@ export const CITIES = [
   "Santa Catarina",
   "General Escobedo",
 ];
-
-// Sample flavors (tags let us group visually). In real app, fetch from admin.
-export const FLAVORS = [
-  {
-    id: "chococlassic",
-    label: "Chocolate Clásico",
-    tags: ["Clásico", "Chocolate"],
-  },
-  {
-    id: "brigadeiro80",
-    label: "Brigadeiro 80%",
-    tags: ["Premium", "Chocolate"],
-  },
-  { id: "nutella", label: "Nutella", tags: ["Clásico", "Nuez"] },
-  { id: "fresa", label: "Fresa", tags: ["Fruta"] },
-  { id: "maracuya", label: "Maracuyá", tags: ["Fruta", "Premium"] },
-  { id: "oreo", label: "Oreo", tags: ["Clásico"] },
-  { id: "avellana", label: "Avellana", tags: ["Nuez", "Premium"] },
-];
