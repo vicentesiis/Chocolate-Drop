@@ -69,13 +69,13 @@ export function EventSection() {
   return (
     <div
       className={`
-        container mx-auto py-4
+        container mx-auto px-2 py-4
         sm:px-4 sm:py-8
       `}
     >
       <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
+        <CardHeader className="px-4 py-4 sm:px-6 sm:py-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
             <CardTitle
               className={`
                 text-xl font-bold
@@ -84,9 +84,15 @@ export function EventSection() {
             >
               Gestión de Eventos
             </CardTitle>
-            <Button onClick={loadEvents} size="sm" variant="outline">
+            <Button
+              onClick={loadEvents}
+              size="sm"
+              variant="outline"
+              className="self-start sm:self-auto"
+            >
               <RefreshCw className="mr-2 h-4 w-4" />
-              Actualizar
+              <span className="hidden sm:inline">Actualizar</span>
+              <span className="sm:hidden">Refresh</span>
             </Button>
           </div>
         </CardHeader>

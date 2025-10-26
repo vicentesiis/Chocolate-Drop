@@ -6,6 +6,7 @@ import type { Order } from "@/lib/types/order";
 import {
   DateFilter,
   type DateFilterOption,
+  getDateRange,
   StatsCard,
   StatusPieChart,
   TopBrigadeiros,
@@ -31,6 +32,39 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+
+const formatDateRangeTitle = (filter: DateFilterOption): string => {
+  if (filter === "all") {
+    return " Todos los datos";
+  }
+
+  const { end, start } = getDateRange(filter);
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  switch (filter) {
+    case "month":
+      return ` ${start.toLocaleDateString("es-ES", {
+        month: "long",
+        year: "numeric",
+      })}`;
+    case "quarter":
+      return ` Q${Math.floor(start.getMonth() / 3) + 1} ${start.getFullYear()}`;
+    case "today":
+      return ` ${formatDate(start)}`;
+    case "week":
+      return ` ${formatDate(start)} - ${formatDate(end)}`;
+    case "year":
+      return ` ${start.getFullYear()}`;
+    default:
+      return "???";
+  }
+};
 
 export default function DashboardHome() {
   const [allOrders, setAllOrders] = useState<Order[]>([]);
@@ -96,8 +130,7 @@ export default function DashboardHome() {
             <div
               className={`
                 grid grid-cols-1 gap-4
-                md:grid-cols-2
-                lg:grid-cols-4
+                md:grid-cols-3
               `}
             >
               {[...Array(4)].map((_, i) => (
@@ -125,142 +158,10 @@ export default function DashboardHome() {
             sm:flex-row sm:items-center
           `}
         >
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {formatDateRangeTitle(dateFilter)}
+          </h1>
           <DateFilter onChange={setDateFilter} value={dateFilter} />
-        </div>
-
-        {/* Orders Section */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Package className="h-6 w-6 text-orange-600" />
-            <h2 className="text-2xl font-semibold text-gray-800">Órdenes</h2>
-          </div>
-
-          {/* Order Stats Cards */}
-          <div
-            className={`
-              grid grid-cols-1 gap-4
-              md:grid-cols-2
-              lg:grid-cols-4
-            `}
-          >
-            <StatsCard
-              icon={Package}
-              subtitle={`${orderStats.pending} pendientes`}
-              title="Total Órdenes"
-              value={orderStats.total}
-            />
-            <StatsCard
-              icon={CheckCircle}
-              subtitle="Listas para preparar"
-              title="Órdenes Confirmadas"
-              value={orderStats.confirmed}
-            />
-            <StatsCard
-              icon={DollarSign}
-              subtitle="Órdenes entregadas"
-              title="Ingresos Órdenes"
-              value={`$${orderStats.totalRevenue.toLocaleString()}`}
-            />
-            <StatsCard
-              icon={TrendingUp}
-              subtitle="Valor promedio"
-              title="Promedio por Orden"
-              value={`$${orderStats.averageOrderValue.toFixed(0)}`}
-            />
-          </div>
-
-          {/* Order Status Chart and Top Brigadeiros */}
-          <div
-            className={`
-              grid grid-cols-1 gap-6
-              lg:grid-cols-2
-            `}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>Estado de Órdenes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <StatusPieChart
-                  className="w-full"
-                  data={orderStatusData}
-                  legendPosition="bottom"
-                  size="sm"
-                  title="Ordenes"
-                />
-              </CardContent>
-            </Card>
-
-            <TopBrigadeiros brigadeiros={mostRequestedBrigadeiros} />
-          </div>
-        </div>
-
-        {/* Events Section */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-6 w-6 text-orange-600" />
-            <h2 className="text-2xl font-semibold text-gray-800">Eventos</h2>
-          </div>
-
-          {/* Event Stats Cards */}
-          <div
-            className={`
-              grid grid-cols-1 gap-4
-              md:grid-cols-2
-              lg:grid-cols-4
-            `}
-          >
-            <StatsCard
-              icon={Calendar}
-              subtitle={`${eventStats.leads} leads nuevos`}
-              title="Total Eventos"
-              value={eventStats.total}
-            />
-            <StatsCard
-              icon={CheckCircle}
-              subtitle="Próximos eventos"
-              title="Eventos Confirmados"
-              value={eventStats.confirmed}
-            />
-            <StatsCard
-              icon={DollarSign}
-              subtitle="Eventos finalizados"
-              title="Ingresos Eventos"
-              value={`$${eventStats.totalRevenue.toLocaleString()}`}
-            />
-            <StatsCard
-              icon={TrendingUp}
-              subtitle="Valor promedio"
-              title="Promedio por Evento"
-              value={`$${eventStats.averageEventValue.toFixed(0)}`}
-            />
-          </div>
-
-          {/* Event Status Chart and Upcoming Events */}
-          <div
-            className={`
-              grid grid-cols-1 gap-6
-              lg:grid-cols-2
-            `}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>Estado de Eventos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <StatusPieChart
-                  className="w-full"
-                  data={eventStatusData}
-                  legendPosition="bottom"
-                  size="sm"
-                  title="Eventos"
-                />
-              </CardContent>
-            </Card>
-
-            <UpcomingEvents events={filteredEvents} />
-          </div>
         </div>
 
         {/* General Stats */}
@@ -293,6 +194,122 @@ export default function DashboardHome() {
               title="Actividad Total"
               value={orderStats.total + eventStats.total}
             />
+          </div>
+        </div>
+
+        {/* Orders Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-800">Órdenes</h2>
+          </div>
+
+          {/* Order Stats Cards */}
+          <div
+            className={`
+              grid grid-cols-1 gap-4
+              md:grid-cols-3
+            `}
+          >
+            <StatsCard
+              icon={Package}
+              subtitle={`${orderStats.pending} pendientes`}
+              title="Total Órdenes"
+              value={orderStats.total}
+            />
+            <StatsCard
+              icon={DollarSign}
+              subtitle="Órdenes entregadas"
+              title="Ingresos Órdenes"
+              value={`$${orderStats.totalRevenue.toLocaleString()}`}
+            />
+            <StatsCard
+              icon={TrendingUp}
+              subtitle="Valor promedio"
+              title="Promedio por Orden"
+              value={`$${orderStats.averageOrderValue.toFixed(0)}`}
+            />
+          </div>
+
+          {/* Order Status Chart and Top Brigadeiros */}
+          <div
+            className={`
+              grid grid-cols-1 gap-6
+              lg:grid-cols-2
+            `}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle>Estado de Órdenes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <StatusPieChart
+                  className="w-full"
+                  data={orderStatusData}
+                  legendPosition="bottom"
+                  size="lg"
+                />
+              </CardContent>
+            </Card>
+
+            <TopBrigadeiros brigadeiros={mostRequestedBrigadeiros} />
+          </div>
+        </div>
+
+        {/* Events Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-800">Eventos</h2>
+          </div>
+
+          {/* Event Stats Cards */}
+          <div
+            className={`
+              grid grid-cols-1 gap-4
+              md:grid-cols-3
+            `}
+          >
+            <StatsCard
+              icon={Calendar}
+              subtitle={`${eventStats.leads} leads nuevos`}
+              title="Total Eventos"
+              value={eventStats.total}
+            />
+            <StatsCard
+              icon={DollarSign}
+              subtitle="Eventos finalizados"
+              title="Ingresos Eventos"
+              value={`$${eventStats.totalRevenue.toLocaleString()}`}
+            />
+            <StatsCard
+              icon={TrendingUp}
+              subtitle="Valor promedio"
+              title="Promedio por Evento"
+              value={`$${eventStats.averageEventValue.toFixed(0)}`}
+            />
+          </div>
+
+          {/* Event Status Chart and Upcoming Events */}
+          <div
+            className={`
+              grid grid-cols-1 gap-6
+              lg:grid-cols-2
+            `}
+          >
+            <Card>
+              <CardHeader>
+                <CardTitle>Estado de Eventos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <StatusPieChart
+                  className="w-full"
+                  data={eventStatusData}
+                  legendPosition="bottom"
+                  size="lg"
+                />
+              </CardContent>
+            </Card>
+
+            <UpcomingEvents events={filteredEvents} />
           </div>
         </div>
       </div>
