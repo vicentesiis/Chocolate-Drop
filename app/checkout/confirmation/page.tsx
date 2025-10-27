@@ -3,6 +3,7 @@
 import {
   ConfirmationActions,
   ConfirmationHeader,
+  NextSteps,
   OrderDetails,
 } from "@/components/checkout";
 import { generateOrderNumber } from "@/lib/utils/order-utils";
@@ -18,7 +19,8 @@ function ConfirmationContent() {
     <div className="container mx-auto max-w-2xl px-4 py-8">
       <ConfirmationHeader />
       <OrderDetails orderNumber={orderNumber} />
-      <ConfirmationActions />
+      <NextSteps />
+      <ConfirmationActions orderNumber={orderNumber} />
     </div>
   );
 }

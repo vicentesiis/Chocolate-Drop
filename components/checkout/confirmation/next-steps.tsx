@@ -1,12 +1,18 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 export function NextSteps() {
   return (
-    <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
-      <h3 className="mb-2 font-semibold text-blue-900">¿Qué sigue?</h3>
-      <ul className="space-y-1 text-sm text-blue-800">
-        <li>• Nos pondremos en contacto contigo para coordinar la entrega</li>
-        <li>• Recibirás una confirmación por WhatsApp</li>
-        <li>• El tiempo de preparación es de 24-48 horas</li>
-      </ul>
-    </div>
+    <Alert className="mb-4 border-blue-200 bg-blue-50">
+      <AlertTitle className="text-blue-900">¿Qué sigue?</AlertTitle>
+      <AlertDescription>
+        <ul className="mt-2 space-y-1 text-sm text-blue-800">
+          <li>
+            • Envíanos los detalles de tu pedido por WhatsApp para continuar.
+          </li>
+          <li>• Comparte tu ubicación exacta para coordinar la entrega.</li>
+          <li>• El tiempo estimado de preparación y entrega es de 3 horas.</li>
+        </ul>
+      </AlertDescription>
+    </Alert>
   );
 }

@@ -1,4 +1,5 @@
 import type { Event } from "@/lib/types/event";
+import type { Order } from "@/lib/types/order";
 
 import {
   CART_RENTAL_PRICE,
@@ -30,6 +31,47 @@ export function useWhatsAppQuote(event: Event, total: number) {
     ].filter(Boolean);
     return encodeURIComponent(lines.join("\n"));
   }, [event, total]);
+
+  return whatsAppMessage;
+}
+
+export function useWhatsAppOrder(order: null | Order) {
+  const whatsAppMessage = useMemo(() => {
+    if (!order) return "";
+
+    const formatPrice = (price: number) => `$${price.toLocaleString("es-MX")}`;
+
+    const lines = [
+      `¡Hola! Acabo de realizar un pedido en ChocolateDrop `,
+      ``,
+      ` *Detalles del Pedido:*`,
+      `• ID de la órden: ${order.orderNumber}`,
+      `• Cliente: ${order.customer.name}`,
+      `• Teléfono: ${order.customer.phone}`,
+      ``,
+      ` *Productos:*`,
+    ];
+
+    // Add each cart item details
+    for (const [index, item] of order.items.entries()) {
+      lines.push(`*Caja ${index + 1}: ${item.boxType.name}*`);
+      lines.push(`• Capacidad: ${item.boxType.capacity} brigadeiros`);
+      lines.push(`• Precio caja: ${formatPrice(item.boxType.price)}`);
+      lines.push(`• Brigadeiros seleccionados:`);
+
+      for (const brigadeiro of item.brigadeiros) {
+        lines.push(`  - ${brigadeiro.name} x${brigadeiro.quantity}`);
+      }
+      lines.push(``);
+    }
+
+    lines.push(`*Total del Pedido: ${formatPrice(order.total)}*`);
+    lines.push(``);
+    lines.push(`¿Podrían confirmar la disponibilidad y coordinar la entrega?`);
+    lines.push(`¡Gracias!`);
+
+    return encodeURIComponent(lines.join("\n"));
+  }, [order]);
 
   return whatsAppMessage;
 }

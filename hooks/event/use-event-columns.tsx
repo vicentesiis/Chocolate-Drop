@@ -24,7 +24,7 @@ export function useEventColumns({
         header: "Evento",
         key: "eventNumber",
         render: (event: Event) => (
-          <div className="font-mono text-sm font-medium">{event.id}</div>
+          <div className="font-mono text-sm font-medium">#{event.id}</div>
         ),
         width: "120px",
       },
