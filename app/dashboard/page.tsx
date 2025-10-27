@@ -226,7 +226,7 @@ export default function DashboardHome() {
               icon={TrendingUp}
               subtitle="Valor promedio"
               title="Promedio por Orden"
-              value={`$${orderStats.averageOrderValue.toFixed(0)}`}
+              value={`$${orderStats.averageOrderValue.toLocaleString()}`}
             />
           </div>
 
@@ -284,7 +284,7 @@ export default function DashboardHome() {
               icon={TrendingUp}
               subtitle="Valor promedio"
               title="Promedio por Evento"
-              value={`$${eventStats.averageEventValue.toFixed(0)}`}
+              value={`$${eventStats.averageEventValue.toLocaleString()}`}
             />
           </div>
 

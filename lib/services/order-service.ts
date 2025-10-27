@@ -11,6 +11,7 @@ import type { Customer } from "@/lib/types/customer";
 import { orderBy } from "firebase/firestore";
 
 import type { Order } from "../types/order";
+
 import { OrderStatus } from "../constants/order-constants";
 import { generateOrderNumber } from "../utils/order-utils";
 import { validateOrderData, validateOrderStatus } from "../utils/validation";
@@ -44,7 +45,7 @@ class OrderService extends BaseFirestoreService<Order> {
       customer,
       items,
       orderNumber,
-      status: OrderStatus.pending,
+      status: OrderStatus.PENDING,
       total,
     };
 

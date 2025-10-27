@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { EventStatus } from "@/lib/constants/event-constants";
 import { cn } from "@/lib/utils";
+import { getEventTypeLabel } from "@/lib/utils/event-utils";
 import { formatDateOnly } from "@/lib/utils/format-utils";
 import { Calendar, MapPin, Users } from "lucide-react";
 
@@ -131,7 +132,7 @@ export function UpcomingEvents({
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        {event.details.type}
+                        {getEventTypeLabel(event.details.type)}
                       </div>
                     </div>
                   </div>
