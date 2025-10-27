@@ -4,9 +4,13 @@ import { createEvent } from "@/lib/services/event-service";
 import { calculateEventTotals } from "@/lib/utils/event-utils";
 import { validateEventForSubmission } from "@/lib/utils/event-validation";
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 export function useQuoteSubmit() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedEvent, setSubmittedEvent] = useState<Event | null>(null);
+  const [eventNumber, setEventNumber] = useState<string>("");
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
 
   const handleSubmit = useCallback(
     async (event: Event) => {
@@ -29,18 +33,29 @@ export function useQuoteSubmit() {
         }
 
         // Submit to Firebase
-        const eventNumber = await createEvent(eventWithTotals);
+        const generatedEventNumber = await createEvent(eventWithTotals);
 
-        alert(
-          `Cotización enviada exitosamente. Número de evento: ${eventNumber}`,
-        );
+        // Set state for confirmation dialog
+        setSubmittedEvent(eventWithTotals);
+        setEventNumber(generatedEventNumber);
+        setShowConfirmationDialog(true);
 
-        return eventNumber;
+        toast.success("¡Cotización enviada exitosamente!");
+
+        return generatedEventNumber;
       } catch (error) {
         console.error("Error submitting event:", error);
         const errorMessage =
           error instanceof Error ? error.message : "Error desconocido";
-        alert(`Error al enviar la cotización: ${errorMessage}`);
+
+        toast.error("Error al enviar la cotización", {
+          description: errorMessage,
+          action: {
+            label: "Reintentar",
+            onClick: () => handleSubmit(event),
+          },
+        });
+
         throw error;
       } finally {
         setIsSubmitting(false);
@@ -49,8 +64,18 @@ export function useQuoteSubmit() {
     [isSubmitting],
   );
 
+  const closeConfirmationDialog = useCallback(() => {
+    setShowConfirmationDialog(false);
+    setSubmittedEvent(null);
+    setEventNumber("");
+  }, []);
+
   return {
     handleSubmit,
     isSubmitting,
+    submittedEvent,
+    eventNumber,
+    showConfirmationDialog,
+    closeConfirmationDialog,
   };
 }

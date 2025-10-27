@@ -17,7 +17,7 @@ export function ConfirmationActions({ orderNumber }: ConfirmationActionsProps) {
     } else {
       // Fallback message when order data is not available
       const fallbackMessage = encodeURIComponent(
-        `¡Hola! Acabo de realizar un pedido en ChocolateDrop \n\nNúmero de pedido: ${orderNumber}\n\n¿Podrían confirmar la disponibilidad y coordinar la entrega?\n\n¡Gracias! `,
+        `¡Hola! Acabo de realizar un pedido en ChocolateDrop \n\ID del pedido: ${orderNumber}\n\n¿Podrían confirmar la disponibilidad y coordinar la entrega?\n\n¡Gracias! `,
       );
       const url = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}?text=${fallbackMessage}`;
       window.open(url, "_blank");

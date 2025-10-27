@@ -2,6 +2,7 @@ export { Faq } from "./faq";
 export { FlavorPicker } from "./flavor-picker";
 // Main components
 export { HeaderSection } from "./header-section";
+export { QuoteConfirmationDialog } from "./quote-confirmation-dialog";
 export { FeatureRow, InfoRow } from "./info-feature-rows";
 export { ProductQtyCard } from "./product-qty-card";
 export { Progress } from "./progress-indicator";

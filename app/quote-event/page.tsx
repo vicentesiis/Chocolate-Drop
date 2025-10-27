@@ -4,6 +4,7 @@ import {
   Faq,
   HeaderSection,
   Progress,
+  QuoteConfirmationDialog,
   QuoteStepRenderer,
   StickySummary,
 } from "@/components/quote-event";
@@ -20,7 +21,13 @@ export default function QuoteEventPage() {
     useQuoteEvent();
 
   const whatsAppMessage = useWhatsAppQuote(event, total);
-  const { handleSubmit } = useQuoteSubmit();
+  const {
+    closeConfirmationDialog,
+    eventNumber,
+    handleSubmit,
+    showConfirmationDialog,
+    submittedEvent,
+  } = useQuoteSubmit();
 
   return (
     <div
@@ -68,6 +75,17 @@ export default function QuoteEventPage() {
       >
         <StickySummary event={event} total={total} />
       </aside>
+
+      {/* Confirmation Dialog */}
+      {submittedEvent && (
+        <QuoteConfirmationDialog
+          event={submittedEvent}
+          eventNumber={eventNumber}
+          isOpen={showConfirmationDialog}
+          onClose={closeConfirmationDialog}
+          total={total}
+        />
+      )}
     </div>
   );
 }

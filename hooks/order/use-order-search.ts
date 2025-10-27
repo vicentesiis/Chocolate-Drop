@@ -10,7 +10,7 @@ export const useOrderSearch = () => {
 
   const handleSearchOrder = async (orderNumber: string) => {
     if (!orderNumber.trim()) {
-      toast.error("Por favor ingresa un número de pedido");
+      toast.error("Por favor ingresa un ID de pedido");
       return;
     }
 
@@ -24,7 +24,7 @@ export const useOrderSearch = () => {
         setSearchResult(order);
       } else {
         toast.error("Pedido no encontrado", {
-          description: "Verifica que el número de pedido sea correcto",
+          description: "Verifica que el ID de pedido sea correcto",
         });
       }
     } catch (error) {

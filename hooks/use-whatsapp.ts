@@ -35,6 +35,48 @@ export function useWhatsAppQuote(event: Event, total: number) {
   return whatsAppMessage;
 }
 
+export function useWhatsAppEventConfirmation(
+  event: Event,
+  total: number,
+  eventNumber?: string,
+) {
+  const whatsAppMessage = useMemo(() => {
+    const lines = [
+      `¡Hola! Acabo de enviar una solicitud de cotización para evento`,
+      ``,
+      ` *Detalles del Evento:*`,
+      eventNumber ? `• ID del evento: ${eventNumber}` : undefined,
+      `• Cliente: ${event.customer.name}`,
+      `• Teléfono: ${event.customer.phone}`,
+      `• Ciudad: ${event.details.city}`,
+      `• Tipo: ${EVENT_TYPES.find((t) => t.id === event.details.type)?.label || event.details.type}`,
+      event.details.date
+        ? `• Fecha: ${new Date(event.details.date).toLocaleDateString("es-MX")}`
+        : undefined,
+      ``,
+      ` *Productos Solicitados:*`,
+      event.products.qtyPastelitos
+        ? `• Pastelitos: ${event.products.qtyPastelitos} unidades`
+        : undefined,
+      event.products.qtyBrigadeiros
+        ? `• Brigadeiros: ${event.products.qtyBrigadeiros} unidades`
+        : undefined,
+      event.products.withCart
+        ? `• Carrito de dulces (${SERVICE_HOURS}h de servicio)`
+        : undefined,
+      ``,
+      ` *Cotización Estimada: ${pesos(total)}*`,
+      ` *Anticipo 50%: ${pesos(total * 0.5)}*`,
+      ``,
+      `¡Gracias!`,
+    ].filter(Boolean);
+
+    return encodeURIComponent(lines.join("\n"));
+  }, [event, total, eventNumber]);
+
+  return whatsAppMessage;
+}
+
 export function useWhatsAppOrder(order: null | Order) {
   const whatsAppMessage = useMemo(() => {
     if (!order) return "";
@@ -67,7 +109,6 @@ export function useWhatsAppOrder(order: null | Order) {
 
     lines.push(`*Total del Pedido: ${formatPrice(order.total)}*`);
     lines.push(``);
-    lines.push(`¿Podrían confirmar la disponibilidad y coordinar la entrega?`);
     lines.push(`¡Gracias!`);
 
     return encodeURIComponent(lines.join("\n"));

@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const orderSearchSchema = z.object({
-  orderNumber: z.string().min(1, "El número de pedido es requerido"),
+  orderNumber: z.string().min(1, "El ID del pedido es requerido"),
 });
 
 type OrderSearchFormData = z.infer<typeof orderSearchSchema>;
