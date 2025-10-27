@@ -144,7 +144,7 @@ export const validateEventData = (event: Event): string[] => {
     ...validateEventCustomer(event.customer),
     ...validateEventDetails(event.details),
     ...validateEventProducts(event.products),
-    ...validateEventTotals(event.totals, event.products),
+    ...validateEventTotals(event.totals),
   ];
 };
 

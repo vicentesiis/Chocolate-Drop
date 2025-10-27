@@ -2,6 +2,8 @@ import type { Event } from "@/lib/types/event";
 
 import { z } from "zod";
 
+import { EventStatus } from "../constants/event-constants";
+
 // Customer schema for reuse
 const customerSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -30,7 +32,7 @@ const eventProductsSchema = z.object({
 const eventTotalsSchema = z.object({
   subtotalExtras: z.number().optional(),
   subtotalProducts: z.number().optional(),
-  total: z.number().optional(),
+  total: z.number(),
 });
 
 // Schema for form input (date as string)
@@ -83,10 +85,11 @@ export const createDefaultEvent = (): Event => ({
     qtyPastelitos: 0,
     withCart: false,
   },
+  status: EventStatus.LEAD,
   totals: {
     subtotalExtras: undefined,
     subtotalProducts: undefined,
-    total: undefined,
+    total: 0,
   },
   updatedAt: new Date(),
 });
