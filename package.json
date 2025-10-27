@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production next build",
     "build:dev": "NODE_ENV=development next build",
     "build:prod": "NODE_ENV=production next build",
+    "build:render": "npm ci && NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -60,7 +61,10 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
-    "zod": "^4.1.11"
+    "zod": "^4.1.11",
+    "@tailwindcss/postcss": "^4.1.13",
+    "tailwindcss": "^4.1.13",
+    "postcss": "^8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -69,7 +73,6 @@
     "@eslint/js": "^9.36.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/node": "^4.1.13",
-    "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -78,8 +81,6 @@
     "eslint-config-next": "15.1.7",
     "eslint-plugin-better-tailwindcss": "^3.7.9",
     "eslint-plugin-perfectionist": "^3.0.0",
-    "postcss": "^8",
-    "tailwindcss": "^4.1.13",
     "typescript": "^5",
     "typescript-eslint": "^8.0.0"
   }
